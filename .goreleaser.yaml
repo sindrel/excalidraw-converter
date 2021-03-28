@@ -1,0 +1,28 @@
+builds:
+  - 
+    main: ./cmd/main.go
+    binary: exconv
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+      - arm
+      - 386
+    ignore:
+      - goos: windows
+        goarch: arm 
+      - goos: windows
+        goarch: arm64
+      - goos: windows
+        goarch: 386  
+archives:
+  -
+    replacements:
+      darwin: macOS
+      386: i386
+    format_overrides:
+    - goos: windows
+      format: zip
