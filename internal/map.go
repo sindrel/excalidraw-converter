@@ -1,30 +1,11 @@
 package internal
 
-type GraphicTypes struct {
-	Rectangle struct {
-		Excalidraw []string `json:"excalidraw"`
-		Gliffy     []string `json:"gliffy"`
-	} `json:"rectangle"`
-	Text struct {
-		Excalidraw []string `json:"excalidraw"`
-		Gliffy     []string `json:"gliffy"`
-	} `json:"text"`
-	Line struct {
-		Excalidraw []string `json:"excalidraw"`
-		Gliffy     []string `json:"gliffy"`
-	} `json:"line"`
-	Ellipse struct {
-		Excalidraw []string `json:"excalidraw"`
-		Gliffy     []string `json:"gliffy"`
-	} `json:"ellipse"`
-	Diamond struct {
-		Excalidraw []string `json:"excalidraw"`
-		Gliffy     []string `json:"gliffy"`
-	} `json:"diamond"`
-}
+import (
+	datastr "diagram-converter/internal/datastructures"
+)
 
-func MapGraphics() GraphicTypes {
-	var graphics GraphicTypes
+func MapGraphics() datastr.GraphicTypes {
+	var graphics datastr.GraphicTypes
 
 	graphics.Rectangle.Gliffy = []string{
 		"com.gliffy.shape.basic.basic_v1.default.rectangle",

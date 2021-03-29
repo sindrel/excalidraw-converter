@@ -13,7 +13,7 @@ Excalidraw Converter ports Excalidraw diagrams to a Gliffy compatible format, wh
 
 Download a compatible binary from the [Releases](https://github.com/sindrel/excalidraw-converter/releases) page.
 
-If you're a Linux or MacOS user, move it to your local bin folder to make it available in your environment.
+If you're a Linux or MacOS user, move it to your local bin folder to make it available in your environment (optional).
 
 ### How to convert diagrams
 First save your Excalidraw diagram to a file.
@@ -24,7 +24,7 @@ Then, to do a conversion, simply execute the binary by specifying the `gliffy` c
   <summary>MacOS example</summary>
   
   ```
-  $ exconv gliffy ~/Downloads/my-diagram.excalidraw /tmp/my-ported-diagram.gliffy
+  $ ./exconv gliffy ~/Downloads/my-diagram.excalidraw /tmp/my-ported-diagram.gliffy
   Parsing input file: ~/Downloads/my-diagram.excalidraw
   Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
   Adding object: com.gliffy.shape.basic.basic_v1.default.text
@@ -45,7 +45,7 @@ Then, to do a conversion, simply execute the binary by specifying the `gliffy` c
   <summary>Linux example</summary>
   
   ```
-  $ exconv gliffy ~/Downloads/my-diagram.excalidraw /tmp/my-ported-diagram.gliffy
+  $ ./exconv gliffy ~/Downloads/my-diagram.excalidraw /tmp/my-ported-diagram.gliffy
   Parsing input file: ~/Downloads/my-diagram.excalidraw
   Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
   Adding object: com.gliffy.shape.basic.basic_v1.default.text
@@ -85,7 +85,15 @@ Then, to do a conversion, simply execute the binary by specifying the `gliffy` c
 
 ![Animation demonstrating use](exconv.gif "Animation")
 
-After converting your diagram(s), import them in Gliffy using the standard Import dialog.
+After converting your diagram(s), import them into Gliffy using the standard Import dialog.
+
+## Commands
+
+| Command | Use | Arguments |
+|------|-------------|:----:|
+| gliffy | Converts diagram to Gliffy format | \<input file path\> \<output file path\> |
+| help | Shows help | N/A |
+| version | Outputs the application version | N/A |
 
 ## Features
 
