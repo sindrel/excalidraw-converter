@@ -1,0 +1,153 @@
+{
+  "contentType": "application/gliffy+json",
+  "embeddedResources": {
+    "index": 0,
+    "resources": []
+  },
+  "metadata": {
+    "autosaveDisabled": false,
+    "editorVersion": null,
+    "exportBorder": false,
+    "lastSerialized": 1676713125700,
+    "libraries": [
+      "com.gliffy.libraries.basic.basic_v1.default",
+      "com.gliffy.libraries.flowchart.flowchart_v1.default"
+    ],
+    "loadPosition": "default",
+    "revision": 0,
+    "title": "Import"
+  },
+  "stage": {
+    "autoFit": false,
+    "background": "#ffffff",
+    "drawingGuidesOn": true,
+    "exportBorder": false,
+    "gridOn": true,
+    "height": 1024,
+    "imageCache": {},
+    "layers": [
+      {
+        "active": true,
+        "guid": "dR5PnMr9lIuu",
+        "locked": false,
+        "name": "Layer 0",
+        "nodeIndex": 11,
+        "order": 0,
+        "visible": true
+      }
+    ],
+    "maxHeight": 5000,
+    "maxWidth": 5000,
+    "nodeIndex": 0,
+    "objects": [
+      {
+        "children": null,
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "none",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.rectangle.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 129,
+        "hidden": false,
+        "id": 0,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 0,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.rectangle",
+        "width": 186,
+        "x": 478,
+        "y": 302
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "none",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.rectangle.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 129,
+        "hidden": false,
+        "id": 1,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 1,
+        "rotation": 6.199047066648415,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.rectangle",
+        "width": 186,
+        "x": 786,
+        "y": 314.5
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "none",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.ellipse.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 145,
+        "hidden": false,
+        "id": 2,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 2,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.ellipse",
+        "width": 151,
+        "x": 1226,
+        "y": 435
+      }
+    ],
+    "printModel": {
+      "displayPageBreaks": false,
+      "fitToOnePage": false,
+      "pageSize": "Letter",
+      "portrait": true
+    },
+    "shapeStyles": {},
+    "snapToGrid": true,
+    "themeData": null,
+    "viewportType": "default",
+    "width": 1024
+  },
+  "version": "1.3"
+}

@@ -1,0 +1,96 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "id": "1ouyzW-E6pBX-VBOWt7l-",
+      "type": "rectangle",
+      "x": 478,
+      "y": 302,
+      "width": 186,
+      "height": 129,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "seed": 1234644317,
+      "version": 63,
+      "versionNonce": 365934931,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1676710828656,
+      "link": null,
+      "locked": false
+    },
+    {
+      "type": "rectangle",
+      "version": 95,
+      "versionNonce": 86158269,
+      "isDeleted": false,
+      "id": "1TKX4Ot7APVwZWvKl0SJj",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 6.199047066648415,
+      "x": 786,
+      "y": 314.5,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "width": 186,
+      "height": 129,
+      "seed": 992049501,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": null,
+      "updated": 1676710836811,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "qxGgyYdjJ9KlUdquu4Z9G",
+      "type": "ellipse",
+      "x": 1226,
+      "y": 435,
+      "width": 151,
+      "height": 145,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "seed": 416149555,
+      "version": 23,
+      "versionNonce": 1821693459,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1676710841614,
+      "link": null,
+      "locked": false
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}
