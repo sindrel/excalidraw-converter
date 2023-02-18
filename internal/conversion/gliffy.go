@@ -43,7 +43,7 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 		object.Y = element.Y
 		object.Width = element.Width
 		object.Height = element.Height
-		object.Rotation = element.Angle
+		object.Rotation = internal.NormalizeRotation(element.Angle)
 		object.LayerID = "dR5PnMr9lIuu"
 		object.Order = i
 
