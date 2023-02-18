@@ -5,7 +5,6 @@ import (
 	datastr "diagram-converter/internal/datastructures"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strconv"
 	"time"
@@ -16,7 +15,7 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 
 	timestamp := time.Now().UnixNano() / int64(time.Millisecond)
 
-	data, err := ioutil.ReadFile(importPath)
+	data, err := os.ReadFile(importPath)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to read file: %s\n", err)
 		os.Exit(1)

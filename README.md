@@ -124,6 +124,30 @@ All fixed shapes and most styling and text options are supported.
 
 Free hand drawings and library graphics are currently not supported.
 
-## Contributing
+## Contributing  
 
 See something you'd like to improve? Feel free to add a pull request. If it's a major change, it's probably best to describe it in an [issue](https://github.com/sindrel/excalidraw-converter/issues/new) first.
+
+## Development  
+<details>
+  <summary>Instructions</summary>
+
+### Prerequisites:
+* Go (see version in `go.mod`)  
+
+### Download dependencies
+```shell
+go mod download
+```
+
+### Run tests
+```shell
+go test -v ./cmd
+```
+
+### Compile and run
+```shell
+go run ./cmd/main.go <command> <input> <output>
+```
+
+</details>

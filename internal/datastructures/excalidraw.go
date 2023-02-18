@@ -6,7 +6,7 @@ type ExcalidrawScene struct {
 		ViewBackgroundColor string      `json:"viewBackgroundColor"`
 	} `json:"appState"`
 	Elements []struct {
-		Angle           int64         `json:"angle"`
+		Angle           float64       `json:"angle"`
 		BackgroundColor string        `json:"backgroundColor"`
 		Baseline        float64       `json:"baseline"`
 		BoundElementIds []string      `json:"boundElementIds"`
