@@ -7,13 +7,18 @@ Excalidraw Converter ports Excalidraw diagrams to a Gliffy compatible format, wh
 
 ![Excalidraw vs. Gliffy comparison](exconv-comparison.png "Comparison")
 
-## Getting started
+## Getting started  
 
 ### Installation
+#### MacOS with [Homebrew](https://brew.sh/)  
+```shell
+brew install sindrel/tap/excalidraw-converter
+```
 
+#### Installation for other OSes  
 Download a compatible binary from the [Releases](https://github.com/sindrel/excalidraw-converter/releases) page.
 
-If you're a Linux or MacOS user, move it to your local bin folder to make it available in your environment (optional).
+If you're a Linux or MacOS user, move it to your local bin folder to make it available in your environment (optional).  
 
 ### How to convert diagrams
 First save your Excalidraw diagram to a file.
@@ -24,7 +29,7 @@ Then, to do a conversion, simply execute the binary by specifying the `gliffy` c
   <summary>MacOS example</summary>
   
   ```
-  $ ./exconv gliffy ~/Downloads/my-diagram.excalidraw /tmp/my-ported-diagram.gliffy
+  $ exconv gliffy ~/Downloads/my-diagram.excalidraw /tmp/my-ported-diagram.gliffy
   Parsing input file: ~/Downloads/my-diagram.excalidraw
   Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
   Adding object: com.gliffy.shape.basic.basic_v1.default.text
