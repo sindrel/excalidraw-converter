@@ -48,10 +48,16 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 		object.Order = i
 
 		for _, id := range graphics.Rectangle.Excalidraw {
-			if element.Type == id {
+			if element.Type == id && element.Roundness.Type == 0 {
 				object.UID = graphics.Rectangle.Gliffy[0]
 				object.Graphic.Type = "Shape"
 				shape.Tid = "com.gliffy.stencil.rectangle.basic_v1"
+			}
+
+			if element.Type == id && element.Roundness.Type > 0 {
+				object.UID = graphics.Rectangle.Gliffy[1]
+				object.Graphic.Type = "Shape"
+				shape.Tid = "com.gliffy.stencil.round_rectangle.basic_v1"
 			}
 		}
 

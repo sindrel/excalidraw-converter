@@ -1,4 +1,4 @@
-# Excalidraw Converter
+# Excalidraw Converter  
 **A command line tool for porting Excalidraw diagrams to Gliffy.**
 
 [Excalidraw](https://excalidraw.com/) is great for sketching diagrams as part of a design process, but chances are that you have to redo those sketches for documentation. This tool is made to bridge those tasks.
@@ -106,6 +106,7 @@ All fixed shapes and most styling and text options are supported.
 
 ### Shapes
 * Rectangle
+* Rounded rectangle
 * Diamond
 * Ellipse
 * Arrow

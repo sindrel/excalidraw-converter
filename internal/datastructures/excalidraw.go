@@ -21,21 +21,24 @@ type ExcalidrawScene struct {
 		Opacity         float64       `json:"opacity"`
 		Points          [][]float64   `json:"points"`
 		Roughness       int64         `json:"roughness"`
-		Seed            int64         `json:"seed"`
-		StartArrowhead  string        `json:"startArrowhead"`
-		StrokeColor     string        `json:"strokeColor"`
-		StrokeSharpness string        `json:"strokeSharpness"`
-		StrokeStyle     string        `json:"strokeStyle"`
-		StrokeWidth     int64         `json:"strokeWidth"`
-		Text            string        `json:"text"`
-		TextAlign       string        `json:"textAlign"`
-		Type            string        `json:"type"`
-		Version         int64         `json:"version"`
-		VersionNonce    int64         `json:"versionNonce"`
-		VerticalAlign   string        `json:"verticalAlign"`
-		Width           float64       `json:"width"`
-		X               float64       `json:"x"`
-		Y               float64       `json:"y"`
+		Roundness       struct {
+			Type int64 `json:"type"`
+		} `json:"roundness"`
+		Seed            int64   `json:"seed"`
+		StartArrowhead  string  `json:"startArrowhead"`
+		StrokeColor     string  `json:"strokeColor"`
+		StrokeSharpness string  `json:"strokeSharpness"`
+		StrokeStyle     string  `json:"strokeStyle"`
+		StrokeWidth     int64   `json:"strokeWidth"`
+		Text            string  `json:"text"`
+		TextAlign       string  `json:"textAlign"`
+		Type            string  `json:"type"`
+		Version         int64   `json:"version"`
+		VersionNonce    int64   `json:"versionNonce"`
+		VerticalAlign   string  `json:"verticalAlign"`
+		Width           float64 `json:"width"`
+		X               float64 `json:"x"`
+		Y               float64 `json:"y"`
 	} `json:"elements"`
 	Source  string `json:"source"`
 	Type    string `json:"type"`

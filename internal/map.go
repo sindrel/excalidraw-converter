@@ -9,6 +9,7 @@ func MapGraphics() datastr.GraphicTypes {
 
 	graphics.Rectangle.Gliffy = []string{
 		"com.gliffy.shape.basic.basic_v1.default.rectangle",
+		"com.gliffy.shape.basic.basic_v1.default.round_rectangle",
 	}
 	graphics.Rectangle.Excalidraw = []string{
 		"rectangle",
