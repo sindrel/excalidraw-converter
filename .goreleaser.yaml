@@ -34,7 +34,6 @@ brews:
       # Homebrew Tap Repository
       owner: sindrel
       name: homebrew-tap
-      token: "{{ .secrets.HOMEBREW_TAP_GITHUB_TOKEN }}"
 
     url_template: "https://github.com/sindrel/excalidraw-converter/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
 
