@@ -43,15 +43,21 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 		object.Y = element.Y
 		object.Width = element.Width
 		object.Height = element.Height
-		object.Rotation = element.Angle
+		object.Rotation = internal.NormalizeRotation(element.Angle)
 		object.LayerID = "dR5PnMr9lIuu"
 		object.Order = i
 
 		for _, id := range graphics.Rectangle.Excalidraw {
-			if element.Type == id {
+			if element.Type == id && element.Roundness.Type == 0 {
 				object.UID = graphics.Rectangle.Gliffy[0]
 				object.Graphic.Type = "Shape"
 				shape.Tid = "com.gliffy.stencil.rectangle.basic_v1"
+			}
+
+			if element.Type == id && element.Roundness.Type > 0 {
+				object.UID = graphics.Rectangle.Gliffy[1]
+				object.Graphic.Type = "Shape"
+				shape.Tid = "com.gliffy.stencil.round_rectangle.basic_v1"
 			}
 		}
 

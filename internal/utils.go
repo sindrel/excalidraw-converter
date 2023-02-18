@@ -2,6 +2,7 @@ package internal
 
 import (
 	"io"
+	"math"
 	"os"
 )
 
@@ -17,4 +18,8 @@ func WriteToFile(filename string, data string) error {
 		return err
 	}
 	return file.Sync()
+}
+
+func NormalizeRotation(angle float64) float64 {
+	return (angle * 180) / math.Pi
 }
