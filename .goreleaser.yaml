@@ -54,6 +54,7 @@ brews:
 
     # Template of your app's description.
     description: "A command line tool for porting Excalidraw diagrams to Gliffy."
+    caveats: "To convert an Excalidraw diagram to a Gliffy diagram, run: 'exconv gliffy <input-file> <output-file>'"
 
     # SPDX identifier of your app's license.
     license: "MIT"
@@ -64,4 +65,13 @@ brews:
     # If set to auto, the release will not be uploaded to the homebrew tap
     # in case there is an indicator for prerelease in the tag e.g. v1.0.0-rc1
     # Default is false.
-    skip_upload: auto
+    skip_upload: false
+
+    # So you can `brew test` your formula.
+    # Default is empty.
+    test: |
+      system "#{bin}/exconv help"
+    # Custom install script for brew.
+    # Default is 'bin.install "program"'.
+    install: |
+      bin.install "exconv"
