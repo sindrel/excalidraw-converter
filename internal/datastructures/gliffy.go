@@ -60,7 +60,7 @@ type GliffyObject struct {
 	LockAspectRatio bool     `json:"lockAspectRatio"`
 	LockShape       bool     `json:"lockShape"`
 	Order           int      `json:"order"`
-	Rotation        int64    `json:"rotation"`
+	Rotation        float64  `json:"rotation"`
 	UID             string   `json:"uid"`
 	Width           float64  `json:"width"`
 	X               float64  `json:"x"`
