@@ -29,7 +29,7 @@ Then, to do a conversion, simply execute the binary by specifying the `gliffy` c
   <summary>MacOS example</summary>
   
   ```
-  $ exconv gliffy ~/Downloads/my-diagram.excalidraw /tmp/my-ported-diagram.gliffy
+  $ exconv gliffy -i ~/Downloads/my-diagram.excalidraw -o /tmp/my-ported-diagram.gliffy
   Parsing input file: ~/Downloads/my-diagram.excalidraw
   Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
   Adding object: com.gliffy.shape.basic.basic_v1.default.text
@@ -50,7 +50,7 @@ Then, to do a conversion, simply execute the binary by specifying the `gliffy` c
   <summary>Linux example</summary>
   
   ```
-  $ ./exconv gliffy ~/Downloads/my-diagram.excalidraw /tmp/my-ported-diagram.gliffy
+  $ ./exconv gliffy -i ~/Downloads/my-diagram.excalidraw -o /tmp/my-ported-diagram.gliffy
   Parsing input file: ~/Downloads/my-diagram.excalidraw
   Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
   Adding object: com.gliffy.shape.basic.basic_v1.default.text
@@ -71,7 +71,7 @@ Then, to do a conversion, simply execute the binary by specifying the `gliffy` c
   <summary>Windows example</summary>
   
   ```
-  C:\> exconv.exe gliffy C:\Downloads\my-diagram.excalidraw C:\tmp\my-ported-diagram.gliffy
+  C:\> exconv.exe gliffy -i C:\Downloads\my-diagram.excalidraw -o C:\tmp\my-ported-diagram.gliffy
   Parsing input file: C:\Downloads\my-diagram.excalidraw
   Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
   Adding object: com.gliffy.shape.basic.basic_v1.default.text
@@ -93,12 +93,16 @@ Then, to do a conversion, simply execute the binary by specifying the `gliffy` c
 After converting your diagram(s), import them into Gliffy using the standard Import dialog.
 
 ## Commands
+```sh
+Available Commands:
+  completion  Generate the autocompletion script for the specified shell
+  gliffy      Convert an Excalidraw diagram to Gliffy format
+  help        Help about any command
+  version     Output the application version
 
-| Command | Use | Arguments |
-|------|-------------|:----:|
-| gliffy | Converts diagram to Gliffy format | \<input file path\> \<output file path\> |
-| help | Shows help | N/A |
-| version | Outputs the application version | N/A |
+Flags:
+  -h, --help   help for exconv
+```
 
 ## Features
 
