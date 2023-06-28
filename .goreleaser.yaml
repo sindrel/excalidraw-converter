@@ -1,6 +1,6 @@
 builds:
   - 
-    main: ./cmd/main.go
+    main: ./main.go
     binary: exconv
     goos:
       - linux
