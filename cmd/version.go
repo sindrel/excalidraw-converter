@@ -16,7 +16,7 @@ var versionCmd = &cobra.Command{
 	Short: "Output the application version",
 	Long:  `Provides information about the release version and the Git commit it was built from.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("%s (%s)\n", version, string(commit[0:7]))
+		fmt.Printf("v%s (%s)\n", version, string(commit[0:7]))
 	},
 }
 
