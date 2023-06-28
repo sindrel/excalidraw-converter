@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	conv "diagram-converter/internal/conversion"
@@ -9,7 +9,6 @@ import (
 	datastr "diagram-converter/internal/datastructures"
 
 	"github.com/stretchr/testify/assert"
-	// internal "diagram-converter/internal"
 )
 
 func TestConvertExcalidrawToGliffy(t *testing.T) {
