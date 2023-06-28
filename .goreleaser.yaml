@@ -18,6 +18,8 @@ builds:
         goarch: arm64
       - goos: windows
         goarch: 386  
+    ldflags:
+      - -s -w -X cmd.version={{.Version}} -X cmd.commit={{.Commit}}
 archives:
   -
     replacements:
@@ -65,10 +67,6 @@ brews:
     # in case there is an indicator for prerelease in the tag e.g. v1.0.0-rc1
     # Default is false.
     skip_upload: auto
-
-    # Custom ldflags.
-    ldflags:
-      - -s -w -X cmd.version={{.Version}} -X cmd.commit={{.Commit}}
 
     # So you can `brew test` your formula.
     # Default is empty.
