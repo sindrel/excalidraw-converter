@@ -66,6 +66,10 @@ brews:
     # Default is false.
     skip_upload: auto
 
+    # Custom ldflags.
+    ldflags:
+      - -s -w -X cmd.version={{.Version}} -X cmd.commit={{.Commit}}
+
     # So you can `brew test` your formula.
     # Default is empty.
     test: |
