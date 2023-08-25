@@ -8,7 +8,7 @@
     "autosaveDisabled": false,
     "editorVersion": null,
     "exportBorder": false,
-    "lastSerialized": 1676746383993,
+    "lastSerialized": 1692972802251,
     "libraries": [
       "com.gliffy.libraries.basic.basic_v1.default",
       "com.gliffy.libraries.flowchart.flowchart_v1.default"
@@ -257,7 +257,7 @@
         "order": 5,
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.text",
-        "width": 488.4,
+        "width": 487.5599853515625,
         "x": 491,
         "y": 152
       },
@@ -294,8 +294,8 @@
         "order": 6,
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.text",
-        "width": 448.8,
-        "x": 487,
+        "width": 444.24001464843747,
+        "x": 488.8999938964844,
         "y": 219
       },
       {
@@ -305,7 +305,7 @@
             "calculatedHeight": 0,
             "calculatedWidth": 0,
             "hposition": "none",
-            "html": "<p style=\"text-align: right;\"><span style=\"font-family: Courier; font-size: 25px;\"><span style=\"\"><span style=\"color: #000000; font-size: 25px; line-height: 16.5px;\">right aligned code</span><br></span></span></p>",
+            "html": "<p style=\"text-align: right;\"><span style=\"font-family: Courier; font-size: 25px;\"><span style=\"\"><span style=\"color: #000000; font-size: 25px; line-height: 16.5px;\">right aligned code<br>with<br>linebreaks</span><br></span></span></p>",
             "outerPaddingBottom": 0,
             "outerPaddingLeft": 0,
             "outerPaddingRight": 0,
@@ -321,7 +321,7 @@
           },
           "type": "Text"
         },
-        "height": 30,
+        "height": 90,
         "hidden": false,
         "id": 7,
         "layerId": "dR5PnMr9lIuu",
@@ -331,8 +331,8 @@
         "order": 7,
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.text",
-        "width": 316.8,
-        "x": 485.78,
+        "width": 316.0799926757812,
+        "x": 486.3800061035156,
         "y": 280.5
       },
       {

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -104,6 +105,8 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 				if element.FontFamily == 3 {
 					fontFamily = "Courier"
 				}
+
+				element.Text = strings.ReplaceAll(element.Text, "\n", "<br>")
 
 				text.HTML = "<p style=\"text-align: " + element.TextAlign + ";\"><span style=\"font-family: " + fontFamily + "; font-size: " + fontSize + "px;\"><span style=\"\"><span style=\"color: " + fontColor + "; font-size: " + fontSize + "px; line-height: 16.5px;\">" + element.Text + "</span><br></span></span></p>"
 				text.Valign = "middle"
