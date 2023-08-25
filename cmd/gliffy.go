@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"path/filepath"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -26,7 +27,7 @@ var gliffyCmd = &cobra.Command{
 		}
 
 		if strings.HasPrefix(exportPath, defaultOutputPath) {
-			exportPath = strings.TrimSuffix(path.Base(importPath), ".excalidraw") + ".gliffy"
+			exportPath = strings.TrimSuffix(path.Base(importPath), filepath.Ext(importPath)) + ".gliffy"
 		}
 
 		err := conv.ConvertExcalidrawToGliffy(importPath, exportPath)
