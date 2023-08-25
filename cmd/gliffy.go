@@ -4,9 +4,14 @@ import (
 	conv "diagram-converter/internal/conversion"
 	"fmt"
 	"os"
+	"path"
+	"path/filepath"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
+
+var defaultOutputPath = "your_file.gliffy"
 
 var gliffyCmd = &cobra.Command{
 	Use:   "gliffy",
@@ -19,6 +24,10 @@ var gliffyCmd = &cobra.Command{
 		if len(importPath) == 0 {
 			fmt.Fprintf(os.Stderr, "Input file path not provided. (Use --help for details.)\n")
 			os.Exit(1)
+		}
+
+		if strings.HasPrefix(exportPath, defaultOutputPath) {
+			exportPath = strings.TrimSuffix(path.Base(importPath), filepath.Ext(importPath)) + ".gliffy"
 		}
 
 		err := conv.ConvertExcalidrawToGliffy(importPath, exportPath)
@@ -34,5 +43,5 @@ func init() {
 	rootCmd.AddCommand(gliffyCmd)
 
 	gliffyCmd.PersistentFlags().StringP("input", "i", "", "input file path")
-	gliffyCmd.PersistentFlags().StringP("output", "o", "output.gliffy", "output file path")
+	gliffyCmd.PersistentFlags().StringP("output", "o", defaultOutputPath, "output file path")
 }
