@@ -17,16 +17,13 @@ builds:
       - goos: windows
         goarch: arm64
       - goos: windows
-        goarch: 386
+        goarch: 386  
     env:
       - CGO_ENABLED=0
     ldflags:
       - -s -w -X diagram-converter/cmd.version={{.Version}} -X diagram-converter/cmd.commit={{.Commit}}
 archives:
   -
-    replacements:
-      darwin: macOS
-      386: i386
     format_overrides:
     - goos: windows
       format: zip
