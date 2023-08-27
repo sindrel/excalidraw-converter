@@ -16,13 +16,23 @@ var defaultOutputPath = "your_file.gliffy"
 var gliffyCmd = &cobra.Command{
 	Use:   "gliffy",
 	Short: "Convert an Excalidraw diagram to Gliffy format",
-	Long:  `Use this command to convert an Excalidraw diagram to the Gliffy format.`,
+	Long: `This command is used to convert an Excalidraw diagram to the Gliffy format.
+
+  When an output file path is not provided, it will be determined 
+automatically based on the filename of the input file. I.e. the 
+input file path './subfolder/your_file.excalidraw' will produce 
+the default output file path './your_file.gliffy'.
+
+Example:
+  exconv gliffy -i your_file.excalidraw
+`,
 	Run: func(cmd *cobra.Command, args []string) {
 		importPath, _ := cmd.Flags().GetString("input")
 		exportPath, _ := cmd.Flags().GetString("output")
 
 		if len(importPath) == 0 {
-			fmt.Fprintf(os.Stderr, "Input file path not provided. (Use --help for details.)\n")
+			fmt.Fprintf(os.Stderr, "Error: Input file path not provided.\n\n")
+			cmd.Help()
 			os.Exit(1)
 		}
 
