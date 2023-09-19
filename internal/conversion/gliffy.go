@@ -32,122 +32,14 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 	var output datastr.GliffyScene
 	var objects []datastr.GliffyObject
 
-	graphics := internal.MapGraphics()
+	elementAddOrder := []string{"shapes", "text", "lines"}
 
-	for i, element := range input.Elements {
-		var object datastr.GliffyObject
-		var shape datastr.GliffyShape
-		var text datastr.GliffyText
-		var line datastr.GliffyLine
-
-		object.X = element.X
-		object.Y = element.Y
-		object.Width = element.Width
-		object.Height = element.Height
-		object.Rotation = internal.NormalizeRotation(element.Angle)
-		object.LayerID = "dR5PnMr9lIuu"
-		object.Order = i
-
-		for _, id := range graphics.Rectangle.Excalidraw {
-			if element.Type == id && element.Roundness.Type == 0 {
-				object.UID = graphics.Rectangle.Gliffy[0]
-				object.Graphic.Type = "Shape"
-				shape.Tid = "com.gliffy.stencil.rectangle.basic_v1"
-			}
-
-			if element.Type == id && element.Roundness.Type > 0 {
-				object.UID = graphics.Rectangle.Gliffy[1]
-				object.Graphic.Type = "Shape"
-				shape.Tid = "com.gliffy.stencil.round_rectangle.basic_v1"
-			}
+	for _, elementType := range elementAddOrder {
+		objects, err = AddElements(elementType, input, objects)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Unable to add element(s) of type %s: %s\n", elementType, err)
+			os.Exit(1)
 		}
-
-		for _, id := range graphics.Ellipse.Excalidraw {
-			if element.Type == id {
-				object.UID = graphics.Ellipse.Gliffy[0]
-				object.Graphic.Type = "Shape"
-				shape.Tid = "com.gliffy.stencil.ellipse.basic_v1"
-			}
-		}
-
-		for _, id := range graphics.Diamond.Excalidraw {
-			if element.Type == id {
-				object.UID = graphics.Diamond.Gliffy[0]
-				object.Graphic.Type = "Shape"
-				shape.Tid = "com.gliffy.stencil.diamond.basic_v1"
-			}
-		}
-
-		if object.Graphic.Type == "Shape" {
-			shape.DashStyle = StrokeStyleConvExcGliffy(element.StrokeStyle)
-			shape.FillColor = FillColorConvExcGliffy(element.BackgroundColor)
-			shape.StrokeColor = element.StrokeColor
-			shape.StrokeWidth = element.StrokeWidth
-			shape.Opacity = element.Opacity * 0.01
-
-			if element.FillStyle != "solid" {
-				shape.Gradient = true
-			}
-
-			object.Graphic.Shape = &shape
-		}
-
-		for _, id := range graphics.Text.Excalidraw {
-			if element.Type == id {
-				object.UID = graphics.Text.Gliffy[0]
-				object.Graphic.Type = "Text"
-
-				object.Width = element.Width * 1.2
-
-				fontSize := strconv.FormatFloat(element.FontSize, 'f', 0, 64)
-				fontColor := element.StrokeColor
-				fontFamily := "Arial"
-				if element.FontFamily == 3 {
-					fontFamily = "Courier"
-				}
-
-				element.Text = strings.ReplaceAll(element.Text, "\n", "<br>")
-
-				text.HTML = "<p style=\"text-align: " + element.TextAlign + ";\"><span style=\"font-family: " + fontFamily + "; font-size: " + fontSize + "px;\"><span style=\"\"><span style=\"color: " + fontColor + "; font-size: " + fontSize + "px; line-height: 16.5px;\">" + element.Text + "</span><br></span></span></p>"
-				text.Valign = "middle"
-				text.Overflow = "none"
-				text.Vposition = "none"
-				text.Hposition = "none"
-
-				object.Graphic.Text = &text
-			}
-		}
-
-		for _, id := range graphics.Line.Excalidraw {
-			if element.Type == id {
-				object.UID = graphics.Line.Gliffy[0]
-				object.Graphic.Type = "Line"
-
-				line.DashStyle = StrokeStyleConvExcGliffy(element.StrokeStyle)
-				line.StrokeColor = element.StrokeColor
-				line.StrokeWidth = element.StrokeWidth
-				line.FillColor = "none"
-				line.StartArrowRotation = "auto"
-				line.EndArrowRotation = "auto"
-				line.InterpolationType = "linear"
-				line.CornerRadius = 10
-				line.Ortho = true
-				line.ControlPath = element.Points
-				line.StartArrow = ArrowheadConvExGliffy(element.StartArrowhead)
-				line.EndArrow = ArrowheadConvExGliffy(element.EndArrowhead)
-
-				object.Graphic.Line = &line
-			}
-		}
-
-		if object.Graphic.Type == "" {
-			continue
-		}
-
-		fmt.Printf("  Adding object: %s\n", object.UID)
-
-		object.ID = i
-		objects = append(objects, object)
 	}
 
 	priorityGraphics := []string{
@@ -204,6 +96,134 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 	fmt.Printf("Converted diagram saved to file: %s\n", exportPath)
 
 	return nil
+}
+
+func AddElements(elementType string, input datastr.ExcalidrawScene, objects []datastr.GliffyObject) ([]datastr.GliffyObject, error) {
+	graphics := internal.MapGraphics()
+
+	for i, element := range input.Elements {
+		var object datastr.GliffyObject
+		var shape datastr.GliffyShape
+		var text datastr.GliffyText
+		var line datastr.GliffyLine
+
+		object.X = element.X
+		object.Y = element.Y
+		object.Width = element.Width
+		object.Height = element.Height
+		object.Rotation = internal.NormalizeRotation(element.Angle)
+		object.LayerID = "dR5PnMr9lIuu"
+		object.Order = i
+
+		if elementType == "shapes" {
+			for _, id := range graphics.Rectangle.Excalidraw {
+				if element.Type == id && element.Roundness.Type == 0 {
+					object.UID = graphics.Rectangle.Gliffy[0]
+					object.Graphic.Type = "Shape"
+					shape.Tid = "com.gliffy.stencil.rectangle.basic_v1"
+				}
+
+				if element.Type == id && element.Roundness.Type > 0 {
+					object.UID = graphics.Rectangle.Gliffy[1]
+					object.Graphic.Type = "Shape"
+					shape.Tid = "com.gliffy.stencil.round_rectangle.basic_v1"
+				}
+			}
+
+			for _, id := range graphics.Ellipse.Excalidraw {
+				if element.Type == id {
+					object.UID = graphics.Ellipse.Gliffy[0]
+					object.Graphic.Type = "Shape"
+					shape.Tid = "com.gliffy.stencil.ellipse.basic_v1"
+				}
+			}
+
+			for _, id := range graphics.Diamond.Excalidraw {
+				if element.Type == id {
+					object.UID = graphics.Diamond.Gliffy[0]
+					object.Graphic.Type = "Shape"
+					shape.Tid = "com.gliffy.stencil.diamond.basic_v1"
+				}
+			}
+
+			if object.Graphic.Type == "Shape" {
+				shape.DashStyle = StrokeStyleConvExcGliffy(element.StrokeStyle)
+				shape.FillColor = FillColorConvExcGliffy(element.BackgroundColor)
+				shape.StrokeColor = element.StrokeColor
+				shape.StrokeWidth = element.StrokeWidth
+				shape.Opacity = element.Opacity * 0.01
+
+				if element.FillStyle != "solid" {
+					shape.Gradient = true
+				}
+
+				object.Graphic.Shape = &shape
+			}
+		}
+
+		if elementType == "text" {
+			for _, id := range graphics.Text.Excalidraw {
+				if element.Type == id {
+					object.UID = graphics.Text.Gliffy[0]
+					object.Graphic.Type = "Text"
+
+					object.Width = element.Width * 1.2
+
+					fontSize := strconv.FormatFloat(element.FontSize, 'f', 0, 64)
+					fontColor := element.StrokeColor
+					fontFamily := "Arial"
+					if element.FontFamily == 3 {
+						fontFamily = "Courier"
+					}
+
+					element.Text = strings.ReplaceAll(element.Text, "\n", "<br>")
+
+					text.HTML = "<p style=\"text-align: " + element.TextAlign + ";\"><span style=\"font-family: " + fontFamily + "; font-size: " + fontSize + "px;\"><span style=\"\"><span style=\"color: " + fontColor + "; font-size: " + fontSize + "px; line-height: 16.5px;\">" + element.Text + "</span><br></span></span></p>"
+					text.Valign = "middle"
+					text.Overflow = "none"
+					text.Vposition = "none"
+					text.Hposition = "none"
+
+					object.Graphic.Text = &text
+				}
+			}
+		}
+
+		if elementType == "lines" {
+			for _, id := range graphics.Line.Excalidraw {
+				if element.Type == id {
+					object.UID = graphics.Line.Gliffy[0]
+					object.Graphic.Type = "Line"
+
+					line.DashStyle = StrokeStyleConvExcGliffy(element.StrokeStyle)
+					line.StrokeColor = element.StrokeColor
+					line.StrokeWidth = element.StrokeWidth
+					line.FillColor = "none"
+					line.StartArrowRotation = "auto"
+					line.EndArrowRotation = "auto"
+					line.InterpolationType = "linear"
+					line.CornerRadius = 10
+					line.Ortho = true
+					line.ControlPath = element.Points
+					line.StartArrow = ArrowheadConvExGliffy(element.StartArrowhead)
+					line.EndArrow = ArrowheadConvExGliffy(element.EndArrowhead)
+
+					object.Graphic.Line = &line
+				}
+			}
+		}
+
+		if object.Graphic.Type == "" {
+			continue
+		}
+
+		fmt.Printf("  Adding object: %s\n", object.UID)
+
+		object.ID = i
+		objects = append(objects, object)
+	}
+
+	return objects, nil
 }
 
 func StrokeStyleConvExcGliffy(style string) string {

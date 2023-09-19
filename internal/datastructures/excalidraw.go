@@ -10,6 +10,7 @@ type ExcalidrawScene struct {
 		BackgroundColor string        `json:"backgroundColor"`
 		Baseline        float64       `json:"baseline"`
 		BoundElementIds []string      `json:"boundElementIds"`
+		ContainerId     string        `json:"containerId"`
 		EndArrowhead    string        `json:"endArrowhead"`
 		FillStyle       string        `json:"fillStyle"`
 		FontFamily      int64         `json:"fontFamily"`
