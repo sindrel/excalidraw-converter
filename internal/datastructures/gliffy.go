@@ -45,7 +45,7 @@ type GliffyScene struct {
 }
 
 type GliffyObject struct {
-	Children interface{} `json:"children"`
+	Children []GliffyObject `json:"children"`
 	Graphic  struct {
 		Shape *GliffyShape `json:",omitempty"`
 		Text  *GliffyText  `json:",omitempty"`

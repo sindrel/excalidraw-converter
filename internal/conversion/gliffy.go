@@ -4,6 +4,7 @@ import (
 	internal "diagram-converter/internal"
 	datastr "diagram-converter/internal/datastructures"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"strconv"
@@ -31,14 +32,15 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 
 	var output datastr.GliffyScene
 	var objects []datastr.GliffyObject
+	objectIDs := map[string]int{}
 
-	objects, err = AddElements(false, input, objects)
+	objects, objectIDs, err = AddElements(false, input, objects, objectIDs)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to add element(s): %s\n", err)
 		os.Exit(1)
 	}
 
-	objects, err = AddElements(true, input, objects)
+	objects, _, err = AddElements(true, input, objects, objectIDs)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to add element(s) with parent(s): %s\n", err)
 		os.Exit(1)
@@ -100,7 +102,7 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 	return nil
 }
 
-func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []datastr.GliffyObject) ([]datastr.GliffyObject, error) {
+func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []datastr.GliffyObject, objectIDs map[string]int) ([]datastr.GliffyObject, map[string]int, error) {
 	graphics := internal.MapGraphics()
 
 	for i, element := range input.Elements {
@@ -220,13 +222,42 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []data
 			continue
 		}
 
-		fmt.Printf("  Adding object: %s (%d)\n", object.UID, object.Order)
-
 		object.ID = i
+		objectIDs[element.ID] = object.ID
+
+		fmt.Printf("  Adding object: %s (%s,%d,%d)\n", object.UID, element.ID, object.ID, object.Order)
+
+		if len(element.ContainerId) > 0 {
+			var parent int = 999999
+			for obj_k, obj := range objects {
+				if obj.ID == objectIDs[element.ContainerId] {
+					parent = obj_k
+				}
+			}
+
+			if parent == 999999 {
+				return nil, nil, errors.New("unable to find object parent")
+			}
+
+			object.X = 2
+			object.Y = 0
+			object.Rotation = 0
+			object.UID = ""
+			object.Width = objects[parent].Width - 4
+			object.Height = objects[parent].Height - 4
+
+			fmt.Printf("  - Adding as child of %d\n", parent)
+
+			children := append(objects[parent].Children, object)
+			objects[parent].Children = children
+
+			continue
+		}
+
 		objects = append(objects, object)
 	}
 
-	return objects, nil
+	return objects, objectIDs, nil
 }
 
 func StrokeStyleConvExcGliffy(style string) string {
