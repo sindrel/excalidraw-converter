@@ -1,5 +1,5 @@
 # Excalidraw Converter  
-**A command line tool for porting Excalidraw diagrams to Gliffy.**
+**A command line tool for porting Excalidraw diagrams to Gliffy.**  
 
 [Excalidraw](https://excalidraw.com/) is great for sketching diagrams as part of a design process, but chances are that you have to redo those sketches for documentation. This tool is made to bridge those tasks.
 
@@ -9,8 +9,8 @@ Excalidraw Converter ports Excalidraw diagrams to a Gliffy compatible format, wh
 
 ## Getting started  
 
-### Installation
-#### MacOS with [Homebrew](https://brew.sh/)  
+### Installation  
+#### MacOS with [Homebrew](https://brew.sh/)
 ```shell
 brew install sindrel/tap/excalidraw-converter
 ```
@@ -20,14 +20,14 @@ Download a compatible binary from the [Releases](https://github.com/sindrel/exca
 
 If you're a Linux or MacOS user, move it to your local bin folder to make it available in your environment (optional).  
 
-### How to convert diagrams
+### How to convert diagrams  
 First save your Excalidraw diagram to a file.
 
-Then, to do a conversion, simply execute the binary by specifying the `gliffy` command, the path to your Excalidraw save file, and the path to where you want your converted file to be saved. 
+Then, to do a conversion, simply execute the binary by specifying the `gliffy` command, the path to your Excalidraw save file, and the path to where you want your converted file to be saved.  
 
 <details>
   <summary>MacOS example</summary>
-  
+
   ```
   $ exconv gliffy -i ~/Downloads/my-diagram.excalidraw -o /tmp/my-ported-diagram.gliffy
   Parsing input file: ~/Downloads/my-diagram.excalidraw
@@ -48,7 +48,7 @@ Then, to do a conversion, simply execute the binary by specifying the `gliffy` c
 
 <details>
   <summary>Linux example</summary>
-  
+
   ```
   $ ./exconv gliffy -i ~/Downloads/my-diagram.excalidraw -o /tmp/my-ported-diagram.gliffy
   Parsing input file: ~/Downloads/my-diagram.excalidraw
@@ -69,7 +69,7 @@ Then, to do a conversion, simply execute the binary by specifying the `gliffy` c
 
 <details>
   <summary>Windows example</summary>
-  
+
   ```
   C:\> exconv.exe gliffy -i C:\Downloads\my-diagram.excalidraw -o C:\tmp\my-ported-diagram.gliffy
   Parsing input file: C:\Downloads\my-diagram.excalidraw
@@ -92,7 +92,7 @@ Then, to do a conversion, simply execute the binary by specifying the `gliffy` c
 
 After converting your diagram(s), import them into Gliffy using the standard Import dialog.
 
-## Commands
+## Commands  
 ```sh
 Available Commands:
   completion  Generate the autocompletion script for the specified shell
@@ -104,11 +104,11 @@ Flags:
   -h, --help   help for exconv
 ```
 
-## Features
+## Features  
 
 All fixed shapes and most styling and text options are supported.
 
-### Shapes
+### Shapes  
 * Rectangle
 * Rounded rectangle
 * Diamond
@@ -116,18 +116,17 @@ All fixed shapes and most styling and text options are supported.
 * Arrow
 * Line
 
-### Text
-
+### Text  
 * Font family (Normal and Code)
 * Font size
 * Font color
 * Horizontal alignment
+* Text contained in shapes
 
-### Styling
-
-* Canvas background color 
+### Styling  
+* Canvas background color
 * Fill color
-* Fill style (hachure and cross-hatch translate to gradients) 
+* Fill style (hachure and cross-hatch translate to gradients)
 * Stroke color
 * Stroke width
 * Opacity
@@ -135,27 +134,26 @@ All fixed shapes and most styling and text options are supported.
 Free hand drawings and library graphics are currently not supported.
 
 ## Contributing  
-
 See something you'd like to improve? Feel free to add a pull request. If it's a major change, it's probably best to describe it in an [issue](https://github.com/sindrel/excalidraw-converter/issues/new) first.
 
 ## Development  
 <details>
   <summary>Instructions</summary>
 
-### Prerequisites:
-* Go (see version in `go.mod`)  
+### Prerequisites:  
+* Go (see version in `go.mod`)
 
-### Download dependencies
+### Download dependencies  
 ```shell
 go mod download
 ```
 
-### Run tests
+### Run tests  
 ```shell
 go test -v ./cmd
 ```
 
-### Compile and run
+### Compile and run  
 ```shell
 go run ./cmd/main.go <command> <input> <output>
 ```

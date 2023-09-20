@@ -4,6 +4,7 @@ import (
 	internal "diagram-converter/internal"
 	datastr "diagram-converter/internal/datastructures"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"strconv"
@@ -31,10 +32,87 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 
 	var output datastr.GliffyScene
 	var objects []datastr.GliffyObject
+	objectIDs := map[string]int{}
 
+	objects, objectIDs, err = AddElements(false, input, objects, objectIDs)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to add element(s): %s\n", err)
+		os.Exit(1)
+	}
+
+	objects, _, err = AddElements(true, input, objects, objectIDs)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to add element(s) with parent(s): %s\n", err)
+		os.Exit(1)
+	}
+
+	priorityGraphics := []string{
+		//"Line",
+		//"Text",
+	}
+
+	objects = OrderGliffyObjectsByPriority(objects, priorityGraphics)
+
+	var layer datastr.GliffyLayer
+	layer.Active = true
+	layer.GUID = "dR5PnMr9lIuu"
+	layer.Name = "Layer 0"
+	layer.NodeIndex = 11
+	layer.Visible = true
+
+	output.ContentType = "application/gliffy+json"
+	output.EmbeddedResources.Resources = []string{}
+	output.Version = "1.3"
+	output.Metadata.LastSerialized = timestamp
+	output.Metadata.Libraries = []string{
+		"com.gliffy.libraries.basic.basic_v1.default",
+		"com.gliffy.libraries.flowchart.flowchart_v1.default",
+	}
+	output.Metadata.LoadPosition = "default"
+	output.Metadata.Revision = 0
+	output.Metadata.Title = "Import"
+	output.Stage.Background = input.AppState.ViewBackgroundColor
+	output.Stage.DrawingGuidesOn = true
+	output.Stage.GridOn = true
+	output.Stage.Height = 1024
+	output.Stage.Layers = append(output.Stage.Layers, layer)
+	output.Stage.MaxWidth = 5000
+	output.Stage.MaxHeight = 5000
+	output.Stage.Objects = objects
+	output.Stage.PrintModel.PageSize = "Letter"
+	output.Stage.PrintModel.Portrait = true
+	output.Stage.SnapToGrid = true
+	output.Stage.ViewportType = "default"
+	output.Stage.Width = 1024
+
+	outputJson, err := json.Marshal(output)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error occured during JSON marshaling: %s", err)
+		os.Exit(1)
+	}
+
+	err = internal.WriteToFile(exportPath, string(outputJson))
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to write diagram to file: %s", err)
+		os.Exit(1)
+	}
+
+	fmt.Printf("Converted diagram saved to file: %s\n", exportPath)
+
+	return nil
+}
+
+func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []datastr.GliffyObject, objectIDs map[string]int) ([]datastr.GliffyObject, map[string]int, error) {
 	graphics := internal.MapGraphics()
 
 	for i, element := range input.Elements {
+		if len(element.ContainerId) > 0 && !addChildren {
+			continue
+		}
+		if len(element.ContainerId) == 0 && addChildren {
+			continue
+		}
+
 		var object datastr.GliffyObject
 		var shape datastr.GliffyShape
 		var text datastr.GliffyText
@@ -144,66 +222,42 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 			continue
 		}
 
-		fmt.Printf("  Adding object: %s\n", object.UID)
-
 		object.ID = i
+		objectIDs[element.ID] = object.ID
+
+		fmt.Printf("  Adding object: %s (%s,%d,%d)\n", object.UID, element.ID, object.ID, object.Order)
+
+		if len(element.ContainerId) > 0 {
+			var parent int = 999999
+			for obj_k, obj := range objects {
+				if obj.ID == objectIDs[element.ContainerId] {
+					parent = obj_k
+				}
+			}
+
+			if parent == 999999 {
+				return nil, nil, errors.New("unable to find object parent")
+			}
+
+			object.X = 2
+			object.Y = 0
+			object.Rotation = 0
+			object.UID = ""
+			object.Width = objects[parent].Width - 4
+			object.Height = objects[parent].Height - 4
+
+			fmt.Printf("  - Adding as child of %d\n", parent)
+
+			children := append(objects[parent].Children, object)
+			objects[parent].Children = children
+
+			continue
+		}
+
 		objects = append(objects, object)
 	}
 
-	priorityGraphics := []string{
-		//"Line",
-		//"Text",
-	}
-
-	objects = OrderGliffyObjectsByPriority(objects, priorityGraphics)
-
-	var layer datastr.GliffyLayer
-	layer.Active = true
-	layer.GUID = "dR5PnMr9lIuu"
-	layer.Name = "Layer 0"
-	layer.NodeIndex = 11
-	layer.Visible = true
-
-	output.ContentType = "application/gliffy+json"
-	output.EmbeddedResources.Resources = []string{}
-	output.Version = "1.3"
-	output.Metadata.LastSerialized = timestamp
-	output.Metadata.Libraries = []string{
-		"com.gliffy.libraries.basic.basic_v1.default",
-		"com.gliffy.libraries.flowchart.flowchart_v1.default",
-	}
-	output.Metadata.LoadPosition = "default"
-	output.Metadata.Revision = 0
-	output.Metadata.Title = "Import"
-	output.Stage.Background = input.AppState.ViewBackgroundColor
-	output.Stage.DrawingGuidesOn = true
-	output.Stage.GridOn = true
-	output.Stage.Height = 1024
-	output.Stage.Layers = append(output.Stage.Layers, layer)
-	output.Stage.MaxWidth = 5000
-	output.Stage.MaxHeight = 5000
-	output.Stage.Objects = objects
-	output.Stage.PrintModel.PageSize = "Letter"
-	output.Stage.PrintModel.Portrait = true
-	output.Stage.SnapToGrid = true
-	output.Stage.ViewportType = "default"
-	output.Stage.Width = 1024
-
-	outputJson, err := json.Marshal(output)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error occured during JSON marshaling: %s", err)
-		os.Exit(1)
-	}
-
-	err = internal.WriteToFile(exportPath, string(outputJson))
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to write diagram to file: %s", err)
-		os.Exit(1)
-	}
-
-	fmt.Printf("Converted diagram saved to file: %s\n", exportPath)
-
-	return nil
+	return objects, objectIDs, nil
 }
 
 func StrokeStyleConvExcGliffy(style string) string {
