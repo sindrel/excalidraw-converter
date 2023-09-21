@@ -12,6 +12,9 @@ import (
 	"time"
 )
 
+var xOffset float64
+var yOffset float64
+
 func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 	fmt.Printf("Parsing input file: %s\n", importPath)
 
@@ -29,6 +32,8 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 		fmt.Fprintf(os.Stderr, "Unable to parse input: %s\n", err)
 		os.Exit(1)
 	}
+
+	xOffset, yOffset = GetXYOffset(input)
 
 	var output datastr.GliffyScene
 	var objects []datastr.GliffyObject
@@ -118,8 +123,8 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []data
 		var text datastr.GliffyText
 		var line datastr.GliffyLine
 
-		object.X = element.X
-		object.Y = element.Y
+		object.X = element.X - xOffset
+		object.Y = element.Y - yOffset
 		object.Width = element.Width
 		object.Height = element.Height
 		object.Rotation = internal.NormalizeRotation(element.Angle)
@@ -309,4 +314,33 @@ func OrderGliffyObjectsByPriority(objects []datastr.GliffyObject, prioritized []
 	}
 
 	return objects
+}
+
+func GetXYOffset(input datastr.ExcalidrawScene) (float64, float64) {
+	var xMin float64 = 0
+	var yMin float64 = 0
+
+	for _, element := range input.Elements {
+		if element.X > xMin {
+			xMin = element.X
+		}
+
+		if element.Y > yMin {
+			yMin = element.Y
+		}
+	}
+
+	for _, element := range input.Elements {
+		if element.X < xMin {
+			xMin = element.X
+		}
+
+		if element.Y < yMin {
+			yMin = element.Y
+		}
+	}
+
+	fmt.Printf("  Offset X: %f, Offset Y: %f\n", xMin, yMin)
+
+	return xMin, yMin
 }

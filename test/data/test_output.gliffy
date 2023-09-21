@@ -8,7 +8,7 @@
     "autosaveDisabled": false,
     "editorVersion": null,
     "exportBorder": false,
-    "lastSerialized": 1695189587139,
+    "lastSerialized": 1695310671510,
     "libraries": [
       "com.gliffy.libraries.basic.basic_v1.default",
       "com.gliffy.libraries.flowchart.flowchart_v1.default"
@@ -69,8 +69,8 @@
         "rotation": 355.17923392190727,
         "uid": "com.gliffy.shape.basic.basic_v1.default.round_rectangle",
         "width": 186,
-        "x": 786,
-        "y": 314.5
+        "x": 297.22,
+        "y": 162.5
       },
       {
         "children": null,
@@ -101,8 +101,8 @@
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.ellipse",
         "width": 151,
-        "x": 816,
-        "y": 523
+        "x": 327.22,
+        "y": 371
       },
       {
         "children": null,
@@ -133,8 +133,8 @@
         "rotation": 2.5733594631768173,
         "uid": "com.gliffy.shape.flowchart.flowchart_v1.default.decision",
         "width": 146,
-        "x": 628,
-        "y": 561
+        "x": 139.22000000000003,
+        "y": 409
       },
       {
         "children": null,
@@ -177,8 +177,8 @@
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.line",
         "width": 317,
-        "x": 1134,
-        "y": 246
+        "x": 645.22,
+        "y": 94
       },
       {
         "children": null,
@@ -221,8 +221,8 @@
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.line",
         "width": 179,
-        "x": 976,
-        "y": 211
+        "x": 487.22,
+        "y": 59
       },
       {
         "children": null,
@@ -258,8 +258,8 @@
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.text",
         "width": 487.5599853515625,
-        "x": 491,
-        "y": 152
+        "x": 2.2200000000000273,
+        "y": 0
       },
       {
         "children": null,
@@ -295,8 +295,8 @@
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.text",
         "width": 444.24001464843747,
-        "x": 488.8999938964844,
-        "y": 219
+        "x": 0.11999389648440228,
+        "y": 67
       },
       {
         "children": null,
@@ -332,8 +332,8 @@
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.text",
         "width": 313.2,
-        "x": 488.78,
-        "y": 280.5
+        "x": 0,
+        "y": 128.5
       },
       {
         "children": null,
@@ -364,8 +364,8 @@
         "rotation": 2.5733594631768173,
         "uid": "com.gliffy.shape.flowchart.flowchart_v1.default.decision",
         "width": 146,
-        "x": 634.9999999999999,
-        "y": 612.9999999999999
+        "x": 146.2199999999999,
+        "y": 460.9999999999999
       },
       {
         "children": null,
@@ -396,8 +396,8 @@
         "rotation": 7.314175428315577,
         "uid": "com.gliffy.shape.basic.basic_v1.default.rectangle",
         "width": 186,
-        "x": 736,
-        "y": 356.5
+        "x": 247.22000000000003,
+        "y": 204.5
       },
       {
         "children": null,
@@ -428,8 +428,8 @@
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.ellipse",
         "width": 151,
-        "x": 996.5,
-        "y": 541
+        "x": 507.72,
+        "y": 389
       },
       {
         "children": null,
@@ -460,8 +460,8 @@
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.ellipse",
         "width": 151,
-        "x": 1059.5,
-        "y": 581
+        "x": 570.72,
+        "y": 429
       },
       {
         "children": null,
@@ -492,8 +492,8 @@
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.ellipse",
         "width": 151,
-        "x": 1130.5,
-        "y": 618
+        "x": 641.72,
+        "y": 466
       },
       {
         "children": null,
@@ -524,8 +524,8 @@
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.ellipse",
         "width": 151,
-        "x": 1191.5,
-        "y": 652
+        "x": 702.72,
+        "y": 500
       },
       {
         "children": [
@@ -594,8 +594,8 @@
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.rectangle",
         "width": 289,
-        "x": 1294.9400030517577,
-        "y": 176.5
+        "x": 806.1600030517577,
+        "y": 24.5
       },
       {
         "children": [
@@ -664,8 +664,8 @@
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.rectangle",
         "width": 289,
-        "x": 1294.4400030517577,
-        "y": 240.5
+        "x": 805.6600030517577,
+        "y": 88.5
       },
       {
         "children": [
@@ -734,8 +734,8 @@
         "rotation": 0,
         "uid": "com.gliffy.shape.basic.basic_v1.default.rectangle",
         "width": 289,
-        "x": 1294.4400030517577,
-        "y": 306.5
+        "x": 805.6600030517577,
+        "y": 154.5
       }
     ],
     "printModel": {
