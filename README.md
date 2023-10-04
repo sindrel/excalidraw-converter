@@ -1,7 +1,10 @@
-<img src="assets/workflow.png" alt="drawing" width="80"/>  
+<center><img src="assets/workflow.png" alt="drawing" width="80"/>
 
-# Excalidraw Converter  
+# Excalidraw Converter 
+</center>
+ 
 **A command line tool for porting Excalidraw diagrams to Gliffy and draw.io.** 
+
 
 [Excalidraw](https://excalidraw.com/) is great for sketching diagrams as part of a design process, but chances are that you have to redo those sketches for documentation. This tool is made to bridge those tasks.
 
