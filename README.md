@@ -1,8 +1,4 @@
-<p align="center">
-  <img src="assets/workflow.png" alt="logo" width="80"/>
-</p>
-
-# Excalidraw Converter 
+# <img src="assets/workflow.png" alt="logo" width="20"/> Excalidraw Converter 
 
 **A command line tool for porting Excalidraw diagrams to Gliffy and draw.io.** 
 
