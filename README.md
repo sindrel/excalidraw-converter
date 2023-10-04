@@ -1,5 +1,7 @@
-# Excalidraw Converter
-**A command line tool for porting Excalidraw diagrams to Gliffy and draw.io.**
+<img src="assets/workflow.png" alt="drawing" width="80"/>  
+
+# Excalidraw Converter  
+**A command line tool for porting Excalidraw diagrams to Gliffy and draw.io.** 
 
 [Excalidraw](https://excalidraw.com/) is great for sketching diagrams as part of a design process, but chances are that you have to redo those sketches for documentation. This tool is made to bridge those tasks.
 
@@ -23,74 +25,61 @@ If you're a Linux or MacOS user, move it to your local bin folder to make it ava
 ### How to convert diagrams
 First save your Excalidraw diagram to a file.
 
-Then, to do a conversion, simply execute the binary by specifying the `gliffy` command, the path to your Excalidraw save file, and the path to where you want your converted file to be saved.
+Then, to do a conversion, simply execute the binary by specifying the `gliffy` command, and the path to your Excalidraw file.
+
+```sh
+exconv gliffy -i ~/Downloads/my-diagram.excalidraw
+```
 
 <details>
   <summary>MacOS example</summary>
 
-  ```
-  $ exconv gliffy -i ~/Downloads/my-diagram.excalidraw -o /tmp/my-ported-diagram.gliffy
+  ```sh
+  $ exconv gliffy -i ~/Downloads/my-diagram.excalidraw
   Parsing input file: ~/Downloads/my-diagram.excalidraw
   Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
   Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
+  [...]
   Adding object: com.gliffy.shape.basic.basic_v1.default.text
   Adding object: com.gliffy.shape.basic.basic_v1.default.line
-  Converted diagram saved to file: /tmp/my-ported-diagram.gliffy
+  Converted diagram saved to file: my-diagram.gliffy
   ```
 </details>
 
 <details>
   <summary>Linux example</summary>
 
-  ```
-  $ ./exconv gliffy -i ~/Downloads/my-diagram.excalidraw -o /tmp/my-ported-diagram.gliffy
+  ```sh
+  $ ./exconv gliffy -i ~/Downloads/my-diagram.excalidraw
   Parsing input file: ~/Downloads/my-diagram.excalidraw
   Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
   Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
+  [...]
   Adding object: com.gliffy.shape.basic.basic_v1.default.text
   Adding object: com.gliffy.shape.basic.basic_v1.default.line
-  Converted diagram saved to file: /tmp/my-ported-diagram.gliffy
+  Converted diagram saved to file: my-diagram.gliffy
   ```
 </details>
 
 <details>
   <summary>Windows example</summary>
 
-  ```
-  C:\> exconv.exe gliffy -i C:\Downloads\my-diagram.excalidraw -o C:\tmp\my-ported-diagram.gliffy
+  ```sh
+  C:\> exconv.exe gliffy -i C:\Downloads\my-diagram.excalidraw
   Parsing input file: C:\Downloads\my-diagram.excalidraw
   Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
   Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
+  [...]
   Adding object: com.gliffy.shape.basic.basic_v1.default.text
   Adding object: com.gliffy.shape.basic.basic_v1.default.line
-  Converted diagram saved to file: C:\tmp\my-ported-diagram.gliffy
+  Converted diagram saved to file: my-diagram.gliffy
   ```
-</details>
+</details>  
 
+### Importing
 ![Animation demonstrating use](exconv.gif "Animation")
 
-After converting your diagram(s), import them into Gliffy using the standard Import dialog.
+After converting your diagram(s), import them into Gliffy (or draw.io) using the standard Import dialog.
 
 ## Commands
 ```sh
@@ -102,6 +91,26 @@ Available Commands:
 
 Flags:
   -h, --help   help for exconv
+```
+
+### Gliffy conversion options  
+When an output file path is not provided, it will be determined
+automatically based on the filename of the input file. If you provide the
+input file path `./subfolder/your_file.excalidraw`, the default output file path will be `./your_file.gliffy`.
+
+This can be overridden using the `-o` flag.
+
+```sh
+Example:
+  exconv gliffy -i your_file.excalidraw
+
+Usage:
+  exconv gliffy [flags]
+
+Flags:
+  -h, --help            help for gliffy
+  -i, --input string    input file path
+  -o, --output string   output file path (default "your_file.gliffy")
 ```
 
 ## Features
@@ -140,6 +149,9 @@ In draw.io, you can import a diagram by simply opening the file from your device
 
 ## Contributing
 See something you'd like to improve? Feel free to add a pull request. If it's a major change, it's probably best to describe it in an [issue](https://github.com/sindrel/excalidraw-converter/issues/new) first.
+
+## Attributions  
+* <a href="https://www.flaticon.com/free-icons/workflow" title="workflow icons">Workflow icons created by Freepik - Flaticon</a>
 
 ## Development
 <details>
