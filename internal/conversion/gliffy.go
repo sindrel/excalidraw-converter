@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -165,7 +166,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []data
 			shape.DashStyle = StrokeStyleConvExcGliffy(element.StrokeStyle)
 			shape.FillColor = FillColorConvExcGliffy(element.BackgroundColor)
 			shape.StrokeColor = element.StrokeColor
-			shape.StrokeWidth = int64(element.StrokeWidth)
+			shape.StrokeWidth = int64(math.Round(element.StrokeWidth))
 			shape.Opacity = element.Opacity * 0.01
 
 			if element.FillStyle != "solid" {
@@ -208,7 +209,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []data
 
 				line.DashStyle = StrokeStyleConvExcGliffy(element.StrokeStyle)
 				line.StrokeColor = element.StrokeColor
-				line.StrokeWidth = int64(element.StrokeWidth)
+				line.StrokeWidth = int64(math.Round(element.StrokeWidth))
 				line.FillColor = "none"
 				line.StartArrowRotation = "auto"
 				line.EndArrowRotation = "auto"
