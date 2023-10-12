@@ -30,7 +30,7 @@ type ExcalidrawScene struct {
 		StrokeColor     string  `json:"strokeColor"`
 		StrokeSharpness string  `json:"strokeSharpness"`
 		StrokeStyle     string  `json:"strokeStyle"`
-		StrokeWidth     int64   `json:"strokeWidth"`
+		StrokeWidth     float64 `json:"strokeWidth"`
 		Text            string  `json:"text"`
 		TextAlign       string  `json:"textAlign"`
 		Type            string  `json:"type"`
