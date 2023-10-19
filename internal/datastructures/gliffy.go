@@ -50,6 +50,7 @@ type GliffyObject struct {
 		Shape *GliffyShape `json:",omitempty"`
 		Text  *GliffyText  `json:",omitempty"`
 		Line  *GliffyLine  `json:",omitempty"`
+		Svg   *GliffySvg   `json:",omitempty"`
 		Type  string       `json:"type"`
 	} `json:"graphic"`
 	Height          float64  `json:"height"`
@@ -115,6 +116,16 @@ type GliffyLine struct {
 	StartArrowRotation string      `json:"startArrowRotation"`
 	StrokeColor        string      `json:"strokeColor"`
 	StrokeWidth        int64       `json:"strokeWidth"`
+}
+
+type GliffySvg struct {
+	EmbeddedResourceID int    `json:"embeddedResourceId"`
+	StrokeWidth        int    `json:"strokeWidth"`
+	StrokeColor        string `json:"strokeColor"`
+	DropShadow         bool   `json:"dropShadow"`
+	Svg                string `json:"svg"`
+	ShadowX            int    `json:"shadowX"`
+	ShadowY            int    `json:"shadowY"`
 }
 
 type GliffyLayer struct {

@@ -176,6 +176,10 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []data
 			object.Graphic.Shape = &shape
 		}
 
+		// if object.Graphic.Type == "Freedraw" {
+
+		// }
+
 		for _, id := range graphics.Text.Excalidraw {
 			if element.Type == id {
 				object.UID = graphics.Text.Gliffy[0]
@@ -344,4 +348,50 @@ func GetXYOffset(input datastr.ExcalidrawScene) (float64, float64) {
 	fmt.Printf("  Offset X: %f, Offset Y: %f\n", xMin, yMin)
 
 	return xMin, yMin
+}
+
+func AddPointsOffset(points [][]float64) [][]float64 {
+	var xMin float64 = 0
+	var yMin float64 = 0
+	var output [][]float64
+
+	fmt.Println(points)
+
+	for _, point := range points {
+		if point[0] < xMin {
+			xMin = point[0]
+		}
+
+		if point[1] < yMin {
+			yMin = point[1]
+		}
+	}
+
+	for _, point := range points {
+		x := point[0] + math.Abs(xMin)
+		y := point[1] + math.Abs(yMin)
+
+		output = append(output, []float64{x, y})
+	}
+
+	fmt.Printf("  Offset X: %f, Offset Y: %f\n", xMin, yMin)
+
+	return output
+}
+
+// TODO: Take stroke, width as parameters (or entire object)
+func ConvertPointsToSvgPath(points [][]float64, width float64, height float64) string {
+	var path string
+
+	for i, point := range points {
+		if i == 0 {
+			path = fmt.Sprintf("M%.1f %.1f ", point[0], point[1])
+		} else {
+			path = fmt.Sprintf("%sL%.1f %.1f ", path, point[0], point[1])
+		}
+	}
+
+	svg := fmt.Sprintf("<svg width=\"%.0f\" height=\"%.0f\" viewBox=\"0 0 %.0f %.0f\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path fill=\"none\" stroke=\"#5A6273\" stroke-width=\"2\"  stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"%s\"></path>\n</svg>", width, height, width, height, path)
+
+	return svg
 }
