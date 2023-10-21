@@ -29,7 +29,7 @@ func TestAddPointsOffset(t *testing.T) {
 	result := AddPointsOffset(points)
 	fmt.Println(result)
 
-	svg := ConvertPointsToSvgPath(result, 297, 415)
+	svg := ConvertPointsToSvgPath(result, 297, 415, "none", "none", 2)
 	fmt.Println(svg)
 
 	assert.Equal(t, expected, result)
