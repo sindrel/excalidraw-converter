@@ -174,4 +174,15 @@ go test -v ./cmd
 go run ./cmd/main.go <command> <input> <output>
 ```
 
+### Build WebAssembly web app
+```shell
+# TODO: Consider using tinygo
+GOOS=js GOARCH=wasm go build -o public/converter.wasm ./wasm/main.go
+```
+
+### Run WebAssembly debug server (dev)
+```shell
+go run wasm/server.go
+```
+
 </details>

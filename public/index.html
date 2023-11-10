@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="wasm_exec.js"></script>
+    <script>
+      const go = new Go();
+      WebAssembly.instantiateStreaming(fetch('converter.wasm'), go.importObject).then((result) => {
+        go.run(result.instance);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Convert Excalidraw diagram to Gliffy</h1>
+    Input:<br><input type="text" id="input" /><br><br>
+    <button id="convertExcalidrawToGliffy">Convert</button><br><br>
+    Output:<br><input type="text" id="output" />
+    
+  </body>
+  <script>
+    document.getElementById('convertExcalidrawToGliffy').addEventListener('click', () => {
+      console.log('Frontend loaded');
+      const input = document.getElementById('input').value;
+      const result = convertExcalidrawToGliffy(input);
+      document.getElementById('output').value = result;
+    });
+  </script>
+</html>
