@@ -193,7 +193,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []data
 				element.Text = strings.ReplaceAll(element.Text, "\n", "<br>")
 
 				text.HTML = "<p style=\"text-align: " + element.TextAlign + ";\"><span style=\"font-family: " + fontFamily + "; font-size: " + fontSize + "px;\"><span style=\"\"><span style=\"color: " + fontColor + "; font-size: " + fontSize + "px; line-height: 16.5px;\">" + element.Text + "</span><br></span></span></p>"
-				text.Valign = "middle"
+				text.Valign = element.VerticalAlign
 				text.Overflow = "none"
 				text.Vposition = "none"
 				text.Hposition = "none"
