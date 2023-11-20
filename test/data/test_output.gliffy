@@ -1,1 +1,964 @@
-{"contentType":"application/gliffy+json","embeddedResources":{"index":0,"resources":[]},"metadata":{"autosaveDisabled":false,"editorVersion":null,"exportBorder":false,"lastSerialized":1700503534336,"libraries":["com.gliffy.libraries.basic.basic_v1.default","com.gliffy.libraries.flowchart.flowchart_v1.default"],"loadPosition":"default","revision":0,"title":"Import"},"stage":{"autoFit":false,"background":"#ffffff","drawingGuidesOn":true,"exportBorder":false,"gridOn":true,"height":1024,"imageCache":{},"layers":[{"active":true,"guid":"dR5PnMr9lIuu","locked":false,"name":"Layer 0","nodeIndex":11,"order":0,"visible":true}],"maxHeight":5000,"maxWidth":5000,"nodeIndex":0,"objects":[{"children":null,"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"none","gradient":true,"opacity":1,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#000000","strokeWidth":1,"tid":"com.gliffy.stencil.round_rectangle.basic_v1"},"type":"Shape"},"height":129,"hidden":false,"id":0,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":0,"rotation":355.17923392190727,"uid":"com.gliffy.shape.basic.basic_v1.default.round_rectangle","width":186,"x":297.22,"y":162.5},{"children":null,"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"none","gradient":true,"opacity":1,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#000000","strokeWidth":1,"tid":"com.gliffy.stencil.ellipse.basic_v1"},"type":"Shape"},"height":204.00000000000003,"hidden":false,"id":1,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":1,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.ellipse","width":151,"x":327.22,"y":371},{"children":null,"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"none","gradient":true,"opacity":1,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#000000","strokeWidth":1,"tid":"com.gliffy.stencil.diamond.basic_v1"},"type":"Shape"},"height":142,"hidden":false,"id":2,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":2,"rotation":2.5733594631768173,"uid":"com.gliffy.shape.flowchart.flowchart_v1.default.decision","width":146,"x":139.22000000000003,"y":409},{"children":null,"graphic":{"Line":{"controlPath":[[0,0],[-317,252]],"cornerRadius":10,"dashStyle":"","endArrow":0,"endArrowRotation":"auto","fillColor":"none","hopType":null,"interpolationType":"linear","lockSegments":{},"ortho":true,"startArrow":0,"startArrowRotation":"auto","strokeColor":"#000000","strokeWidth":1},"type":"Line"},"height":252,"hidden":false,"id":3,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":3,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.line","width":317,"x":645.22,"y":94},{"children":null,"graphic":{"Line":{"controlPath":[[0,0],[179,207]],"cornerRadius":10,"dashStyle":"","endArrow":1,"endArrowRotation":"auto","fillColor":"none","hopType":null,"interpolationType":"linear","lockSegments":{},"ortho":true,"startArrow":0,"startArrowRotation":"auto","strokeColor":"#000000","strokeWidth":1},"type":"Line"},"height":207,"hidden":false,"id":4,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":4,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.line","width":179,"x":487.22,"y":59},{"children":null,"graphic":{"Text":{"calculatedHeight":0,"calculatedWidth":0,"hposition":"none","html":"\u003cp style=\"text-align: left;\"\u003e\u003cspan style=\"font-family: Arial; font-size: 35px;\"\u003e\u003cspan style=\"\"\u003e\u003cspan style=\"color: #000000; font-size: 35px; line-height: 16.5px;\"\u003eleft aligned hand-drawn\u003c/span\u003e\u003cbr\u003e\u003c/span\u003e\u003c/span\u003e\u003c/p\u003e","outerPaddingBottom":0,"outerPaddingLeft":0,"outerPaddingRight":0,"outerPaddingTop":0,"overflow":"none","paddingBottom":0,"paddingLeft":0,"paddingRight":0,"paddingTop":0,"tid":null,"valign":"top","vposition":"none"},"type":"Text"},"height":45,"hidden":false,"id":5,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":5,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.text","width":487.5599853515625,"x":2.2200000000000273,"y":0},{"children":null,"graphic":{"Text":{"calculatedHeight":0,"calculatedWidth":0,"hposition":"none","html":"\u003cp style=\"text-align: center;\"\u003e\u003cspan style=\"font-family: Arial; font-size: 39px;\"\u003e\u003cspan style=\"\"\u003e\u003cspan style=\"color: #000000; font-size: 39px; line-height: 16.5px;\"\u003ecenter aligned normal\u003c/span\u003e\u003cbr\u003e\u003c/span\u003e\u003c/span\u003e\u003c/p\u003e","outerPaddingBottom":0,"outerPaddingLeft":0,"outerPaddingRight":0,"outerPaddingTop":0,"overflow":"none","paddingBottom":0,"paddingLeft":0,"paddingRight":0,"paddingTop":0,"tid":null,"valign":"top","vposition":"none"},"type":"Text"},"height":39,"hidden":false,"id":6,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":6,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.text","width":444.24001464843747,"x":0.11999389648440228,"y":67},{"children":null,"graphic":{"Text":{"calculatedHeight":0,"calculatedWidth":0,"hposition":"none","html":"\u003cp style=\"text-align: right;\"\u003e\u003cspan style=\"font-family: Courier; font-size: 25px;\"\u003e\u003cspan style=\"\"\u003e\u003cspan style=\"color: #000000; font-size: 25px; line-height: 16.5px;\"\u003eright aligned code\u003cbr\u003ewith\u003cbr\u003elinebreaks\u003c/span\u003e\u003cbr\u003e\u003c/span\u003e\u003c/span\u003e\u003c/p\u003e","outerPaddingBottom":0,"outerPaddingLeft":0,"outerPaddingRight":0,"outerPaddingTop":0,"overflow":"none","paddingBottom":0,"paddingLeft":0,"paddingRight":0,"paddingTop":0,"tid":null,"valign":"top","vposition":"none"},"type":"Text"},"height":90,"hidden":false,"id":7,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":7,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.text","width":313.2,"x":0,"y":128.5},{"children":null,"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"none","gradient":true,"opacity":1,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#000000","strokeWidth":1,"tid":"com.gliffy.stencil.diamond.basic_v1"},"type":"Shape"},"height":142,"hidden":false,"id":8,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":8,"rotation":2.5733594631768173,"uid":"com.gliffy.shape.flowchart.flowchart_v1.default.decision","width":146,"x":146.2199999999999,"y":460.9999999999999},{"children":null,"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"none","gradient":true,"opacity":1,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#000000","strokeWidth":1,"tid":"com.gliffy.stencil.rectangle.basic_v1"},"type":"Shape"},"height":129,"hidden":false,"id":9,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":9,"rotation":7.314175428315577,"uid":"com.gliffy.shape.basic.basic_v1.default.rectangle","width":186,"x":247.22000000000003,"y":204.5},{"children":null,"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"#fa5252","gradient":true,"opacity":1,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#087f5b","strokeWidth":1,"tid":"com.gliffy.stencil.ellipse.basic_v1"},"type":"Shape"},"height":204.00000000000003,"hidden":false,"id":10,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":10,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.ellipse","width":151,"x":507.72,"y":389},{"children":null,"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"#7950f2","gradient":true,"opacity":1,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#495057","strokeWidth":4,"tid":"com.gliffy.stencil.ellipse.basic_v1"},"type":"Shape"},"height":204.00000000000003,"hidden":false,"id":11,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":11,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.ellipse","width":151,"x":570.72,"y":429},{"children":null,"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"#40c057","gradient":false,"opacity":1,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#862e9c","strokeWidth":4,"tid":"com.gliffy.stencil.ellipse.basic_v1"},"type":"Shape"},"height":204.00000000000003,"hidden":false,"id":12,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":12,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.ellipse","width":151,"x":641.72,"y":466},{"children":null,"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"#40c057","gradient":false,"opacity":0.5,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#862e9c","strokeWidth":4,"tid":"com.gliffy.stencil.ellipse.basic_v1"},"type":"Shape"},"height":204.00000000000003,"hidden":false,"id":13,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":13,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.ellipse","width":151,"x":702.72,"y":500},{"children":[{"children":null,"graphic":{"Text":{"calculatedHeight":0,"calculatedWidth":0,"hposition":"none","html":"\u003cp style=\"text-align: left;\"\u003e\u003cspan style=\"font-family: Arial; font-size: 20px;\"\u003e\u003cspan style=\"\"\u003e\u003cspan style=\"color: #1e1e1e; font-size: 20px; line-height: 16.5px;\"\u003etext-align: left\u003c/span\u003e\u003cbr\u003e\u003c/span\u003e\u003c/span\u003e\u003c/p\u003e","outerPaddingBottom":0,"outerPaddingLeft":0,"outerPaddingRight":0,"outerPaddingTop":0,"overflow":"none","paddingBottom":0,"paddingLeft":0,"paddingRight":0,"paddingTop":0,"tid":null,"valign":"middle","vposition":"none"},"type":"Text"},"height":46,"hidden":false,"id":15,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":15,"rotation":0,"uid":"","width":285,"x":2,"y":0}],"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"none","gradient":true,"opacity":1,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#1e1e1e","strokeWidth":1,"tid":"com.gliffy.stencil.rectangle.basic_v1"},"type":"Shape"},"height":50,"hidden":false,"id":14,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":14,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.rectangle","width":289,"x":806.5265895902194,"y":24.5},{"children":[{"children":null,"graphic":{"Text":{"calculatedHeight":0,"calculatedWidth":0,"hposition":"none","html":"\u003cp style=\"text-align: center;\"\u003e\u003cspan style=\"font-family: Arial; font-size: 20px;\"\u003e\u003cspan style=\"\"\u003e\u003cspan style=\"color: #1e1e1e; font-size: 20px; line-height: 16.5px;\"\u003etext-align: center\u003c/span\u003e\u003cbr\u003e\u003c/span\u003e\u003c/span\u003e\u003c/p\u003e","outerPaddingBottom":0,"outerPaddingLeft":0,"outerPaddingRight":0,"outerPaddingTop":0,"overflow":"none","paddingBottom":0,"paddingLeft":0,"paddingRight":0,"paddingTop":0,"tid":null,"valign":"middle","vposition":"none"},"type":"Text"},"height":46,"hidden":false,"id":17,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":17,"rotation":0,"uid":"","width":285,"x":2,"y":0}],"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"none","gradient":true,"opacity":1,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#1e1e1e","strokeWidth":1,"tid":"com.gliffy.stencil.rectangle.basic_v1"},"type":"Shape"},"height":50,"hidden":false,"id":16,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":16,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.rectangle","width":289,"x":806.0265895902194,"y":88.5},{"children":[{"children":null,"graphic":{"Text":{"calculatedHeight":0,"calculatedWidth":0,"hposition":"none","html":"\u003cp style=\"text-align: right;\"\u003e\u003cspan style=\"font-family: Arial; font-size: 20px;\"\u003e\u003cspan style=\"\"\u003e\u003cspan style=\"color: #1e1e1e; font-size: 20px; line-height: 16.5px;\"\u003etext-align: right\u003c/span\u003e\u003cbr\u003e\u003c/span\u003e\u003c/span\u003e\u003c/p\u003e","outerPaddingBottom":0,"outerPaddingLeft":0,"outerPaddingRight":0,"outerPaddingTop":0,"overflow":"none","paddingBottom":0,"paddingLeft":0,"paddingRight":0,"paddingTop":0,"tid":null,"valign":"middle","vposition":"none"},"type":"Text"},"height":46,"hidden":false,"id":19,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":19,"rotation":0,"uid":"","width":285,"x":2,"y":0}],"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"none","gradient":true,"opacity":1,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#1e1e1e","strokeWidth":1,"tid":"com.gliffy.stencil.rectangle.basic_v1"},"type":"Shape"},"height":50,"hidden":false,"id":18,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":18,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.rectangle","width":289,"x":805.6600030517577,"y":154.5},{"children":[{"children":null,"graphic":{"Text":{"calculatedHeight":0,"calculatedWidth":0,"hposition":"none","html":"\u003cp style=\"text-align: center;\"\u003e\u003cspan style=\"font-family: Arial; font-size: 20px;\"\u003e\u003cspan style=\"\"\u003e\u003cspan style=\"color: #1e1e1e; font-size: 20px; line-height: 16.5px;\"\u003ev-align: top\u003c/span\u003e\u003cbr\u003e\u003c/span\u003e\u003c/span\u003e\u003c/p\u003e","outerPaddingBottom":0,"outerPaddingLeft":0,"outerPaddingRight":0,"outerPaddingTop":0,"overflow":"none","paddingBottom":0,"paddingLeft":0,"paddingRight":0,"paddingTop":0,"tid":null,"valign":"top","vposition":"none"},"type":"Text"},"height":107.83894277676801,"hidden":false,"id":21,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":21,"rotation":0,"uid":"","width":285.0168264712029,"x":2,"y":0}],"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"none","gradient":true,"opacity":1,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#1e1e1e","strokeWidth":1,"tid":"com.gliffy.stencil.rectangle.basic_v1"},"type":"Shape"},"height":111.83894277676801,"hidden":false,"id":20,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":20,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.rectangle","width":289.0168264712029,"x":1131.9313642211048,"y":26.661057223232007},{"children":[{"children":null,"graphic":{"Text":{"calculatedHeight":0,"calculatedWidth":0,"hposition":"none","html":"\u003cp style=\"text-align: center;\"\u003e\u003cspan style=\"font-family: Arial; font-size: 20px;\"\u003e\u003cspan style=\"\"\u003e\u003cspan style=\"color: #1e1e1e; font-size: 20px; line-height: 16.5px;\"\u003ev-align: middle\u003c/span\u003e\u003cbr\u003e\u003c/span\u003e\u003c/span\u003e\u003c/p\u003e","outerPaddingBottom":0,"outerPaddingLeft":0,"outerPaddingRight":0,"outerPaddingTop":0,"overflow":"none","paddingBottom":0,"paddingLeft":0,"paddingRight":0,"paddingTop":0,"tid":null,"valign":"middle","vposition":"none"},"type":"Text"},"height":107.83894277676801,"hidden":false,"id":23,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":23,"rotation":0,"uid":"","width":285.0168264712029,"x":2,"y":0}],"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"none","gradient":true,"opacity":1,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#1e1e1e","strokeWidth":1,"tid":"com.gliffy.stencil.rectangle.basic_v1"},"type":"Shape"},"height":111.83894277676801,"hidden":false,"id":22,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":22,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.rectangle","width":289.0168264712029,"x":1131.9313642547336,"y":154.91254383484807},{"children":[{"children":null,"graphic":{"Text":{"calculatedHeight":0,"calculatedWidth":0,"hposition":"none","html":"\u003cp style=\"text-align: center;\"\u003e\u003cspan style=\"font-family: Arial; font-size: 20px;\"\u003e\u003cspan style=\"\"\u003e\u003cspan style=\"color: #1e1e1e; font-size: 20px; line-height: 16.5px;\"\u003ev-align: bottom\u003c/span\u003e\u003cbr\u003e\u003c/span\u003e\u003c/span\u003e\u003c/p\u003e","outerPaddingBottom":0,"outerPaddingLeft":0,"outerPaddingRight":0,"outerPaddingTop":0,"overflow":"none","paddingBottom":0,"paddingLeft":0,"paddingRight":0,"paddingTop":0,"tid":null,"valign":"bottom","vposition":"none"},"type":"Text"},"height":107.83894277676801,"hidden":false,"id":25,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":25,"rotation":0,"uid":"","width":285.0168264712029,"x":2,"y":0}],"graphic":{"Shape":{"dashStyle":"","dropShadow":false,"fillColor":"none","gradient":true,"opacity":1,"shadowX":0,"shadowY":0,"state":0,"strokeColor":"#1e1e1e","strokeWidth":1,"tid":"com.gliffy.stencil.rectangle.basic_v1"},"type":"Shape"},"height":111.83894277676801,"hidden":false,"id":24,"layerId":"dR5PnMr9lIuu","linkMap":null,"lockAspectRatio":false,"lockShape":false,"order":24,"rotation":0,"uid":"com.gliffy.shape.basic.basic_v1.default.rectangle","width":289.0168264712029,"x":1131.9313641778103,"y":288.8955216810017}],"printModel":{"displayPageBreaks":false,"fitToOnePage":false,"pageSize":"Letter","portrait":true},"shapeStyles":{},"snapToGrid":true,"themeData":null,"viewportType":"default","width":1024},"version":"1.3"}
+{
+  "contentType": "application/gliffy+json",
+  "embeddedResources": {
+    "index": 0,
+    "resources": []
+  },
+  "metadata": {
+    "autosaveDisabled": false,
+    "editorVersion": null,
+    "exportBorder": false,
+    "lastSerialized": 1700503534336,
+    "libraries": [
+      "com.gliffy.libraries.basic.basic_v1.default",
+      "com.gliffy.libraries.flowchart.flowchart_v1.default"
+    ],
+    "loadPosition": "default",
+    "revision": 0,
+    "title": "Import"
+  },
+  "stage": {
+    "autoFit": false,
+    "background": "#ffffff",
+    "drawingGuidesOn": true,
+    "exportBorder": false,
+    "gridOn": true,
+    "height": 1024,
+    "imageCache": {},
+    "layers": [
+      {
+        "active": true,
+        "guid": "dR5PnMr9lIuu",
+        "locked": false,
+        "name": "Layer 0",
+        "nodeIndex": 11,
+        "order": 0,
+        "visible": true
+      }
+    ],
+    "maxHeight": 5000,
+    "maxWidth": 5000,
+    "nodeIndex": 0,
+    "objects": [
+      {
+        "children": null,
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "none",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.round_rectangle.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 129,
+        "hidden": false,
+        "id": 0,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 0,
+        "rotation": 355.17923392190727,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.round_rectangle",
+        "width": 186,
+        "x": 297.22,
+        "y": 162.5
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "none",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.ellipse.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 204.00000000000003,
+        "hidden": false,
+        "id": 1,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 1,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.ellipse",
+        "width": 151,
+        "x": 327.22,
+        "y": 371
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "none",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.diamond.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 142,
+        "hidden": false,
+        "id": 2,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 2,
+        "rotation": 2.5733594631768173,
+        "uid": "com.gliffy.shape.flowchart.flowchart_v1.default.decision",
+        "width": 146,
+        "x": 139.22000000000003,
+        "y": 409
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Line": {
+            "controlPath": [
+              [
+                0,
+                0
+              ],
+              [
+                -317,
+                252
+              ]
+            ],
+            "cornerRadius": 10,
+            "dashStyle": "",
+            "endArrow": 0,
+            "endArrowRotation": "auto",
+            "fillColor": "none",
+            "hopType": null,
+            "interpolationType": "linear",
+            "lockSegments": {},
+            "ortho": true,
+            "startArrow": 0,
+            "startArrowRotation": "auto",
+            "strokeColor": "#000000",
+            "strokeWidth": 1
+          },
+          "type": "Line"
+        },
+        "height": 252,
+        "hidden": false,
+        "id": 3,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 3,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.line",
+        "width": 317,
+        "x": 645.22,
+        "y": 94
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Line": {
+            "controlPath": [
+              [
+                0,
+                0
+              ],
+              [
+                179,
+                207
+              ]
+            ],
+            "cornerRadius": 10,
+            "dashStyle": "",
+            "endArrow": 1,
+            "endArrowRotation": "auto",
+            "fillColor": "none",
+            "hopType": null,
+            "interpolationType": "linear",
+            "lockSegments": {},
+            "ortho": true,
+            "startArrow": 0,
+            "startArrowRotation": "auto",
+            "strokeColor": "#000000",
+            "strokeWidth": 1
+          },
+          "type": "Line"
+        },
+        "height": 207,
+        "hidden": false,
+        "id": 4,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 4,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.line",
+        "width": 179,
+        "x": 487.22,
+        "y": 59
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Text": {
+            "calculatedHeight": 0,
+            "calculatedWidth": 0,
+            "hposition": "none",
+            "html": "<p style=\"text-align: left;\"><span style=\"font-family: Arial; font-size: 35px;\"><span style=\"\"><span style=\"color: #000000; font-size: 35px; line-height: 16.5px;\">left aligned hand-drawn</span><br></span></span></p>",
+            "outerPaddingBottom": 0,
+            "outerPaddingLeft": 0,
+            "outerPaddingRight": 0,
+            "outerPaddingTop": 0,
+            "overflow": "none",
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "paddingRight": 0,
+            "paddingTop": 0,
+            "tid": null,
+            "valign": "top",
+            "vposition": "none"
+          },
+          "type": "Text"
+        },
+        "height": 45,
+        "hidden": false,
+        "id": 5,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 5,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.text",
+        "width": 487.5599853515625,
+        "x": 2.2200000000000273,
+        "y": 0
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Text": {
+            "calculatedHeight": 0,
+            "calculatedWidth": 0,
+            "hposition": "none",
+            "html": "<p style=\"text-align: center;\"><span style=\"font-family: Arial; font-size: 39px;\"><span style=\"\"><span style=\"color: #000000; font-size: 39px; line-height: 16.5px;\">center aligned normal</span><br></span></span></p>",
+            "outerPaddingBottom": 0,
+            "outerPaddingLeft": 0,
+            "outerPaddingRight": 0,
+            "outerPaddingTop": 0,
+            "overflow": "none",
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "paddingRight": 0,
+            "paddingTop": 0,
+            "tid": null,
+            "valign": "top",
+            "vposition": "none"
+          },
+          "type": "Text"
+        },
+        "height": 39,
+        "hidden": false,
+        "id": 6,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 6,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.text",
+        "width": 444.24001464843747,
+        "x": 0.11999389648440228,
+        "y": 67
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Text": {
+            "calculatedHeight": 0,
+            "calculatedWidth": 0,
+            "hposition": "none",
+            "html": "<p style=\"text-align: right;\"><span style=\"font-family: Courier; font-size: 25px;\"><span style=\"\"><span style=\"color: #000000; font-size: 25px; line-height: 16.5px;\">right aligned code<br>with<br>linebreaks</span><br></span></span></p>",
+            "outerPaddingBottom": 0,
+            "outerPaddingLeft": 0,
+            "outerPaddingRight": 0,
+            "outerPaddingTop": 0,
+            "overflow": "none",
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "paddingRight": 0,
+            "paddingTop": 0,
+            "tid": null,
+            "valign": "top",
+            "vposition": "none"
+          },
+          "type": "Text"
+        },
+        "height": 90,
+        "hidden": false,
+        "id": 7,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 7,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.text",
+        "width": 313.2,
+        "x": 0,
+        "y": 128.5
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "none",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.diamond.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 142,
+        "hidden": false,
+        "id": 8,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 8,
+        "rotation": 2.5733594631768173,
+        "uid": "com.gliffy.shape.flowchart.flowchart_v1.default.decision",
+        "width": 146,
+        "x": 146.2199999999999,
+        "y": 460.9999999999999
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "none",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.rectangle.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 129,
+        "hidden": false,
+        "id": 9,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 9,
+        "rotation": 7.314175428315577,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.rectangle",
+        "width": 186,
+        "x": 247.22000000000003,
+        "y": 204.5
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "#fa5252",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#087f5b",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.ellipse.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 204.00000000000003,
+        "hidden": false,
+        "id": 10,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 10,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.ellipse",
+        "width": 151,
+        "x": 507.72,
+        "y": 389
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "#7950f2",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#495057",
+            "strokeWidth": 4,
+            "tid": "com.gliffy.stencil.ellipse.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 204.00000000000003,
+        "hidden": false,
+        "id": 11,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 11,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.ellipse",
+        "width": 151,
+        "x": 570.72,
+        "y": 429
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "#40c057",
+            "gradient": false,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#862e9c",
+            "strokeWidth": 4,
+            "tid": "com.gliffy.stencil.ellipse.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 204.00000000000003,
+        "hidden": false,
+        "id": 12,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 12,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.ellipse",
+        "width": 151,
+        "x": 641.72,
+        "y": 466
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "#40c057",
+            "gradient": false,
+            "opacity": 0.5,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#862e9c",
+            "strokeWidth": 4,
+            "tid": "com.gliffy.stencil.ellipse.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 204.00000000000003,
+        "hidden": false,
+        "id": 13,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 13,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.ellipse",
+        "width": 151,
+        "x": 702.72,
+        "y": 500
+      },
+      {
+        "children": [
+          {
+            "children": null,
+            "graphic": {
+              "Text": {
+                "calculatedHeight": 0,
+                "calculatedWidth": 0,
+                "hposition": "none",
+                "html": "<p style=\"text-align: left;\"><span style=\"font-family: Arial; font-size: 20px;\"><span style=\"\"><span style=\"color: #1e1e1e; font-size: 20px; line-height: 16.5px;\">text-align: left</span><br></span></span></p>",
+                "outerPaddingBottom": 0,
+                "outerPaddingLeft": 0,
+                "outerPaddingRight": 0,
+                "outerPaddingTop": 0,
+                "overflow": "none",
+                "paddingBottom": 0,
+                "paddingLeft": 0,
+                "paddingRight": 0,
+                "paddingTop": 0,
+                "tid": null,
+                "valign": "middle",
+                "vposition": "none"
+              },
+              "type": "Text"
+            },
+            "height": 46,
+            "hidden": false,
+            "id": 15,
+            "layerId": "dR5PnMr9lIuu",
+            "linkMap": null,
+            "lockAspectRatio": false,
+            "lockShape": false,
+            "order": 15,
+            "rotation": 0,
+            "uid": "",
+            "width": 285,
+            "x": 2,
+            "y": 0
+          }
+        ],
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "none",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#1e1e1e",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.rectangle.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 50,
+        "hidden": false,
+        "id": 14,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 14,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.rectangle",
+        "width": 289,
+        "x": 806.5265895902194,
+        "y": 24.5
+      },
+      {
+        "children": [
+          {
+            "children": null,
+            "graphic": {
+              "Text": {
+                "calculatedHeight": 0,
+                "calculatedWidth": 0,
+                "hposition": "none",
+                "html": "<p style=\"text-align: center;\"><span style=\"font-family: Arial; font-size: 20px;\"><span style=\"\"><span style=\"color: #1e1e1e; font-size: 20px; line-height: 16.5px;\">text-align: center</span><br></span></span></p>",
+                "outerPaddingBottom": 0,
+                "outerPaddingLeft": 0,
+                "outerPaddingRight": 0,
+                "outerPaddingTop": 0,
+                "overflow": "none",
+                "paddingBottom": 0,
+                "paddingLeft": 0,
+                "paddingRight": 0,
+                "paddingTop": 0,
+                "tid": null,
+                "valign": "middle",
+                "vposition": "none"
+              },
+              "type": "Text"
+            },
+            "height": 46,
+            "hidden": false,
+            "id": 17,
+            "layerId": "dR5PnMr9lIuu",
+            "linkMap": null,
+            "lockAspectRatio": false,
+            "lockShape": false,
+            "order": 17,
+            "rotation": 0,
+            "uid": "",
+            "width": 285,
+            "x": 2,
+            "y": 0
+          }
+        ],
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "none",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#1e1e1e",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.rectangle.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 50,
+        "hidden": false,
+        "id": 16,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 16,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.rectangle",
+        "width": 289,
+        "x": 806.0265895902194,
+        "y": 88.5
+      },
+      {
+        "children": [
+          {
+            "children": null,
+            "graphic": {
+              "Text": {
+                "calculatedHeight": 0,
+                "calculatedWidth": 0,
+                "hposition": "none",
+                "html": "<p style=\"text-align: right;\"><span style=\"font-family: Arial; font-size: 20px;\"><span style=\"\"><span style=\"color: #1e1e1e; font-size: 20px; line-height: 16.5px;\">text-align: right</span><br></span></span></p>",
+                "outerPaddingBottom": 0,
+                "outerPaddingLeft": 0,
+                "outerPaddingRight": 0,
+                "outerPaddingTop": 0,
+                "overflow": "none",
+                "paddingBottom": 0,
+                "paddingLeft": 0,
+                "paddingRight": 0,
+                "paddingTop": 0,
+                "tid": null,
+                "valign": "middle",
+                "vposition": "none"
+              },
+              "type": "Text"
+            },
+            "height": 46,
+            "hidden": false,
+            "id": 19,
+            "layerId": "dR5PnMr9lIuu",
+            "linkMap": null,
+            "lockAspectRatio": false,
+            "lockShape": false,
+            "order": 19,
+            "rotation": 0,
+            "uid": "",
+            "width": 285,
+            "x": 2,
+            "y": 0
+          }
+        ],
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "none",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#1e1e1e",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.rectangle.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 50,
+        "hidden": false,
+        "id": 18,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 18,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.rectangle",
+        "width": 289,
+        "x": 805.6600030517577,
+        "y": 154.5
+      },
+      {
+        "children": [
+          {
+            "children": null,
+            "graphic": {
+              "Text": {
+                "calculatedHeight": 0,
+                "calculatedWidth": 0,
+                "hposition": "none",
+                "html": "<p style=\"text-align: center;\"><span style=\"font-family: Arial; font-size: 20px;\"><span style=\"\"><span style=\"color: #1e1e1e; font-size: 20px; line-height: 16.5px;\">v-align: top</span><br></span></span></p>",
+                "outerPaddingBottom": 0,
+                "outerPaddingLeft": 0,
+                "outerPaddingRight": 0,
+                "outerPaddingTop": 0,
+                "overflow": "none",
+                "paddingBottom": 0,
+                "paddingLeft": 0,
+                "paddingRight": 0,
+                "paddingTop": 0,
+                "tid": null,
+                "valign": "top",
+                "vposition": "none"
+              },
+              "type": "Text"
+            },
+            "height": 107.83894277676801,
+            "hidden": false,
+            "id": 21,
+            "layerId": "dR5PnMr9lIuu",
+            "linkMap": null,
+            "lockAspectRatio": false,
+            "lockShape": false,
+            "order": 21,
+            "rotation": 0,
+            "uid": "",
+            "width": 285.0168264712029,
+            "x": 2,
+            "y": 0
+          }
+        ],
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "none",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#1e1e1e",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.rectangle.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 111.83894277676801,
+        "hidden": false,
+        "id": 20,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 20,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.rectangle",
+        "width": 289.0168264712029,
+        "x": 1131.9313642211048,
+        "y": 26.661057223232007
+      },
+      {
+        "children": [
+          {
+            "children": null,
+            "graphic": {
+              "Text": {
+                "calculatedHeight": 0,
+                "calculatedWidth": 0,
+                "hposition": "none",
+                "html": "<p style=\"text-align: center;\"><span style=\"font-family: Arial; font-size: 20px;\"><span style=\"\"><span style=\"color: #1e1e1e; font-size: 20px; line-height: 16.5px;\">v-align: middle</span><br></span></span></p>",
+                "outerPaddingBottom": 0,
+                "outerPaddingLeft": 0,
+                "outerPaddingRight": 0,
+                "outerPaddingTop": 0,
+                "overflow": "none",
+                "paddingBottom": 0,
+                "paddingLeft": 0,
+                "paddingRight": 0,
+                "paddingTop": 0,
+                "tid": null,
+                "valign": "middle",
+                "vposition": "none"
+              },
+              "type": "Text"
+            },
+            "height": 107.83894277676801,
+            "hidden": false,
+            "id": 23,
+            "layerId": "dR5PnMr9lIuu",
+            "linkMap": null,
+            "lockAspectRatio": false,
+            "lockShape": false,
+            "order": 23,
+            "rotation": 0,
+            "uid": "",
+            "width": 285.0168264712029,
+            "x": 2,
+            "y": 0
+          }
+        ],
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "none",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#1e1e1e",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.rectangle.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 111.83894277676801,
+        "hidden": false,
+        "id": 22,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 22,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.rectangle",
+        "width": 289.0168264712029,
+        "x": 1131.9313642547336,
+        "y": 154.91254383484807
+      },
+      {
+        "children": [
+          {
+            "children": null,
+            "graphic": {
+              "Text": {
+                "calculatedHeight": 0,
+                "calculatedWidth": 0,
+                "hposition": "none",
+                "html": "<p style=\"text-align: center;\"><span style=\"font-family: Arial; font-size: 20px;\"><span style=\"\"><span style=\"color: #1e1e1e; font-size: 20px; line-height: 16.5px;\">v-align: bottom</span><br></span></span></p>",
+                "outerPaddingBottom": 0,
+                "outerPaddingLeft": 0,
+                "outerPaddingRight": 0,
+                "outerPaddingTop": 0,
+                "overflow": "none",
+                "paddingBottom": 0,
+                "paddingLeft": 0,
+                "paddingRight": 0,
+                "paddingTop": 0,
+                "tid": null,
+                "valign": "bottom",
+                "vposition": "none"
+              },
+              "type": "Text"
+            },
+            "height": 107.83894277676801,
+            "hidden": false,
+            "id": 25,
+            "layerId": "dR5PnMr9lIuu",
+            "linkMap": null,
+            "lockAspectRatio": false,
+            "lockShape": false,
+            "order": 25,
+            "rotation": 0,
+            "uid": "",
+            "width": 285.0168264712029,
+            "x": 2,
+            "y": 0
+          }
+        ],
+        "graphic": {
+          "Shape": {
+            "dashStyle": "",
+            "dropShadow": false,
+            "fillColor": "none",
+            "gradient": true,
+            "opacity": 1,
+            "shadowX": 0,
+            "shadowY": 0,
+            "state": 0,
+            "strokeColor": "#1e1e1e",
+            "strokeWidth": 1,
+            "tid": "com.gliffy.stencil.rectangle.basic_v1"
+          },
+          "type": "Shape"
+        },
+        "height": 111.83894277676801,
+        "hidden": false,
+        "id": 24,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 24,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.rectangle",
+        "width": 289.0168264712029,
+        "x": 1131.9313641778103,
+        "y": 288.8955216810017
+      }
+    ],
+    "printModel": {
+      "displayPageBreaks": false,
+      "fitToOnePage": false,
+      "pageSize": "Letter",
+      "portrait": true
+    },
+    "shapeStyles": {},
+    "snapToGrid": true,
+    "themeData": null,
+    "viewportType": "default",
+    "width": 1024
+  },
+  "version": "1.3"
+}

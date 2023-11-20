@@ -128,7 +128,7 @@ All fixed shapes and most styling and text options are supported.
 * Font family (Normal and Code)
 * Font size
 * Font color
-* Horizontal alignment
+* Horizontal and vertical alignment
 * Text contained in shapes
 
 ### Styling
