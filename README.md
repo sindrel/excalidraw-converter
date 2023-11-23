@@ -123,7 +123,7 @@ All fixed shapes and most styling and text options are supported.
 * Ellipse
 * Arrow
 * Line
-* Images
+* Image
 
 ### Text
 * Font family (Normal and Code)
