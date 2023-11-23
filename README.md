@@ -123,6 +123,7 @@ All fixed shapes and most styling and text options are supported.
 * Ellipse
 * Arrow
 * Line
+* Images
 
 ### Text
 * Font family (Normal and Code)
@@ -139,7 +140,7 @@ All fixed shapes and most styling and text options are supported.
 * Stroke width
 * Opacity
 
-Free hand drawings and library graphics are currently not supported.
+Free hand drawings are currently not supported. Library graphics are not fully supported (experimental).
 
 ## Compatibility with draw.io
 Converted Gliffy diagrams should also work in [draw.io](https://draw.io).
