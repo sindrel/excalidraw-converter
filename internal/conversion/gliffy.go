@@ -123,6 +123,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []data
 		var shape datastr.GliffyShape
 		var text datastr.GliffyText
 		var line datastr.GliffyLine
+		var image datastr.GliffyImage
 
 		object.X = element.X - xOffset
 		object.Y = element.Y - yOffset
@@ -217,10 +218,28 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []data
 				line.CornerRadius = 10
 				line.Ortho = true
 				line.ControlPath = element.Points
-				line.StartArrow = ArrowheadConvExGliffy(element.StartArrowhead)
-				line.EndArrow = ArrowheadConvExGliffy(element.EndArrowhead)
+				line.StartArrow = ArrowheadConvExcGliffy(element.StartArrowhead)
+				line.EndArrow = ArrowheadConvExcGliffy(element.EndArrowhead)
 
 				object.Graphic.Line = &line
+			}
+		}
+
+		for _, id := range graphics.Image.Excalidraw {
+			if element.Type == id {
+				object.UID = graphics.Image.Gliffy[0]
+				object.Graphic.Type = "Image"
+
+				dataUrl, err := EmbeddedImgConvExcGliffy(input, element.FileId)
+				if err != nil {
+					return nil, nil, err
+				}
+
+				image.Url = dataUrl
+				image.StrokeColor = FillColorConvExcGliffy(element.StrokeColor)
+				image.StrokeWidth = int64(math.Round(element.StrokeWidth))
+
+				object.Graphic.Image = &image
 			}
 		}
 
@@ -288,7 +307,7 @@ func FillColorConvExcGliffy(color string) string {
 	return color
 }
 
-func ArrowheadConvExGliffy(head string) int {
+func ArrowheadConvExcGliffy(head string) int {
 	arrowHead := 0
 
 	switch head {
@@ -299,6 +318,15 @@ func ArrowheadConvExGliffy(head string) int {
 	}
 
 	return arrowHead
+}
+
+func EmbeddedImgConvExcGliffy(input datastr.ExcalidrawScene, fileId string) (string, error) {
+	file, ok := input.Files[fileId]
+	if !ok {
+		return "", fmt.Errorf("unable to find embedded file with id %s", fileId)
+	}
+
+	return file.DataUrl, nil
 }
 
 func OrderGliffyObjectsByPriority(objects []datastr.GliffyObject, prioritized []string) []datastr.GliffyObject {
