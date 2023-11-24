@@ -40,7 +40,7 @@ Example:
 			exportPath = strings.TrimSuffix(path.Base(importPath), filepath.Ext(importPath)) + ".gliffy"
 		}
 
-		err := conv.ConvertExcalidrawToGliffy(importPath, exportPath)
+		err := conv.ConvertExcalidrawToGliffyFile(importPath, exportPath)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Unable to convert Excalidraw diagram to Gliffy diagram: %s\n", err)
 			os.Exit(1)
