@@ -33,7 +33,7 @@ func ConvertExcalidrawToGliffyFile(importPath string, exportPath string) error {
 
 	err = internal.WriteToFile(exportPath, string(output))
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Saving diagram failed. %s", err)
+		fmt.Fprintf(os.Stderr, "Saving diagram failed. %s\n", err)
 		os.Exit(1)
 	}
 
