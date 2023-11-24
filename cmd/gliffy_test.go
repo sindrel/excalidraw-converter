@@ -16,7 +16,7 @@ func TestConvertExcalidrawToGliffy(t *testing.T) {
 	outputDataPath := "../test/data/test_output.gliffy.tmp"
 	expectedDataPath := "../test/data/test_output.gliffy"
 
-	err := conv.ConvertExcalidrawToGliffy(inputDataPath, outputDataPath)
+	err := conv.ConvertExcalidrawToGliffyFile(inputDataPath, outputDataPath)
 	assert.Nil(t, err)
 
 	outputData, err := os.ReadFile(outputDataPath)

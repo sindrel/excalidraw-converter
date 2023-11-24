@@ -16,22 +16,41 @@ import (
 var xOffset float64
 var yOffset float64
 
-func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
+func ConvertExcalidrawToGliffyFile(importPath string, exportPath string) error {
 	fmt.Printf("Parsing input file: %s\n", importPath)
-
-	timestamp := time.Now().UnixNano() / int64(time.Millisecond)
 
 	data, err := os.ReadFile(importPath)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to read file: %s\n", err)
+		fmt.Fprintf(os.Stderr, "File reading failed. %s\n", err)
 		os.Exit(1)
 	}
 
-	var input datastr.ExcalidrawScene
-	err = json.Unmarshal(data, &input)
+	output, err := ConvertExcalidrawToGliffy(string(data))
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to parse input: %s\n", err)
+		fmt.Fprintf(os.Stderr, "File parsing failed. %s\n", err)
 		os.Exit(1)
+	}
+
+	err = internal.WriteToFile(exportPath, string(output))
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Saving diagram failed. %s", err)
+		os.Exit(1)
+	}
+
+	fmt.Printf("Converted diagram saved to file: %s\n", exportPath)
+
+	return nil
+}
+
+func ConvertExcalidrawToGliffy(data string) (string, error) {
+	fmt.Printf("Converting to Gliffy format...\n")
+
+	timestamp := time.Now().UnixNano() / int64(time.Millisecond)
+
+	var input datastr.ExcalidrawScene
+	err := json.Unmarshal([]byte(data), &input)
+	if err != nil {
+		return "", errors.New("Unable to parse input: " + err.Error())
 	}
 
 	xOffset, yOffset = GetXYOffset(input)
@@ -93,19 +112,10 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 
 	outputJson, err := json.Marshal(output)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error occured during JSON marshaling: %s", err)
-		os.Exit(1)
+		return "", errors.New("Error occurred during JSON marshaling + " + err.Error())
 	}
 
-	err = internal.WriteToFile(exportPath, string(outputJson))
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to write diagram to file: %s", err)
-		os.Exit(1)
-	}
-
-	fmt.Printf("Converted diagram saved to file: %s\n", exportPath)
-
-	return nil
+	return string(outputJson), nil
 }
 
 func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []datastr.GliffyObject, objectIDs map[string]int) ([]datastr.GliffyObject, map[string]int, error) {
