@@ -26,3 +26,7 @@ type GraphicTypes struct {
 		Gliffy     []string `json:"gliffy"`
 	} `json:"image"`
 }
+
+type GitHubRelease struct {
+	TagName string `json:"tag_name"`
+}
