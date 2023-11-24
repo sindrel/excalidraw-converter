@@ -22,5 +22,7 @@ jobs:
 
       - name: Install dependencies
         run: go mod download
-      - name: Test with the Go CLI
+      - name: Run tests
         run: go test -v ./...
+      - name: Test build and run commands
+        run: go build -v -o testbin && ./testbin && ./testbin gliffy -i test/data/test_input.excalidraw -o /tmp/test_output.gliffy
