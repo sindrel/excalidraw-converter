@@ -61,14 +61,12 @@ func ConvertExcalidrawToGliffy(data string) (string, error) {
 
 	objects, objectIDs, err = AddElements(false, input, objects, objectIDs)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to add element(s): %s\n", err)
-		os.Exit(1)
+		return "", errors.New("Unable to add element(s): " + err.Error())
 	}
 
 	objects, _, err = AddElements(true, input, objects, objectIDs)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to add element(s) with parent(s): %s\n", err)
-		os.Exit(1)
+		return "", errors.New("Unable to add element(s) with parent(s): " + err.Error())
 	}
 
 	priorityGraphics := []string{
