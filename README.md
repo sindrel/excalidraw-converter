@@ -167,7 +167,7 @@ go mod download
 
 ### Run tests
 ```shell
-go test -v ./cmd
+go test -v ./...
 ```
 
 ### Compile and run
