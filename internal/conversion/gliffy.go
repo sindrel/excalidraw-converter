@@ -133,12 +133,9 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 		var shape datastr.GliffyShape
 		var text datastr.GliffyText
 		var line datastr.GliffyLine
-<<<<<<< HEAD
+		var image datastr.GliffyImage
 		var svg datastr.GliffySvg
 		var embedded datastr.GliffyEmbeddedResource
-=======
-		var image datastr.GliffyImage
->>>>>>> master
 
 		object.X = element.X - xOffset
 		object.Y = element.Y - yOffset
@@ -285,7 +282,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 
 				dataUrl, err := EmbeddedImgConvExcGliffy(input, element.FileId)
 				if err != nil {
-					return nil, nil, err
+					return nil, scene, nil, err
 				}
 
 				image.Url = dataUrl
@@ -373,7 +370,15 @@ func ArrowheadConvExcGliffy(head string) int {
 	return arrowHead
 }
 
-<<<<<<< HEAD
+func EmbeddedImgConvExcGliffy(input datastr.ExcalidrawScene, fileId string) (string, error) {
+	file, ok := input.Files[fileId]
+	if !ok {
+		return "", fmt.Errorf("unable to find embedded file with id %s", fileId)
+	}
+
+	return file.DataUrl, nil
+}
+
 func FreedrawStrokeWidthConvExGliffy(strokeWidth float64) float64 {
 	switch strokeWidth {
 	case 1:
@@ -385,15 +390,6 @@ func FreedrawStrokeWidthConvExGliffy(strokeWidth float64) float64 {
 	}
 
 	return strokeWidth
-=======
-func EmbeddedImgConvExcGliffy(input datastr.ExcalidrawScene, fileId string) (string, error) {
-	file, ok := input.Files[fileId]
-	if !ok {
-		return "", fmt.Errorf("unable to find embedded file with id %s", fileId)
-	}
-
-	return file.DataUrl, nil
->>>>>>> master
 }
 
 func OrderGliffyObjectsByPriority(objects []datastr.GliffyObject, prioritized []string) []datastr.GliffyObject {
