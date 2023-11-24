@@ -8,12 +8,12 @@ import (
 
 var (
 	version        = "v0.0.1"
-	gitHubRepoUser = "sindrel"
-	gitHubRepoName = "excalidraw-converter"
+	githubRepoUser = "sindrel"
+	githubRepoName = "excalidraw-converter"
 )
 
 func TestCheckIfLatestVersion(t *testing.T) {
-	isLatest, _, err := CheckIfLatestVersion(gitHubRepoUser, gitHubRepoName, version)
+	isLatest, _, err := CheckIfLatestVersion(githubRepoUser, githubRepoName, version)
 
 	assert.Nil(t, err)
 	assert.Equal(t, isLatest, false)

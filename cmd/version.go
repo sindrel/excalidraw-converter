@@ -3,6 +3,7 @@ package cmd
 import (
 	internal "diagram-converter/internal"
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -10,8 +11,8 @@ import (
 var (
 	version        = "dev"
 	commit         = "nnnnnnn"
-	gitHubRepoUser = "sindrel"
-	gitHubRepoName = "excalidraw-converter"
+	githubRepoUser = "sindrel"
+	githubRepoName = "excalidraw-converter"
 	noVersionCheck bool
 )
 
@@ -23,7 +24,11 @@ var versionCmd = &cobra.Command{
 		fmt.Printf("v%s (%s)\n", version, string(commit[0:7]))
 
 		if !noVersionCheck {
-			internal.PrintVersionCheck(gitHubRepoUser, gitHubRepoName, version)
+			err := internal.PrintVersionCheck(githubRepoUser, githubRepoName, version)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Unable to check for latest version: %s\n", err)
+				os.Exit(1)
+			}
 		}
 	},
 }

@@ -3,6 +3,7 @@ package internal
 import (
 	datastr "diagram-converter/internal/datastructures"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"math"
@@ -36,6 +37,10 @@ func CheckIfLatestVersion(user, repo, version string) (bool, string, error) {
 		return false, "", err
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != 200 {
+		return false, "", errors.New("could not fetch releases")
+	}
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
