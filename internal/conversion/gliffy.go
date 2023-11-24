@@ -211,8 +211,12 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 					svgFill = element.BackgroundColor
 				}
 
-				var svgPath = ConvertPointsToSvgPath(AddPointsOffset(element.Points), element.Width, element.Height, svg.StrokeColor, svgFill, svg.StrokeWidth)
+				xMin, yMin := GetPointsOffset(element.Points)
+				var svgPath = ConvertPointsToSvgPath(element.Points, element.Width, element.Height, svg.StrokeColor, svgFill, svg.StrokeWidth)
 				svg.Svg = svgPath
+
+				object.X = object.X + xMin
+				object.Y = object.Y + yMin
 
 				embedded.ID = embeddedResourceId
 				embedded.MimeType = "image/svg+xml"
@@ -261,7 +265,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 				line.DashStyle = StrokeStyleConvExcGliffy(element.StrokeStyle)
 				line.StrokeColor = element.StrokeColor
 				line.StrokeWidth = int64(math.Round(element.StrokeWidth))
-				line.FillColor = "none"
+				line.FillColor = FillColorConvExcGliffy(element.BackgroundColor)
 				line.StartArrowRotation = "auto"
 				line.EndArrowRotation = "auto"
 				line.InterpolationType = "linear"
@@ -437,10 +441,9 @@ func GetXYOffset(input datastr.ExcalidrawScene) (float64, float64) {
 	return xMin, yMin
 }
 
-func AddPointsOffset(points [][]float64) [][]float64 {
+func GetPointsOffset(points [][]float64) (float64, float64) {
 	var xMin float64 = 0
 	var yMin float64 = 0
-	var output [][]float64
 
 	fmt.Println(points)
 
@@ -454,16 +457,9 @@ func AddPointsOffset(points [][]float64) [][]float64 {
 		}
 	}
 
-	for _, point := range points {
-		x := point[0] + math.Abs(xMin)
-		y := point[1] + math.Abs(yMin)
-
-		output = append(output, []float64{x, y})
-	}
-
 	fmt.Printf("  Offset X: %f, Offset Y: %f\n", xMin, yMin)
 
-	return output
+	return xMin, yMin
 }
 
 // TODO: Simplify this interface
