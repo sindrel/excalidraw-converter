@@ -11,12 +11,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestConvertExcalidrawToGliffy(t *testing.T) {
+func TestConvertExcalidrawToGliffyFile(t *testing.T) {
 	inputDataPath := "../test/data/test_input.excalidraw"
 	outputDataPath := "../test/data/test_output.gliffy.tmp"
 	expectedDataPath := "../test/data/test_output.gliffy"
 
-	err := conv.ConvertExcalidrawToGliffy(inputDataPath, outputDataPath)
+	err := conv.ConvertExcalidrawToGliffyFile(inputDataPath, outputDataPath)
 	assert.Nil(t, err)
 
 	outputData, err := os.ReadFile(outputDataPath)

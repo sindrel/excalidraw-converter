@@ -21,8 +21,16 @@ type GraphicTypes struct {
 		Excalidraw []string `json:"excalidraw"`
 		Gliffy     []string `json:"gliffy"`
 	} `json:"diamond"`
+	Image struct {
+		Excalidraw []string `json:"excalidraw"`
+		Gliffy     []string `json:"gliffy"`
+	} `json:"image"`
 	Freedraw struct {
 		Excalidraw []string `json:"excalidraw"`
 		Gliffy     []string `json:"gliffy"`
 	} `json:"freedraw"`
+}
+
+type GitHubRelease struct {
+	TagName string `json:"tag_name"`
 }

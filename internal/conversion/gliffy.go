@@ -16,22 +16,41 @@ import (
 var xOffset float64
 var yOffset float64
 
-func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
+func ConvertExcalidrawToGliffyFile(importPath string, exportPath string) error {
 	fmt.Printf("Parsing input file: %s\n", importPath)
-
-	timestamp := time.Now().UnixNano() / int64(time.Millisecond)
 
 	data, err := os.ReadFile(importPath)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to read file: %s\n", err)
+		fmt.Fprintf(os.Stderr, "File reading failed. %s\n", err)
 		os.Exit(1)
 	}
 
-	var input datastr.ExcalidrawScene
-	err = json.Unmarshal(data, &input)
+	output, err := ConvertExcalidrawToGliffy(string(data))
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to parse input: %s\n", err)
+		fmt.Fprintf(os.Stderr, "File parsing failed. %s\n", err)
 		os.Exit(1)
+	}
+
+	err = internal.WriteToFile(exportPath, string(output))
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Saving diagram failed. %s\n", err)
+		os.Exit(1)
+	}
+
+	fmt.Printf("Converted diagram saved to file: %s\n", exportPath)
+
+	return nil
+}
+
+func ConvertExcalidrawToGliffy(data string) (string, error) {
+	fmt.Printf("Converting to Gliffy format...\n")
+
+	timestamp := time.Now().UnixNano() / int64(time.Millisecond)
+
+	var input datastr.ExcalidrawScene
+	err := json.Unmarshal([]byte(data), &input)
+	if err != nil {
+		return "", errors.New("Unable to parse input: " + err.Error())
 	}
 
 	xOffset, yOffset = GetXYOffset(input)
@@ -45,14 +64,12 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 
 	objects, output, objectIDs, err = AddElements(false, input, output, objects, objectIDs)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to add element(s): %s\n", err)
-		os.Exit(1)
+		return "", errors.New("Unable to add element(s): " + err.Error())
 	}
 
 	objects, output, _, err = AddElements(true, input, output, objects, objectIDs)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to add element(s) with parent(s): %s\n", err)
-		os.Exit(1)
+		return "", errors.New("Unable to add element(s) with parent(s): " + err.Error())
 	}
 
 	priorityGraphics := []string{
@@ -95,19 +112,10 @@ func ConvertExcalidrawToGliffy(importPath string, exportPath string) error {
 
 	outputJson, err := json.Marshal(output)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error occured during JSON marshaling: %s", err)
-		os.Exit(1)
+		return "", errors.New("Error occurred during JSON marshaling + " + err.Error())
 	}
 
-	err = internal.WriteToFile(exportPath, string(outputJson))
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to write diagram to file: %s", err)
-		os.Exit(1)
-	}
-
-	fmt.Printf("Converted diagram saved to file: %s\n", exportPath)
-
-	return nil
+	return string(outputJson), nil
 }
 
 func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.GliffyScene, objects []datastr.GliffyObject, objectIDs map[string]int) ([]datastr.GliffyObject, datastr.GliffyScene, map[string]int, error) {
@@ -125,8 +133,12 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 		var shape datastr.GliffyShape
 		var text datastr.GliffyText
 		var line datastr.GliffyLine
+<<<<<<< HEAD
 		var svg datastr.GliffySvg
 		var embedded datastr.GliffyEmbeddedResource
+=======
+		var image datastr.GliffyImage
+>>>>>>> master
 
 		object.X = element.X - xOffset
 		object.Y = element.Y - yOffset
@@ -235,7 +247,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 				element.Text = strings.ReplaceAll(element.Text, "\n", "<br>")
 
 				text.HTML = "<p style=\"text-align: " + element.TextAlign + ";\"><span style=\"font-family: " + fontFamily + "; font-size: " + fontSize + "px;\"><span style=\"\"><span style=\"color: " + fontColor + "; font-size: " + fontSize + "px; line-height: 16.5px;\">" + element.Text + "</span><br></span></span></p>"
-				text.Valign = "middle"
+				text.Valign = element.VerticalAlign
 				text.Overflow = "none"
 				text.Vposition = "none"
 				text.Hposition = "none"
@@ -259,10 +271,28 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 				line.CornerRadius = 10
 				line.Ortho = true
 				line.ControlPath = element.Points
-				line.StartArrow = ArrowheadConvExGliffy(element.StartArrowhead)
-				line.EndArrow = ArrowheadConvExGliffy(element.EndArrowhead)
+				line.StartArrow = ArrowheadConvExcGliffy(element.StartArrowhead)
+				line.EndArrow = ArrowheadConvExcGliffy(element.EndArrowhead)
 
 				object.Graphic.Line = &line
+			}
+		}
+
+		for _, id := range graphics.Image.Excalidraw {
+			if element.Type == id {
+				object.UID = graphics.Image.Gliffy[0]
+				object.Graphic.Type = "Image"
+
+				dataUrl, err := EmbeddedImgConvExcGliffy(input, element.FileId)
+				if err != nil {
+					return nil, nil, err
+				}
+
+				image.Url = dataUrl
+				image.StrokeColor = FillColorConvExcGliffy(element.StrokeColor)
+				image.StrokeWidth = int64(math.Round(element.StrokeWidth))
+
+				object.Graphic.Image = &image
 			}
 		}
 
@@ -330,7 +360,7 @@ func FillColorConvExcGliffy(color string) string {
 	return color
 }
 
-func ArrowheadConvExGliffy(head string) int {
+func ArrowheadConvExcGliffy(head string) int {
 	arrowHead := 0
 
 	switch head {
@@ -343,6 +373,7 @@ func ArrowheadConvExGliffy(head string) int {
 	return arrowHead
 }
 
+<<<<<<< HEAD
 func FreedrawStrokeWidthConvExGliffy(strokeWidth float64) float64 {
 	switch strokeWidth {
 	case 1:
@@ -354,6 +385,15 @@ func FreedrawStrokeWidthConvExGliffy(strokeWidth float64) float64 {
 	}
 
 	return strokeWidth
+=======
+func EmbeddedImgConvExcGliffy(input datastr.ExcalidrawScene, fileId string) (string, error) {
+	file, ok := input.Files[fileId]
+	if !ok {
+		return "", fmt.Errorf("unable to find embedded file with id %s", fileId)
+	}
+
+	return file.DataUrl, nil
+>>>>>>> master
 }
 
 func OrderGliffyObjectsByPriority(objects []datastr.GliffyObject, prioritized []string) []datastr.GliffyObject {

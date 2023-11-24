@@ -44,6 +44,13 @@ func MapGraphics() datastr.GraphicTypes {
 		"arrow",
 	}
 
+	graphics.Image.Gliffy = []string{
+		"com.gliffy.shape.basic.basic_v1.default.image",
+	}
+	graphics.Image.Excalidraw = []string{
+		"image",
+	}
+
 	graphics.Freedraw.Gliffy = []string{
 		"com.gliffy.shape.basic.basic_v1.default.svg",
 	}

@@ -18,6 +18,7 @@ type ExcalidrawScene struct {
 		GroupIds        []interface{} `json:"groupIds"`
 		Height          float64       `json:"height"`
 		ID              string        `json:"id"`
+		FileId          string        `json:"fileId"`
 		IsDeleted       bool          `json:"isDeleted"`
 		Opacity         float64       `json:"opacity"`
 		Points          [][]float64   `json:"points"`
@@ -41,6 +42,9 @@ type ExcalidrawScene struct {
 		X               float64 `json:"x"`
 		Y               float64 `json:"y"`
 	} `json:"elements"`
+	Files map[string]struct {
+		DataUrl string `json:"dataUrl"`
+	} `json:"files"`
 	Source  string `json:"source"`
 	Type    string `json:"type"`
 	Version int64  `json:"version"`
