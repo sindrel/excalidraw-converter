@@ -201,7 +201,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 
 				svg.EmbeddedResourceID = embeddedResourceId
 				svg.StrokeColor = element.StrokeColor
-				svg.StrokeWidth = int64(FreedrawStrokeWidthConvExGliffy(element.StrokeWidth))
+				svg.StrokeWidth = int64(FreedrawStrokeWidthConvExcGliffy(element.StrokeWidth))
 				svg.DropShadow = false
 				svg.ShadowX = 0
 				svg.ShadowY = 0
@@ -383,7 +383,7 @@ func EmbeddedImgConvExcGliffy(input datastr.ExcalidrawScene, fileId string) (str
 	return file.DataUrl, nil
 }
 
-func FreedrawStrokeWidthConvExGliffy(strokeWidth float64) float64 {
+func FreedrawStrokeWidthConvExcGliffy(strokeWidth float64) float64 {
 	switch strokeWidth {
 	case 1:
 		strokeWidth = 2
@@ -466,7 +466,6 @@ func AddPointsOffset(points [][]float64) (float64, float64, [][]float64) {
 	return xMin, yMin, output
 }
 
-// TODO: Simplify this interface
 func ConvertPointsToSvgPath(points [][]float64, width float64, height float64, stroke string, fill string, strokeWidth int64) string {
 	var path string
 
