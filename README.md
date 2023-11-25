@@ -124,7 +124,7 @@ All fixed shapes and most styling and text options are supported.
 * Arrow
 * Line
 * Image
-* Free drawing
+* Free drawing (pencil tool)
 
 ### Text
 * Font family (Normal and Code)
