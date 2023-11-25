@@ -24,7 +24,7 @@ var versionCmd = &cobra.Command{
 		fmt.Printf("v%s (%s)\n", version, string(commit[0:7]))
 
 		if !noVersionCheck {
-			err := internal.PrintVersionCheck(githubRepoUser, githubRepoName, version)
+			err := internal.PrintVersionCheck(githubRepoUser, githubRepoName, "v"+version)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Unable to check for latest version: %s\n", err)
 				os.Exit(1)
