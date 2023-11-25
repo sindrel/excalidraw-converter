@@ -123,14 +123,14 @@ All fixed shapes and most styling and text options are supported.
 * Ellipse
 * Arrow
 * Line
-* Image
-* Free drawing (pencil tool)
+* Image :sparkles:
+* Free drawing (pencil tool) :sparkles:
 
 ### Text
 * Font family (Normal and Code)
 * Font size
 * Font color
-* Horizontal and vertical alignment
+* Horizontal and vertical alignment :sparkles:
 * Text contained in shapes
 
 ### Styling
