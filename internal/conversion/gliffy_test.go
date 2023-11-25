@@ -26,11 +26,13 @@ func TestAddPointsOffset(t *testing.T) {
 		{123, 16}, {155, 18}, {157, 12}, {109, 8}, {103, 6}, {88, 3}, {74, 0}, {50, 0}, {14, 4}, {3, 9}, {0, 11},
 	}
 
-	result := AddPointsOffset(points)
+	xMin, yMin, result := AddPointsOffset(points)
 	fmt.Println(result)
 
 	svg := ConvertPointsToSvgPath(result, 297, 415, "none", "none", 2)
 	fmt.Println(svg)
 
 	assert.Equal(t, expected, result)
+	assert.Equal(t, float64(-123), xMin)
+	assert.Equal(t, float64(-16), yMin)
 }

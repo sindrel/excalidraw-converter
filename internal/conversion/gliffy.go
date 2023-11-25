@@ -196,23 +196,23 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 
 				var embeddedResourceId = len(scene.EmbeddedResources.Resources) + 1
 
-				element.Width = element.Width + 10
-				element.Height = element.Height + 10
+				element.Width = element.Width + 8
+				element.Height = element.Height + 8
 
 				svg.EmbeddedResourceID = embeddedResourceId
 				svg.StrokeColor = element.StrokeColor
 				svg.StrokeWidth = int64(FreedrawStrokeWidthConvExGliffy(element.StrokeWidth))
-				svg.DropShadow = true
-				svg.ShadowX = 5
-				svg.ShadowY = 5
+				svg.DropShadow = false
+				svg.ShadowX = 0
+				svg.ShadowY = 0
 
 				var svgFill = "none"
 				if element.BackgroundColor != "transparent" {
 					svgFill = element.BackgroundColor
 				}
 
-				xMin, yMin := GetPointsOffset(element.Points)
-				var svgPath = ConvertPointsToSvgPath(element.Points, element.Width, element.Height, svg.StrokeColor, svgFill, svg.StrokeWidth)
+				xMin, yMin, points := AddPointsOffset(element.Points)
+				var svgPath = ConvertPointsToSvgPath(points, element.Width, element.Height, svg.StrokeColor, svgFill, svg.StrokeWidth)
 				svg.Svg = svgPath
 
 				// Debug
@@ -226,8 +226,8 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 				embedded.Data = svgPath
 				embedded.X = 1
 				embedded.Y = 1
-				embedded.Width = element.Width - 2
-				embedded.Height = element.Height - 2
+				embedded.Width = element.Width
+				embedded.Height = element.Height
 				scene.EmbeddedResources.Resources = append(scene.EmbeddedResources.Resources, embedded)
 
 				object.Graphic.Svg = &svg
@@ -389,7 +389,7 @@ func EmbeddedImgConvExcGliffy(input datastr.ExcalidrawScene, fileId string) (str
 func FreedrawStrokeWidthConvExGliffy(strokeWidth float64) float64 {
 	switch strokeWidth {
 	case 1:
-		strokeWidth = 1
+		strokeWidth = 2
 	case 2:
 		strokeWidth = 2
 	case 4:
@@ -444,11 +444,10 @@ func GetXYOffset(input datastr.ExcalidrawScene) (float64, float64) {
 	return xMin, yMin
 }
 
-func GetPointsOffset(points [][]float64) (float64, float64) {
+func AddPointsOffset(points [][]float64) (float64, float64, [][]float64) {
 	var xMin float64 = 0
 	var yMin float64 = 0
-
-	// fmt.Println(points)
+	var output [][]float64
 
 	for _, point := range points {
 		if point[0] < xMin {
@@ -460,9 +459,16 @@ func GetPointsOffset(points [][]float64) (float64, float64) {
 		}
 	}
 
+	for _, point := range points {
+		x := point[0] + math.Abs(xMin)
+		y := point[1] + math.Abs(yMin)
+
+		output = append(output, []float64{x, y})
+	}
+
 	fmt.Printf("  Points Offset X: %f, Offset Y: %f\n", xMin, yMin)
 
-	return xMin, yMin
+	return xMin, yMin, output
 }
 
 // TODO: Simplify this interface
@@ -470,8 +476,8 @@ func ConvertPointsToSvgPath(points [][]float64, width float64, height float64, s
 	var path string
 
 	for i, point := range points {
-		var pointX = point[0] + 5
-		var pointY = point[1] + 5
+		var pointX = point[0] + 3
+		var pointY = point[1] + 3
 
 		if i == 0 {
 			path = fmt.Sprintf("M%.1f %.1f", pointX, pointY)
