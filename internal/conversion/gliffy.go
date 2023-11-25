@@ -215,9 +215,6 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 				var svgPath = ConvertPointsToSvgPath(points, element.Width, element.Height, svg.StrokeColor, svgFill, svg.StrokeWidth)
 				svg.Svg = svgPath
 
-				// Debug
-				fmt.Printf("%s\n", svgPath)
-
 				object.X = object.X + xMin
 				object.Y = object.Y + yMin
 
@@ -465,8 +462,6 @@ func AddPointsOffset(points [][]float64) (float64, float64, [][]float64) {
 
 		output = append(output, []float64{x, y})
 	}
-
-	fmt.Printf("  Points Offset X: %f, Offset Y: %f\n", xMin, yMin)
 
 	return xMin, yMin, output
 }
