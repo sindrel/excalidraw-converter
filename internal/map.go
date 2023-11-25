@@ -51,5 +51,12 @@ func MapGraphics() datastr.GraphicTypes {
 		"image",
 	}
 
+	graphics.Freedraw.Gliffy = []string{
+		"com.gliffy.shape.basic.basic_v1.default.svg",
+	}
+	graphics.Freedraw.Excalidraw = []string{
+		"freedraw",
+	}
+
 	return graphics
 }

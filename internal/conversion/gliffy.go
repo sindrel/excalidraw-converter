@@ -57,14 +57,17 @@ func ConvertExcalidrawToGliffy(data string) (string, error) {
 
 	var output datastr.GliffyScene
 	var objects []datastr.GliffyObject
+
+	output.EmbeddedResources.Resources = []datastr.GliffyEmbeddedResource{}
+
 	objectIDs := map[string]int{}
 
-	objects, objectIDs, err = AddElements(false, input, objects, objectIDs)
+	objects, output, objectIDs, err = AddElements(false, input, output, objects, objectIDs)
 	if err != nil {
 		return "", errors.New("Unable to add element(s): " + err.Error())
 	}
 
-	objects, _, err = AddElements(true, input, objects, objectIDs)
+	objects, output, _, err = AddElements(true, input, output, objects, objectIDs)
 	if err != nil {
 		return "", errors.New("Unable to add element(s) with parent(s): " + err.Error())
 	}
@@ -84,7 +87,6 @@ func ConvertExcalidrawToGliffy(data string) (string, error) {
 	layer.Visible = true
 
 	output.ContentType = "application/gliffy+json"
-	output.EmbeddedResources.Resources = []string{}
 	output.Version = "1.3"
 	output.Metadata.LastSerialized = timestamp
 	output.Metadata.Libraries = []string{
@@ -116,7 +118,7 @@ func ConvertExcalidrawToGliffy(data string) (string, error) {
 	return string(outputJson), nil
 }
 
-func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []datastr.GliffyObject, objectIDs map[string]int) ([]datastr.GliffyObject, map[string]int, error) {
+func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.GliffyScene, objects []datastr.GliffyObject, objectIDs map[string]int) ([]datastr.GliffyObject, datastr.GliffyScene, map[string]int, error) {
 	graphics := internal.MapGraphics()
 
 	for i, element := range input.Elements {
@@ -132,6 +134,8 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []data
 		var text datastr.GliffyText
 		var line datastr.GliffyLine
 		var image datastr.GliffyImage
+		var svg datastr.GliffySvg
+		var embedded datastr.GliffyEmbeddedResource
 
 		object.X = element.X - xOffset
 		object.Y = element.Y - yOffset
@@ -185,6 +189,48 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []data
 			object.Graphic.Shape = &shape
 		}
 
+		for _, id := range graphics.Freedraw.Excalidraw {
+			if element.Type == id {
+				object.UID = graphics.Freedraw.Gliffy[0]
+				object.Graphic.Type = "Svg"
+
+				var embeddedResourceId = len(scene.EmbeddedResources.Resources) + 1
+
+				element.Width = element.Width + 8
+				element.Height = element.Height + 8
+
+				svg.EmbeddedResourceID = embeddedResourceId
+				svg.StrokeColor = element.StrokeColor
+				svg.StrokeWidth = int64(FreedrawStrokeWidthConvExcGliffy(element.StrokeWidth))
+				svg.DropShadow = false
+				svg.ShadowX = 0
+				svg.ShadowY = 0
+
+				var svgFill = "none"
+				if element.BackgroundColor != "transparent" {
+					svgFill = element.BackgroundColor
+				}
+
+				xMin, yMin, points := AddPointsOffset(element.Points)
+				var svgPath = ConvertPointsToSvgPath(points, element.Width, element.Height, svg.StrokeColor, svgFill, svg.StrokeWidth)
+				svg.Svg = svgPath
+
+				object.X = object.X + xMin
+				object.Y = object.Y + yMin
+
+				embedded.ID = embeddedResourceId
+				embedded.MimeType = "image/svg+xml"
+				embedded.Data = svgPath
+				embedded.X = 1
+				embedded.Y = 1
+				embedded.Width = element.Width
+				embedded.Height = element.Height
+				scene.EmbeddedResources.Resources = append(scene.EmbeddedResources.Resources, embedded)
+
+				object.Graphic.Svg = &svg
+			}
+		}
+
 		for _, id := range graphics.Text.Excalidraw {
 			if element.Type == id {
 				object.UID = graphics.Text.Gliffy[0]
@@ -219,7 +265,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []data
 				line.DashStyle = StrokeStyleConvExcGliffy(element.StrokeStyle)
 				line.StrokeColor = element.StrokeColor
 				line.StrokeWidth = int64(math.Round(element.StrokeWidth))
-				line.FillColor = "none"
+				line.FillColor = FillColorConvExcGliffy(element.BackgroundColor)
 				line.StartArrowRotation = "auto"
 				line.EndArrowRotation = "auto"
 				line.InterpolationType = "linear"
@@ -240,7 +286,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []data
 
 				dataUrl, err := EmbeddedImgConvExcGliffy(input, element.FileId)
 				if err != nil {
-					return nil, nil, err
+					return nil, scene, nil, err
 				}
 
 				image.Url = dataUrl
@@ -269,7 +315,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []data
 			}
 
 			if parent == 999999 {
-				return nil, nil, errors.New("unable to find object parent")
+				return nil, scene, nil, errors.New("unable to find object parent")
 			}
 
 			object.X = 2
@@ -290,7 +336,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, objects []data
 		objects = append(objects, object)
 	}
 
-	return objects, objectIDs, nil
+	return objects, scene, objectIDs, nil
 }
 
 func StrokeStyleConvExcGliffy(style string) string {
@@ -337,6 +383,19 @@ func EmbeddedImgConvExcGliffy(input datastr.ExcalidrawScene, fileId string) (str
 	return file.DataUrl, nil
 }
 
+func FreedrawStrokeWidthConvExcGliffy(strokeWidth float64) float64 {
+	switch strokeWidth {
+	case 1:
+		strokeWidth = 2
+	case 2:
+		strokeWidth = 2
+	case 4:
+		strokeWidth = 6
+	}
+
+	return strokeWidth
+}
+
 func OrderGliffyObjectsByPriority(objects []datastr.GliffyObject, prioritized []string) []datastr.GliffyObject {
 	prioritySlot := len(objects)
 
@@ -377,7 +436,51 @@ func GetXYOffset(input datastr.ExcalidrawScene) (float64, float64) {
 		}
 	}
 
-	fmt.Printf("  Offset X: %f, Offset Y: %f\n", xMin, yMin)
+	fmt.Printf("  Canvas Offset X: %f, Offset Y: %f\n", xMin, yMin)
 
 	return xMin, yMin
+}
+
+func AddPointsOffset(points [][]float64) (float64, float64, [][]float64) {
+	var xMin float64 = 0
+	var yMin float64 = 0
+	var output [][]float64
+
+	for _, point := range points {
+		if point[0] < xMin {
+			xMin = point[0]
+		}
+
+		if point[1] < yMin {
+			yMin = point[1]
+		}
+	}
+
+	for _, point := range points {
+		x := point[0] + math.Abs(xMin)
+		y := point[1] + math.Abs(yMin)
+
+		output = append(output, []float64{x, y})
+	}
+
+	return xMin, yMin, output
+}
+
+func ConvertPointsToSvgPath(points [][]float64, width float64, height float64, stroke string, fill string, strokeWidth int64) string {
+	var path string
+
+	for i, point := range points {
+		var pointX = point[0] + 3
+		var pointY = point[1] + 3
+
+		if i == 0 {
+			path = fmt.Sprintf("M%.1f %.1f", pointX, pointY)
+		} else {
+			path = fmt.Sprintf("%sL%.1f %.1f", path, pointX, pointY)
+		}
+	}
+
+	svg := fmt.Sprintf("<svg width=\"%.0f\" height=\"%.0f\" viewBox=\"0 0 %.0f %.0f\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path fill=\"%s\" stroke=\"%s\" stroke-width=\"%d\"  stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"%s\"></path>\n</svg>", width, height, width, height, fill, stroke, strokeWidth, path)
+
+	return svg
 }

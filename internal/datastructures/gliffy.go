@@ -3,8 +3,8 @@ package internal
 type GliffyScene struct {
 	ContentType       string `json:"contentType"`
 	EmbeddedResources struct {
-		Index     int64    `json:"index"`
-		Resources []string `json:"resources"`
+		Index     int64                    `json:"index"`
+		Resources []GliffyEmbeddedResource `json:"resources"`
 	} `json:"embeddedResources"`
 	Metadata struct {
 		AutosaveDisabled bool        `json:"autosaveDisabled"`
@@ -51,6 +51,7 @@ type GliffyObject struct {
 		Text  *GliffyText  `json:",omitempty"`
 		Line  *GliffyLine  `json:",omitempty"`
 		Image *GliffyImage `json:",omitempty"`
+		Svg   *GliffySvg   `json:",omitempty"`
 		Type  string       `json:"type"`
 	} `json:"graphic"`
 	Height          float64  `json:"height"`
@@ -127,6 +128,16 @@ type GliffyImage struct {
 	ShadowY     int64  `json:"shadowY"`
 }
 
+type GliffySvg struct {
+	EmbeddedResourceID int    `json:"embeddedResourceId"`
+	StrokeWidth        int64  `json:"strokeWidth"`
+	StrokeColor        string `json:"strokeColor"`
+	DropShadow         bool   `json:"dropShadow"`
+	Svg                string `json:"svg"`
+	ShadowX            int    `json:"shadowX"`
+	ShadowY            int    `json:"shadowY"`
+}
+
 type GliffyLayer struct {
 	Active    bool   `json:"active"`
 	GUID      string `json:"guid"`
@@ -135,4 +146,14 @@ type GliffyLayer struct {
 	NodeIndex int64  `json:"nodeIndex"`
 	Order     int64  `json:"order"`
 	Visible   bool   `json:"visible"`
+}
+
+type GliffyEmbeddedResource struct {
+	ID       int     `json:"id"`
+	MimeType string  `json:"mimeType"`
+	Data     string  `json:"data"`
+	X        float64 `json:"x"`
+	Y        float64 `json:"y"`
+	Width    float64 `json:"width"`
+	Height   float64 `json:"height"`
 }
