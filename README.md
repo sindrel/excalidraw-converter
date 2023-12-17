@@ -149,7 +149,7 @@ Converted Gliffy diagrams should also work in [draw.io](https://draw.io).
 In draw.io, you can import a diagram by simply opening the file from your device. If you're using draw.io for Confluence, you should be able use [the import dialog](https://drawio-app.com/blog/draw-io-for-confluence-now-with-gliffy-import/).
 
 ## Contributing
-See something you'd like to improve? Feel free to add a pull request. If it's a major change, it's probably best to describe it in an [issue](https://github.com/sindrel/excalidraw-converter/issues/new) first.
+See something you'd like to improve? Great! See the [contributing guidelines](CONTRIBUTING.md) for instructions.
 
 ## Attributions  
 * <a href="https://www.flaticon.com/free-icons/workflow" title="workflow icons">Workflow icons created by Freepik - Flaticon</a>
@@ -173,7 +173,7 @@ go test -v ./...
 
 ### Compile and run
 ```shell
-go run ./cmd/main.go <command> <input> <output>
+go run ./cmd/main.go <command> <arguments>
 ```
 
 </details>
