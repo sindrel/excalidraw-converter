@@ -445,6 +445,9 @@ func GetXYOffset(input datastr.ExcalidrawScene) (float64, float64) {
 		}
 	}
 
+	xMin -= 10
+	yMin -= 10
+
 	fmt.Printf("  Canvas Offset X: %f, Offset Y: %f\n", xMin, yMin)
 
 	return xMin, yMin
