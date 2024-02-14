@@ -129,6 +129,22 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 			continue
 		}
 
+		var hasParent bool = false
+		var parent int = 999999
+		if len(element.ContainerId) > 0 {
+			for obj_k, obj := range objects {
+				if obj.ID == objectIDs[element.ContainerId] {
+					parent = obj_k
+				}
+			}
+
+			if parent == 999999 {
+				return nil, scene, nil, errors.New("unable to find object parent")
+			}
+
+			hasParent = true
+		}
+
 		var object datastr.GliffyObject
 		var shape datastr.GliffyShape
 		var text datastr.GliffyText
@@ -253,6 +269,10 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 				text.Vposition = "none"
 				text.Hposition = "none"
 
+				if hasParent && objects[parent].Graphic.Line != nil {
+					text.Overflow = "both"
+				}
+
 				object.Graphic.Text = &text
 			}
 		}
@@ -306,18 +326,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 
 		fmt.Printf("  Adding object: %s (%s,%d,%d)\n", object.UID, element.ID, object.ID, object.Order)
 
-		if len(element.ContainerId) > 0 {
-			var parent int = 999999
-			for obj_k, obj := range objects {
-				if obj.ID == objectIDs[element.ContainerId] {
-					parent = obj_k
-				}
-			}
-
-			if parent == 999999 {
-				return nil, scene, nil, errors.New("unable to find object parent")
-			}
-
+		if hasParent {
 			object.X = 2
 			object.Y = 0
 			object.Rotation = 0
