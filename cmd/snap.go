@@ -32,13 +32,13 @@ Example:
 			os.Exit(1)
 		}
 
-		gridSizeFloat, err := strconv.ParseFloat(gridSize, 64)
+		gridSizeInt, err := strconv.ParseInt(gridSize, 10, 64)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Unable to parse grid size: %s\n", err)
 			os.Exit(1)
 		}
 
-		err = snap.SnapExcalidrawDiagramToGridAndSaveToFile(importPath, exportPath, gridSizeFloat)
+		err = snap.SnapExcalidrawDiagramToGridAndSaveToFile(importPath, exportPath, gridSizeInt)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Unable to snap Excalidraw diagram to grid: %s\n", err)
 			os.Exit(1)

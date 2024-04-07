@@ -10,7 +10,7 @@ import (
 	"os"
 )
 
-func SnapExcalidrawDiagramToGridAndSaveToFile(importPath string, exportPath string, gridSize float64) error {
+func SnapExcalidrawDiagramToGridAndSaveToFile(importPath string, exportPath string, gridSize int64) error {
 	fmt.Printf("Parsing input file: %s\n", importPath)
 
 	data, err := os.ReadFile(importPath)
@@ -36,8 +36,9 @@ func SnapExcalidrawDiagramToGridAndSaveToFile(importPath string, exportPath stri
 	return nil
 }
 
-func SnapExcalidrawDiagramToGrid(data string, gridSize float64) (string, error) {
+func SnapExcalidrawDiagramToGrid(data string, gridSize int64) (string, error) {
 	fmt.Printf("Aligning diagram elements to grid...\n")
+	fmt.Printf("Grid size is: %d\n", gridSize)
 
 	var input datastr.ExcalidrawScene
 	err := json.Unmarshal([]byte(data), &input)
@@ -45,21 +46,21 @@ func SnapExcalidrawDiagramToGrid(data string, gridSize float64) (string, error) 
 		return "", errors.New("Unable to parse input: " + err.Error())
 	}
 
-	if gridSize == 0 {
-		gridSize = float64(20)
-	}
+	gridSizeFloat := float64(gridSize)
 
 	output := input
 
 	sizeOffsets := make(map[string]datastr.ElementSizeOffset)
 	positionOffsets := make(map[string]datastr.ElementPositionOffset)
 
+	output.AppState.GridSize = gridSize
+
 	for i := range input.Elements {
 		if input.Elements[i].ContainerId != "" {
 			continue
 		}
 
-		newWidth, newHeight := GetSnappedElementSize(input.Elements[i].Width, input.Elements[i].Height, gridSize)
+		newWidth, newHeight := GetSnappedElementSize(input.Elements[i].Width, input.Elements[i].Height, gridSizeFloat)
 		sizeDiffWidth := newWidth - input.Elements[i].Width
 		sizeDiffHeight := newHeight - input.Elements[i].Height
 
@@ -70,7 +71,7 @@ func SnapExcalidrawDiagramToGrid(data string, gridSize float64) (string, error) 
 			}
 		}
 
-		newX, newY := GetSnappedGridPosition(input.Elements[i].X, input.Elements[i].Y, gridSize)
+		newX, newY := GetSnappedGridPosition(input.Elements[i].X, input.Elements[i].Y, gridSizeFloat)
 		positionDiffX := newX - input.Elements[i].X
 		positionDiffY := newY - input.Elements[i].Y
 
@@ -98,9 +99,6 @@ func SnapExcalidrawDiagramToGrid(data string, gridSize float64) (string, error) 
 	if err != nil {
 		return "", errors.New("Error occurred during JSON marshaling + " + err.Error())
 	}
-
-	fmt.Println(positionOffsets)
-	fmt.Println(sizeOffsets)
 
 	return string(outputJson), nil
 }

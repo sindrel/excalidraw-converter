@@ -2,8 +2,8 @@ package internal
 
 type ExcalidrawScene struct {
 	AppState struct {
-		GridSize            interface{} `json:"gridSize"`
-		ViewBackgroundColor string      `json:"viewBackgroundColor"`
+		GridSize            int64  `json:"gridSize"`
+		ViewBackgroundColor string `json:"viewBackgroundColor"`
 	} `json:"appState"`
 	Elements []struct {
 		Angle           float64 `json:"angle"`
