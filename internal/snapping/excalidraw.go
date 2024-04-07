@@ -10,7 +10,7 @@ import (
 	"os"
 )
 
-func SnapExcalidrawDiagramToGridAndSaveToFile(importPath string, exportPath string) error {
+func SnapExcalidrawDiagramToGridAndSaveToFile(importPath string, exportPath string, gridSize float64) error {
 	fmt.Printf("Parsing input file: %s\n", importPath)
 
 	data, err := os.ReadFile(importPath)
@@ -19,7 +19,7 @@ func SnapExcalidrawDiagramToGridAndSaveToFile(importPath string, exportPath stri
 		os.Exit(1)
 	}
 
-	output, err := SnapExcalidrawDiagramToGrid(string(data))
+	output, err := SnapExcalidrawDiagramToGrid(string(data), gridSize)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "File parsing failed. %s\n", err)
 		os.Exit(1)
@@ -36,7 +36,7 @@ func SnapExcalidrawDiagramToGridAndSaveToFile(importPath string, exportPath stri
 	return nil
 }
 
-func SnapExcalidrawDiagramToGrid(data string) (string, error) {
+func SnapExcalidrawDiagramToGrid(data string, gridSize float64) (string, error) {
 	fmt.Printf("Aligning diagram elements to grid...\n")
 
 	var input datastr.ExcalidrawScene
@@ -45,7 +45,9 @@ func SnapExcalidrawDiagramToGrid(data string) (string, error) {
 		return "", errors.New("Unable to parse input: " + err.Error())
 	}
 
-	gridSize := float64(20)
+	if gridSize == 0 {
+		gridSize = float64(20)
+	}
 
 	output := input
 

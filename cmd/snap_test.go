@@ -15,7 +15,7 @@ func TestSnapExcalidrawDiagramToGridAndSaveToFile(t *testing.T) {
 	outputDataPath := "../test/data/test_output_snapped.excalidraw.tmp"
 	expectedDataPath := "../test/data/test_output_snapped.excalidraw"
 
-	err := snap.SnapExcalidrawDiagramToGridAndSaveToFile(inputDataPath, outputDataPath)
+	err := snap.SnapExcalidrawDiagramToGridAndSaveToFile(inputDataPath, outputDataPath, 20)
 	assert.Nil(t, err)
 
 	outputData, err := os.ReadFile(outputDataPath)
