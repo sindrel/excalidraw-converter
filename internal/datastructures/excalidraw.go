@@ -25,25 +25,27 @@ type ExcalidrawScene struct {
 		IsDeleted    bool          `json:"isDeleted"`
 		Opacity      float64       `json:"opacity"`
 		Points       [][]float64   `json:"points"`
+		Pressures    []int64       `json:"pressures"`
 		Roughness    int64         `json:"roughness"`
 		Roundness    struct {
 			Type int64 `json:"type"`
 		} `json:"roundness"`
-		Seed            int64   `json:"seed"`
-		StartArrowhead  *string `json:"startArrowhead"`
-		StrokeColor     string  `json:"strokeColor"`
-		StrokeSharpness string  `json:"strokeSharpness"`
-		StrokeStyle     string  `json:"strokeStyle"`
-		StrokeWidth     float64 `json:"strokeWidth"`
-		Text            string  `json:"text"`
-		TextAlign       string  `json:"textAlign"`
-		Type            string  `json:"type"`
-		Version         int64   `json:"version"`
-		VersionNonce    int64   `json:"versionNonce"`
-		VerticalAlign   string  `json:"verticalAlign"`
-		Width           float64 `json:"width"`
-		X               float64 `json:"x"`
-		Y               float64 `json:"y"`
+		Seed             int64   `json:"seed"`
+		SimulatePressure bool    `json:"simulatePressure"`
+		StartArrowhead   *string `json:"startArrowhead"`
+		StrokeColor      string  `json:"strokeColor"`
+		StrokeSharpness  string  `json:"strokeSharpness"`
+		StrokeStyle      string  `json:"strokeStyle"`
+		StrokeWidth      float64 `json:"strokeWidth"`
+		Text             string  `json:"text"`
+		TextAlign        string  `json:"textAlign"`
+		Type             string  `json:"type"`
+		Version          int64   `json:"version"`
+		VersionNonce     int64   `json:"versionNonce"`
+		VerticalAlign    string  `json:"verticalAlign"`
+		Width            float64 `json:"width"`
+		X                float64 `json:"x"`
+		Y                float64 `json:"y"`
 	} `json:"elements"`
 	Files map[string]struct {
 		DataURL  string `json:"dataURL"`
