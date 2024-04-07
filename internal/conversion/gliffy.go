@@ -314,12 +314,12 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 				object.UID = graphics.Image.Gliffy[0]
 				object.Graphic.Type = "Image"
 
-				dataUrl, err := EmbeddedImgConvExcGliffy(input, element.FileId)
+				DataURL, err := EmbeddedImgConvExcGliffy(input, element.FileId)
 				if err != nil {
 					return nil, scene, nil, err
 				}
 
-				image.Url = dataUrl
+				image.Url = DataURL
 				image.StrokeColor = FillColorConvExcGliffy(element.StrokeColor)
 				image.StrokeWidth = int64(math.Round(element.StrokeWidth))
 
@@ -399,7 +399,7 @@ func EmbeddedImgConvExcGliffy(input datastr.ExcalidrawScene, fileId string) (str
 		return "", fmt.Errorf("unable to find embedded file with id %s", fileId)
 	}
 
-	return file.DataUrl, nil
+	return file.DataURL, nil
 }
 
 func FreedrawStrokeWidthConvExcGliffy(strokeWidth float64) float64 {

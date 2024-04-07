@@ -46,7 +46,9 @@ type ExcalidrawScene struct {
 		Y               float64 `json:"y"`
 	} `json:"elements"`
 	Files map[string]struct {
-		DataUrl string `json:"dataUrl"`
+		DataURL  string `json:"dataURL"`
+		ID       string `json:"id"`
+		MimeType string `json:"mimeType"`
 	} `json:"files"`
 	Source  string `json:"source"`
 	Type    string `json:"type"`
