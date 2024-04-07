@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	conv "diagram-converter/internal/conversion"
+	snap "diagram-converter/internal/snapping"
 	"fmt"
 	"os"
 	"path"
@@ -11,17 +11,17 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var defaultOutputPathTidy = "your_file_0.excalidraw"
+var defaultOutputPathSnapped = "your_file_0.excalidraw"
 
-var tidyCmd = &cobra.Command{
-	Use:   "tidy",
+var snapCmd = &cobra.Command{
+	Use:   "snap",
 	Short: "Snap the diagram to a grid",
 	Long: `This command is used to tidy up a diagram by snapping it to a grid.
 
-  Blabla.
+  This is an experimental feature.
 
 Example:
-  exconv tidy -i your_file.excalidraw
+  exconv snap -i your_file.excalidraw
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		importPath, _ := cmd.Flags().GetString("input")
@@ -33,13 +33,13 @@ Example:
 			os.Exit(1)
 		}
 
-		if strings.HasPrefix(exportPath, defaultOutputPath) {
+		if strings.HasPrefix(exportPath, defaultOutputPathSnapped) {
 			exportPath = strings.TrimSuffix(path.Base(importPath), filepath.Ext(importPath)) + "_0.excalidraw"
 		}
 
-		err := conv.ConvertExcalidrawToGliffyFile(importPath, exportPath)
+		err := snap.SnapExcalidrawDiagramToGridAndSaveToFile(importPath, exportPath)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Unable to clean up Excalidraw diagram: %s\n", err)
+			fmt.Fprintf(os.Stderr, "Unable to snap Excalidraw diagram to grid: %s\n", err)
 			os.Exit(1)
 		}
 
@@ -47,5 +47,8 @@ Example:
 }
 
 func init() {
-	rootCmd.AddCommand(gliffyCmd)
+	rootCmd.AddCommand(snapCmd)
+
+	snapCmd.PersistentFlags().StringP("input", "i", "", "input file path")
+	snapCmd.PersistentFlags().StringP("output", "o", defaultOutputPathSnapped, "output file path")
 }
