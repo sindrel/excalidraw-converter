@@ -34,3 +34,13 @@ type GraphicTypes struct {
 type GitHubRelease struct {
 	TagName string `json:"tag_name"`
 }
+
+type ElementSizeOffset struct {
+	Width  float64
+	Height float64
+}
+
+type ElementPositionOffset struct {
+	X float64
+	Y float64
+}
