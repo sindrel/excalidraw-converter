@@ -292,8 +292,18 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 				line.CornerRadius = 10
 				line.Ortho = true
 				line.ControlPath = element.Points
-				line.StartArrow = ArrowheadConvExcGliffy(element.StartArrowhead)
-				line.EndArrow = ArrowheadConvExcGliffy(element.EndArrowhead)
+
+				if element.StartArrowhead == nil {
+					line.StartArrow = 0
+				} else {
+					line.StartArrow = ArrowheadConvExcGliffy(*element.StartArrowhead)
+				}
+
+				if element.EndArrowhead == nil {
+					line.EndArrow = 0
+				} else {
+					line.EndArrow = ArrowheadConvExcGliffy(*element.EndArrowhead)
+				}
 
 				object.Graphic.Line = &line
 			}

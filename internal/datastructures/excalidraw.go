@@ -14,7 +14,7 @@ type ExcalidrawScene struct {
 			ID   string `json:"id"`
 		} `json:"boundElements"`
 		ContainerId  string        `json:"containerId"`
-		EndArrowhead string        `json:"endArrowhead"`
+		EndArrowhead *string       `json:"endArrowhead"`
 		FillStyle    string        `json:"fillStyle"`
 		FontFamily   int64         `json:"fontFamily"`
 		FontSize     float64       `json:"fontSize"`
@@ -30,7 +30,7 @@ type ExcalidrawScene struct {
 			Type int64 `json:"type"`
 		} `json:"roundness"`
 		Seed            int64   `json:"seed"`
-		StartArrowhead  string  `json:"startArrowhead"`
+		StartArrowhead  *string `json:"startArrowhead"`
 		StrokeColor     string  `json:"strokeColor"`
 		StrokeSharpness string  `json:"strokeSharpness"`
 		StrokeStyle     string  `json:"strokeStyle"`

@@ -48,7 +48,4 @@ Example:
 
 func init() {
 	rootCmd.AddCommand(gliffyCmd)
-
-	gliffyCmd.PersistentFlags().StringP("input", "i", "", "input file path")
-	gliffyCmd.PersistentFlags().StringP("output", "o", defaultOutputPathTidy, "output file path")
 }

@@ -59,6 +59,10 @@ func TestSnapExcalidrawDiagram(t *testing.T) {
 			}
 		}
 
+		// for element_k, element_v := range input.Elements[i] {
+		// 	fmt.Println(element_k, element_v)
+		// }
+
 		output.Elements[i].Width, output.Elements[i].Height = newWidth, newHeight
 		output.Elements[i].X, output.Elements[i].Y = newX, newY
 	}
