@@ -6,24 +6,27 @@ type ExcalidrawScene struct {
 		ViewBackgroundColor string      `json:"viewBackgroundColor"`
 	} `json:"appState"`
 	Elements []struct {
-		Angle           float64       `json:"angle"`
-		BackgroundColor string        `json:"backgroundColor"`
-		Baseline        float64       `json:"baseline"`
-		BoundElementIds []string      `json:"boundElementIds"`
-		ContainerId     string        `json:"containerId"`
-		EndArrowhead    string        `json:"endArrowhead"`
-		FillStyle       string        `json:"fillStyle"`
-		FontFamily      int64         `json:"fontFamily"`
-		FontSize        float64       `json:"fontSize"`
-		GroupIds        []interface{} `json:"groupIds"`
-		Height          float64       `json:"height"`
-		ID              string        `json:"id"`
-		FileId          string        `json:"fileId"`
-		IsDeleted       bool          `json:"isDeleted"`
-		Opacity         float64       `json:"opacity"`
-		Points          [][]float64   `json:"points"`
-		Roughness       int64         `json:"roughness"`
-		Roundness       struct {
+		Angle           float64 `json:"angle"`
+		BackgroundColor string  `json:"backgroundColor"`
+		Baseline        float64 `json:"baseline"`
+		BoundElements   []struct {
+			Type string `json:"type"`
+			ID   string `json:"id"`
+		} `json:"boundElements"`
+		ContainerId  string        `json:"containerId"`
+		EndArrowhead string        `json:"endArrowhead"`
+		FillStyle    string        `json:"fillStyle"`
+		FontFamily   int64         `json:"fontFamily"`
+		FontSize     float64       `json:"fontSize"`
+		GroupIds     []interface{} `json:"groupIds"`
+		Height       float64       `json:"height"`
+		ID           string        `json:"id"`
+		FileId       string        `json:"fileId"`
+		IsDeleted    bool          `json:"isDeleted"`
+		Opacity      float64       `json:"opacity"`
+		Points       [][]float64   `json:"points"`
+		Roughness    int64         `json:"roughness"`
+		Roundness    struct {
 			Type int64 `json:"type"`
 		} `json:"roundness"`
 		Seed            int64   `json:"seed"`
