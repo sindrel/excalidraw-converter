@@ -86,6 +86,7 @@ Available Commands:
   completion  Generate the autocompletion script for the specified shell
   gliffy      Convert an Excalidraw diagram to Gliffy format
   help        Help about any command
+  snap        Snap a diagram to a grid
   version     Output the application version
 
 Flags:
@@ -107,9 +108,32 @@ Usage:
   exconv gliffy [flags]
 
 Flags:
-  -h, --help            help for gliffy
-  -i, --input string    input file path
-  -o, --output string   output file path (default "your_file.gliffy")
+  -g, --grid-size string   diagram grid size (default "20")
+  -h, --help               help for gliffy
+  -i, --input string       input file path
+  -o, --output string      output file path (default "your_file.gliffy")
+  -s, --snap-grid          snap diagram objects to grid
+```
+
+### Snapping to grid :sparkles:
+Resizing and alignment of objects to a grid. This can be useful to 
+quickly clean up sketches that are out of alignment. Objects will be
+resized to fit the grid and placed along the lines of the grid.
+
+It can also be used in-line when using the `gliffy` command.
+
+```sh
+Example:
+  exconv snap -i your_file.excalidraw
+
+Usage:
+  exconv snap [flags]
+
+Flags:
+  -g, --grid-size string   grid size (default "20")
+  -h, --help               help for snap
+  -i, --input string       input file path
+  -o, --output string      output file path (default "your_file0.excalidraw")
 ```
 
 ## Features

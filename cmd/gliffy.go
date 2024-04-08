@@ -2,10 +2,12 @@ package cmd
 
 import (
 	conv "diagram-converter/internal/conversion"
+	snap "diagram-converter/internal/snapping"
 	"fmt"
 	"os"
 	"path"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -29,6 +31,8 @@ Example:
 	Run: func(cmd *cobra.Command, args []string) {
 		importPath, _ := cmd.Flags().GetString("input")
 		exportPath, _ := cmd.Flags().GetString("output")
+		snapToGrid, _ := cmd.Flags().GetBool("snap-grid")
+		gridSize, _ := cmd.Flags().GetString("grid-size")
 
 		if len(importPath) == 0 {
 			fmt.Fprintf(os.Stderr, "Error: Input file path not provided.\n\n")
@@ -40,12 +44,37 @@ Example:
 			exportPath = strings.TrimSuffix(path.Base(importPath), filepath.Ext(importPath)) + ".gliffy"
 		}
 
+		if snapToGrid {
+			tmpSnappedPath := exportPath + ".tmp"
+
+			gridSizeInt, err := strconv.ParseInt(gridSize, 10, 64)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Unable to parse grid size: %s\n", err)
+				os.Exit(1)
+			}
+
+			err = snap.SnapExcalidrawDiagramToGridAndSaveToFile(importPath, tmpSnappedPath, gridSizeInt)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Unable to snap Excalidraw diagram to grid: %s\n", err)
+				os.Exit(1)
+			}
+
+			importPath = tmpSnappedPath
+		}
+
 		err := conv.ConvertExcalidrawToGliffyFile(importPath, exportPath)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Unable to convert Excalidraw diagram to Gliffy diagram: %s\n", err)
 			os.Exit(1)
 		}
 
+		if snapToGrid {
+			err = os.Remove(importPath)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Unable to remove temporary file: %s\n", err)
+				os.Exit(1)
+			}
+		}
 	},
 }
 
@@ -54,4 +83,6 @@ func init() {
 
 	gliffyCmd.PersistentFlags().StringP("input", "i", "", "input file path")
 	gliffyCmd.PersistentFlags().StringP("output", "o", defaultOutputPath, "output file path")
+	gliffyCmd.PersistentFlags().BoolP("snap-grid", "s", false, "snap diagram objects to grid")
+	gliffyCmd.PersistentFlags().StringP("grid-size", "g", "20", "diagram grid size")
 }

@@ -10,10 +10,10 @@ import (
 	"os"
 )
 
-func SnapExcalidrawDiagramToGridAndSaveToFile(importPath string, exportPath string, gridSize int64) error {
-	fmt.Printf("Parsing input file: %s\n", importPath)
+func SnapExcalidrawDiagramToGridAndSaveToFile(inputPath string, outputPath string, gridSize int64) error {
+	fmt.Printf("Parsing input file: %s\n", inputPath)
 
-	data, err := os.ReadFile(importPath)
+	data, err := os.ReadFile(inputPath)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "File reading failed. %s\n", err)
 		os.Exit(1)
@@ -25,13 +25,13 @@ func SnapExcalidrawDiagramToGridAndSaveToFile(importPath string, exportPath stri
 		os.Exit(1)
 	}
 
-	err = internal.WriteToFile(exportPath, string(output))
+	err = internal.WriteToFile(outputPath, string(output))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Saving diagram failed. %s\n", err)
 		os.Exit(1)
 	}
 
-	fmt.Printf("Snapped diagram saved to file: %s\n", exportPath)
+	fmt.Printf("Snapped diagram saved to file: %s\n", outputPath)
 
 	return nil
 }

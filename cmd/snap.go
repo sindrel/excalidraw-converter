@@ -9,14 +9,18 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var defaultOutputPathSnapped = "your_file_0.excalidraw"
+var defaultOutputPathSnapped = "your_file0.excalidraw"
 
 var snapCmd = &cobra.Command{
 	Use:   "snap",
-	Short: "Snap the diagram to a grid",
-	Long: `This command is used to tidy up a diagram by snapping it's objects to a grid.
+	Short: "Snap a diagram to a grid",
+	Long: `This command is used to tidy up an Excalidraw diagram by snapping it's objects to a grid.
 
-  This is an experimental feature.
+	Resizing and alignment of objects to a grid. This can be useful to 
+	quickly clean up sketches that are out of alignment. Objects will be
+	resized to fit the grid and placed along the lines of the grid.
+	
+	It can also be used in-line when using the 'gliffy' command.
 
 Example:
   exconv snap -i your_file.excalidraw
