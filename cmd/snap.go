@@ -16,7 +16,7 @@ var snapCmd = &cobra.Command{
 	Short: "Snap a diagram to a grid",
 	Long: `This command is used to tidy up an Excalidraw diagram by snapping it's objects to a grid.
 
-	Resizing and alignment of objects to a grid. This can be useful to 
+	Resizes and aligns diagram objects to a grid. This can be useful to 
 	quickly clean up sketches that are out of alignment. Objects will be
 	resized to fit the grid and placed along the lines of the grid.
 	

@@ -115,8 +115,8 @@ Flags:
   -s, --snap-grid          snap diagram objects to grid
 ```
 
-### Snapping to grid :sparkles:
-Resizing and alignment of objects to a grid. This can be useful to 
+### Snapping to grid (experimental) :sparkles:
+Resizes and aligns diagram objects to a grid. This can be useful to 
 quickly clean up sketches that are out of alignment. Objects will be
 resized to fit the grid and placed along the lines of the grid.
 
