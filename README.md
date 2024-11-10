@@ -144,9 +144,11 @@ All fixed shapes and most styling and text options are supported.
 Library graphics are not fully supported (experimental).
 
 ## Compatibility with draw.io
-Converted Gliffy diagrams should also work in [draw.io](https://draw.io).
+Converted Gliffy diagrams should also work in the online version of [draw.io](https://draw.io).
 
 In draw.io, you can import a diagram by simply opening the file from your device. If you're using draw.io for Confluence, you should be able use [the import dialog](https://drawio-app.com/blog/draw-io-for-confluence-now-with-gliffy-import/).
+
+Note that this is [only supported in the online version](https://www.drawio.com/blog/import-gliffy-online) of draw.io, not the desktop app.
 
 ## Contributing
 See something you'd like to improve? Great! See the [contributing guidelines](CONTRIBUTING.md) for instructions.
