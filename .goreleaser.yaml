@@ -32,7 +32,7 @@ archives:
 brews:
   -
     name: excalidraw-converter
-    tap:
+    repository:
       # Homebrew Tap Repository
       owner: sindrel
       name: homebrew-tap
@@ -48,7 +48,7 @@ brews:
     commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
 
     # Folder inside the repository to put the formula.
-    folder: Formula
+    directory: Formula
 
     # Your app's homepage.
     homepage: "https://github.com/sindrel/excalidraw-converter"
