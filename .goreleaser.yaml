@@ -76,3 +76,4 @@ brews:
     # Default is 'bin.install "program"'.
     install: |
       bin.install "exconv"
+      bin.install_symlink "#{bin}/exconv" => "excalidraw-converter"
