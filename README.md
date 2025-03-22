@@ -19,7 +19,7 @@ brew install excalidraw-converter
 <details>
   <summary>Latest releases</summary>
 
-If a release is not (yet) available in the official Homebrew Formulae, they can be installed from this tap:
+Use this tap to stay on the latest releases that have not (yet) been added to the official Homebrew Formulae:
 
 ```shell
 brew install sindrel/tap/excalidraw-converter
