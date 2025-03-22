@@ -161,6 +161,9 @@ In draw.io, you can import a diagram by simply opening the file from your device
 
 Note that this is [only supported in the online version](https://www.drawio.com/blog/import-gliffy-online) of draw.io, not the desktop app.
 
+## Compatibility with Excalidraw for Obsidian
+Diagrams created using the [Excalidraw for Obsidian plugin](https://github.com/zsviczian/obsidian-excalidraw-plugin) must be exported before conversion, as described [here](https://github.com/sindrel/excalidraw-converter/issues/27#issuecomment-1759964572).
+
 ## Contributing
 See something you'd like to improve? Great! See the [contributing guidelines](CONTRIBUTING.md) for instructions.
 
