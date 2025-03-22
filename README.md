@@ -11,10 +11,21 @@ Excalidraw Converter ports Excalidraw diagrams to a Gliffy compatible format, wh
 ## Getting started
 
 ### Installation
-#### MacOS with [Homebrew](https://brew.sh/)
+#### MacOS with [Homebrew](https://brew.sh/) (stable)
+```shell
+brew install excalidraw-converter
+```
+
+<details>
+  <summary>Latest releases</summary>
+
+If a release is not (yet) available in the official Homebrew Formulae, they can be installed from this tap:
+
 ```shell
 brew install sindrel/tap/excalidraw-converter
 ```
+</details>
+
 
 #### Installation for other OSes
 Download a compatible binary from the [Releases](https://github.com/sindrel/excalidraw-converter/releases) page.
