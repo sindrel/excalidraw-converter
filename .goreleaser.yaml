@@ -22,7 +22,7 @@ builds:
     env:
       - CGO_ENABLED=0
     ldflags:
-      - -s -w -X diagram-converter/cmd.version={{.Version}} -X diagram-converter/cmd.commit={{.Commit}}
+      - -s -w
 archives:
   -
     format_overrides:
@@ -76,3 +76,4 @@ brews:
     # Default is 'bin.install "program"'.
     install: |
       bin.install "exconv"
+      bin.install_symlink "#{bin}/exconv" => "excalidraw-converter"
