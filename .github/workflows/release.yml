@@ -19,11 +19,6 @@ jobs:
         name: Set up Go
         uses: actions/setup-go@v5
       -
-        name: Update version.go with Git tag and commit SHA
-        run: |
-          sed -i 's/version *= *"[^"]*"/version = "${{ github.ref_name }}"/' cmd/version.go
-          sed -i 's/commit *= *"[^"]*"/commit = "${{ github.sha }}"/' cmd/version.go
-      -
         name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
         with:

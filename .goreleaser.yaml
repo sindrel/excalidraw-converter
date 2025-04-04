@@ -22,7 +22,7 @@ builds:
     env:
       - CGO_ENABLED=0
     ldflags:
-      - -s -w
+      - -s -w -X diagram-converter/cmd.version={{.Version}} -X diagram-converter/cmd.commit={{.Commit}}
 archives:
   -
     format_overrides:
