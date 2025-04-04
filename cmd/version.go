@@ -10,7 +10,6 @@ import (
 
 var (
 	version        = "dev"
-	commit         = "nnnnnnn"
 	githubRepoUser = "sindrel"
 	githubRepoName = "excalidraw-converter"
 	noVersionCheck bool
@@ -21,10 +20,10 @@ var versionCmd = &cobra.Command{
 	Short: "Output the application version",
 	Long:  `This command provides information about the release version and the Git commit it was built from.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("%s (%s)\n", version, string(commit[0:7]))
+		fmt.Printf("v%s\n", version)
 
 		if !noVersionCheck {
-			err := internal.PrintVersionCheck(githubRepoUser, githubRepoName, version)
+			err := internal.PrintVersionCheck(githubRepoUser, githubRepoName, "v"+version)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Unable to check for latest version: %s\n", err)
 				os.Exit(1)
