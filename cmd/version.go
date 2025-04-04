@@ -23,7 +23,7 @@ var versionCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Printf("v%s\n", version)
 		if commit != "" {
-			fmt.Printf("%s\n", commit)
+			fmt.Printf("%s\n", string(commit[0:7]))
 		}
 
 		if !noVersionCheck {
