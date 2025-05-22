@@ -455,6 +455,8 @@ func GetXYOffset(input datastr.ExcalidrawScene) (float64, float64) {
 		}
 	}
 
+	// TODO: When snapping to grid, this should be the grid size
+	// or: Default to 20 (and update tests)
 	xMin -= 10
 	yMin -= 10
 
