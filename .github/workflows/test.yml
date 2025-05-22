@@ -16,7 +16,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.20'
+          go-version: '1.24'
         env:
           CGO_ENABLED: 0
 
@@ -26,3 +26,5 @@ jobs:
         run: go test -v ./...
       - name: Test build and run commands
         run: go build -v -o testbin && ./testbin && ./testbin gliffy -i test/data/test_input.excalidraw -o /tmp/test_output.gliffy
+      - name: Test Homebrew test fixture
+        run: ./testbin gliffy -i test/data/test_homebrew.excalidraw

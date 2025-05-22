@@ -63,7 +63,7 @@ func PrintVersionCheck(user, repo, version string) error {
 	}
 
 	if !isLatest {
-		fmt.Printf("\nA newer version is available (%s). Go to 'https://github.com/%s/%s/releases' to download the latest version.\n", latest, user, repo)
+		fmt.Printf("\nA newer version is available (%s). Go to 'https://github.com/%s/%s' for instructions on how to install the latest version.\n", latest, user, repo)
 	} else {
 		fmt.Printf("\nYou are using the latest version.\n")
 	}

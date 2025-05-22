@@ -11,10 +11,21 @@ Excalidraw Converter ports Excalidraw diagrams to a Gliffy compatible format, wh
 ## Getting started
 
 ### Installation
-#### MacOS with [Homebrew](https://brew.sh/)
+#### MacOS with [Homebrew](https://brew.sh/) (stable)
+```shell
+brew install excalidraw-converter
+```
+
+<details>
+  <summary>Latest releases</summary>
+
+Use this tap to stay on the latest releases that have not (yet) been added to the official Homebrew Formulae:
+
 ```shell
 brew install sindrel/tap/excalidraw-converter
 ```
+</details>
+
 
 #### Installation for other OSes
 Download a compatible binary from the [Releases](https://github.com/sindrel/excalidraw-converter/releases) page.
@@ -168,9 +179,14 @@ All fixed shapes and most styling and text options are supported.
 Library graphics are not fully supported (experimental).
 
 ## Compatibility with draw.io
-Converted Gliffy diagrams should also work in [draw.io](https://draw.io).
+Converted Gliffy diagrams should also work in the online version of [draw.io](https://draw.io).
 
 In draw.io, you can import a diagram by simply opening the file from your device. If you're using draw.io for Confluence, you should be able use [the import dialog](https://drawio-app.com/blog/draw-io-for-confluence-now-with-gliffy-import/).
+
+Note that this is [only supported in the online version](https://www.drawio.com/blog/import-gliffy-online) of draw.io, not the desktop app.
+
+## Compatibility with Excalidraw for Obsidian
+Diagrams created using the [Excalidraw for Obsidian plugin](https://github.com/zsviczian/obsidian-excalidraw-plugin) must be exported before conversion, as described [here](https://github.com/sindrel/excalidraw-converter/issues/27#issuecomment-1759964572).
 
 ## Contributing
 See something you'd like to improve? Great! See the [contributing guidelines](CONTRIBUTING.md) for instructions.
