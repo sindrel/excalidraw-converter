@@ -61,7 +61,7 @@ func SnapExcalidrawDiagramToGrid(data string, gridSize float64) (string, error) 
 		}
 
 		// Snap element size to grid
-		newWidth, newHeight := GetSnappedElementSize(el.Width, el.Height, gridSize)
+		newWidth, newHeight := getSnappedElementSize(el.Width, el.Height, gridSize)
 		sizeDiffWidth := newWidth - el.Width
 		sizeDiffHeight := newHeight - el.Height
 
@@ -74,7 +74,7 @@ func SnapExcalidrawDiagramToGrid(data string, gridSize float64) (string, error) 
 		}
 
 		// Snap element position to grid
-		newX, newY := GetSnappedGridPosition(el.X, el.Y, gridSize)
+		newX, newY := getSnappedGridPosition(el.X, el.Y, gridSize)
 		positionDiffX := newX - el.X
 		positionDiffY := newY - el.Y
 
@@ -106,6 +106,45 @@ func SnapExcalidrawDiagramToGrid(data string, gridSize float64) (string, error) 
 		output.Elements[i].Y = el.Y + positionOffsets[el.ID].Y
 	}
 
+	// Third pass: adjust arrows to point to correct bound elements after snapping
+	// Build a map from element ID to its new position and size
+	elemPosSize := make(map[string]struct{ X, Y, W, H float64 })
+	for _, el := range output.Elements {
+		elemPosSize[el.ID] = struct{ X, Y, W, H float64 }{el.X, el.Y, el.Width, el.Height}
+	}
+
+	for i, el := range output.Elements {
+		if el.Type != "arrow" {
+			continue
+		}
+		// Adjust start point if StartBinding is present
+		if el.StartBinding.ElementID != "" {
+			if bound, ok := elemPosSize[el.StartBinding.ElementID]; ok {
+				// Use original start point and bound rect to determine side
+				origStartX := el.X
+				origStartY := el.Y
+				side := getClosestSide(origStartX, origStartY, bound.X, bound.Y, bound.W, bound.H)
+				newStartX, newStartY := getSideCoords(side, bound.X, bound.Y, bound.W, bound.H)
+				output.Elements[i].X = newStartX
+				output.Elements[i].Y = newStartY
+			}
+		}
+		// Adjust end point if EndBinding is present
+		if el.EndBinding.ElementID != "" && len(el.Points) > 0 {
+			if bound, ok := elemPosSize[el.EndBinding.ElementID]; ok {
+				// Use original end point and bound rect to determine side
+				origEndX := el.X + el.Points[len(el.Points)-1][0]
+				origEndY := el.Y + el.Points[len(el.Points)-1][1]
+				side := getClosestSide(origEndX, origEndY, bound.X, bound.Y, bound.W, bound.H)
+				newEndX, newEndY := getSideCoords(side, bound.X, bound.Y, bound.W, bound.H)
+				startX := output.Elements[i].X
+				startY := output.Elements[i].Y
+				output.Elements[i].Points[len(el.Points)-1][0] = newEndX - startX
+				output.Elements[i].Points[len(el.Points)-1][1] = newEndY - startY
+			}
+		}
+	}
+
 	outputJson, err := json.Marshal(output)
 	if err != nil {
 		return "", errors.New("Error occurred during JSON marshaling + " + err.Error())
@@ -114,7 +153,47 @@ func SnapExcalidrawDiagramToGrid(data string, gridSize float64) (string, error) 
 	return string(outputJson), nil
 }
 
-func GetSnappedElementSize(width, height, gridSize float64) (float64, float64) {
+// Helper to determine which side of a rectangle a point is closest to
+func getClosestSide(px, py, rectX, rectY, rectW, rectH float64) string {
+	dxLeft := math.Abs(px - rectX)
+	dxRight := math.Abs(px - (rectX + rectW))
+	dyTop := math.Abs(py - rectY)
+	dyBottom := math.Abs(py - (rectY + rectH))
+
+	minDist := dxLeft
+	side := "left"
+	if dxRight < minDist {
+		minDist = dxRight
+		side = "right"
+	}
+	if dyTop < minDist {
+		minDist = dyTop
+		side = "top"
+	}
+	if dyBottom < minDist {
+		// minDist = dyBottom // not needed
+		side = "bottom"
+	}
+	return side
+}
+
+// Helper to get the coordinates for a given side of a rectangle
+func getSideCoords(side string, rectX, rectY, rectW, rectH float64) (float64, float64) {
+	switch side {
+	case "left":
+		return rectX, rectY + rectH/2
+	case "right":
+		return rectX + rectW, rectY + rectH/2
+	case "top":
+		return rectX + rectW/2, rectY
+	case "bottom":
+		return rectX + rectW/2, rectY + rectH
+	default:
+		return rectX + rectW/2, rectY + rectH/2 // fallback to center
+	}
+}
+
+func getSnappedElementSize(width, height, gridSize float64) (float64, float64) {
 	var adjustedWidth = math.Round(width / gridSize)
 	var adjustedHeight = math.Round(height / gridSize)
 
@@ -131,7 +210,7 @@ func GetSnappedElementSize(width, height, gridSize float64) (float64, float64) {
 	return adjustedWidth, adjustedHeight
 }
 
-func GetSnappedGridPosition(xPos, yPos, gridSize float64) (float64, float64) {
+func getSnappedGridPosition(xPos, yPos, gridSize float64) (float64, float64) {
 	var snappedXPos = math.Ceil(xPos / gridSize)
 	var snappedYPos = math.Ceil(yPos / gridSize)
 
