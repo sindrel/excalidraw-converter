@@ -10,7 +10,6 @@ import (
 	"os"
 )
 
-// TODO: This probably shouldn't be a separate function for snapped diagrams?
 func SnapExcalidrawDiagramToGridAndSaveToFile(inputPath string, outputPath string, gridSize float64) error {
 	fmt.Printf("Parsing input file: %s\n", inputPath)
 

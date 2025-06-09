@@ -65,7 +65,7 @@ Example:
 			gridSizeFloat = 10 // Default grid size for non-snapped diagrams (just for top-left padding)
 		}
 
-		err = conv.ConvertExcalidrawToGliffyFile(importPath, exportPath, gridSizeFloat)
+		err = conv.ConvertExcalidrawDiagramToGliffyAndSaveToFile(importPath, exportPath, gridSizeFloat)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Unable to convert Excalidraw diagram to Gliffy diagram: %s\n", err)
 			os.Exit(1)

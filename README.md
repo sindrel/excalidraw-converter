@@ -97,7 +97,7 @@ Available Commands:
   completion  Generate the autocompletion script for the specified shell
   gliffy      Convert an Excalidraw diagram to Gliffy format
   help        Help about any command
-  snap        Snap a diagram to a grid
+  snap        Snap diagram to grid
   version     Output the application version
 
 Flags:

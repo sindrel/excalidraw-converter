@@ -16,7 +16,7 @@ import (
 var xOffset float64
 var yOffset float64
 
-func ConvertExcalidrawToGliffyFile(importPath string, exportPath string, gridSize float64) error {
+func ConvertExcalidrawDiagramToGliffyAndSaveToFile(importPath string, exportPath string, gridSize float64) error {
 	fmt.Printf("Parsing input file: %s\n", importPath)
 
 	data, err := os.ReadFile(importPath)
@@ -25,7 +25,7 @@ func ConvertExcalidrawToGliffyFile(importPath string, exportPath string, gridSiz
 		os.Exit(1)
 	}
 
-	output, err := ConvertExcalidrawToGliffy(string(data), gridSize)
+	output, err := ConvertExcalidrawDiagramToGliffy(string(data), gridSize)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "File parsing failed. %s\n", err)
 		os.Exit(1)
@@ -42,7 +42,7 @@ func ConvertExcalidrawToGliffyFile(importPath string, exportPath string, gridSiz
 	return nil
 }
 
-func ConvertExcalidrawToGliffy(data string, gridSize float64) (string, error) {
+func ConvertExcalidrawDiagramToGliffy(data string, gridSize float64) (string, error) {
 	fmt.Printf("Converting to Gliffy format...\n")
 
 	timestamp := time.Now().UnixNano() / int64(time.Millisecond)
