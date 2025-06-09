@@ -28,19 +28,29 @@ type ExcalidrawSceneElement struct {
 	Seed             int64   `json:"seed"`
 	SimulatePressure bool    `json:"simulatePressure"`
 	StartArrowhead   *string `json:"startArrowhead"`
-	StrokeColor      string  `json:"strokeColor"`
-	StrokeSharpness  string  `json:"strokeSharpness"`
-	StrokeStyle      string  `json:"strokeStyle"`
-	StrokeWidth      float64 `json:"strokeWidth"`
-	Text             string  `json:"text"`
-	TextAlign        string  `json:"textAlign"`
-	Type             string  `json:"type"`
-	Version          int64   `json:"version"`
-	VersionNonce     int64   `json:"versionNonce"`
-	VerticalAlign    string  `json:"verticalAlign"`
-	Width            float64 `json:"width"`
-	X                float64 `json:"x"`
-	Y                float64 `json:"y"`
+	StartBinding     struct {
+		ElementID string  `json:"elementId"`
+		Focus     float64 `json:"focus"`
+		Gap       float64 `json:"gap"`
+	} `json:"startBinding,omitempty"`
+	EndBinding struct {
+		ElementID string  `json:"elementId"`
+		Focus     float64 `json:"focus"`
+		Gap       float64 `json:"gap"`
+	} `json:"endBinding,omitempty"`
+	StrokeColor     string  `json:"strokeColor"`
+	StrokeSharpness string  `json:"strokeSharpness"`
+	StrokeStyle     string  `json:"strokeStyle"`
+	StrokeWidth     float64 `json:"strokeWidth"`
+	Text            string  `json:"text"`
+	TextAlign       string  `json:"textAlign"`
+	Type            string  `json:"type"`
+	Version         int64   `json:"version"`
+	VersionNonce    int64   `json:"versionNonce"`
+	VerticalAlign   string  `json:"verticalAlign"`
+	Width           float64 `json:"width"`
+	X               float64 `json:"x"`
+	Y               float64 `json:"y"`
 }
 
 type ExcalidrawScene struct {
@@ -49,7 +59,7 @@ type ExcalidrawScene struct {
 		ViewBackgroundColor string `json:"viewBackgroundColor"`
 	} `json:"appState"`
 	Elements []ExcalidrawSceneElement `json:"elements"`
-	Files map[string]struct {
+	Files    map[string]struct {
 		DataURL  string `json:"dataURL"`
 		ID       string `json:"id"`
 		MimeType string `json:"mimeType"`
