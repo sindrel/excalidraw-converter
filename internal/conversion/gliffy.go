@@ -314,12 +314,12 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 				object.UID = graphics.Image.Gliffy[0]
 				object.Graphic.Type = "Image"
 
-				DataURL, err := EmbeddedImgConvExcGliffy(input, element.FileId)
+				dataURL, err := EmbeddedImgConvExcGliffy(input, element.FileId)
 				if err != nil {
 					return nil, scene, nil, err
 				}
 
-				image.Url = DataURL
+				image.Url = dataURL
 				image.StrokeColor = FillColorConvExcGliffy(element.StrokeColor)
 				image.StrokeWidth = int64(math.Round(element.StrokeWidth))
 
