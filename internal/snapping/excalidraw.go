@@ -50,50 +50,63 @@ func SnapExcalidrawDiagramToGrid(data string, gridSize int64) (string, error) {
 	gridSizeFloat := float64(gridSize)
 
 	output := input
+	output.AppState.GridSize = gridSize
 
+	// These maps track how much each element's size and position should be offset
 	sizeOffsets := make(map[string]datastr.ElementSizeOffset)
 	positionOffsets := make(map[string]datastr.ElementPositionOffset)
 
-	output.AppState.GridSize = gridSize
-
-	for i := range input.Elements {
-		if input.Elements[i].ContainerId != "" {
+	// First pass: snap non-container elements and record offsets for their bound elements
+	for i, el := range input.Elements {
+		if el.ContainerId != "" {
+			// Skip container children in this pass
 			continue
 		}
 
-		newWidth, newHeight := GetSnappedElementSize(input.Elements[i].Width, input.Elements[i].Height, gridSizeFloat)
-		sizeDiffWidth := newWidth - input.Elements[i].Width
-		sizeDiffHeight := newHeight - input.Elements[i].Height
+		// Snap element size to grid
+		newWidth, newHeight := GetSnappedElementSize(el.Width, el.Height, gridSizeFloat)
+		sizeDiffWidth := newWidth - el.Width
+		sizeDiffHeight := newHeight - el.Height
 
-		for _, boundElement := range input.Elements[i].BoundElements {
+		// Record size offset for all bound elements (usually container children)
+		for _, boundElement := range el.BoundElements {
 			sizeOffsets[boundElement.ID] = datastr.ElementSizeOffset{
 				Width:  sizeDiffWidth,
 				Height: sizeDiffHeight,
 			}
 		}
 
-		newX, newY := GetSnappedGridPosition(input.Elements[i].X, input.Elements[i].Y, gridSizeFloat)
-		positionDiffX := newX - input.Elements[i].X
-		positionDiffY := newY - input.Elements[i].Y
+		// Snap element position to grid
+		newX, newY := GetSnappedGridPosition(el.X, el.Y, gridSizeFloat)
+		positionDiffX := newX - el.X
+		positionDiffY := newY - el.Y
 
-		for _, boundElement := range input.Elements[i].BoundElements {
+		// Record position offset for all bound elements
+		for _, boundElement := range el.BoundElements {
 			positionOffsets[boundElement.ID] = datastr.ElementPositionOffset{
 				X: positionDiffX,
 				Y: positionDiffY,
 			}
 		}
 
-		output.Elements[i].Width, output.Elements[i].Height = newWidth, newHeight
-		output.Elements[i].X, output.Elements[i].Y = newX, newY
+		output.Elements[i].Width = newWidth
+		output.Elements[i].Height = newHeight
+		output.Elements[i].X = newX
+		output.Elements[i].Y = newY
 	}
 
-	for i := range input.Elements {
-		if input.Elements[i].ContainerId == "" {
+	// Second pass: apply recorded offsets to container children
+	for i, el := range input.Elements {
+		if el.ContainerId == "" {
+			// Only process container children in this pass
 			continue
 		}
 
-		output.Elements[i].Width, output.Elements[i].Height = input.Elements[i].Width+sizeOffsets[input.Elements[i].ID].Width, input.Elements[i].Height+sizeOffsets[input.Elements[i].ID].Height
-		output.Elements[i].X, output.Elements[i].Y = input.Elements[i].X+positionOffsets[input.Elements[i].ID].X, input.Elements[i].Y+positionOffsets[input.Elements[i].ID].Y
+		// Apply size and position offsets if present
+		output.Elements[i].Width = el.Width + sizeOffsets[el.ID].Width
+		output.Elements[i].Height = el.Height + sizeOffsets[el.ID].Height
+		output.Elements[i].X = el.X + positionOffsets[el.ID].X
+		output.Elements[i].Y = el.Y + positionOffsets[el.ID].Y
 	}
 
 	outputJson, err := json.Marshal(output)
