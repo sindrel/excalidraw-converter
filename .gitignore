@@ -32,3 +32,4 @@ out*.gliffy
 out*.json
 *.sh
 testbin
+tmp/**/*
