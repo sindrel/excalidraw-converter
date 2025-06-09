@@ -53,10 +53,18 @@ func SnapExcalidrawDiagramToGrid(data string, gridSize float64) (string, error) 
 	sizeOffsets := make(map[string]datastr.ElementSizeOffset)
 	positionOffsets := make(map[string]datastr.ElementPositionOffset)
 
+	ignoredArrowAnchors := make(map[string]struct{})
+
 	// First pass: snap non-container elements and record offsets for their bound elements
 	for i, el := range input.Elements {
 		if el.ContainerId != "" {
 			// Skip container children in this pass
+			continue
+		}
+
+		if len(el.GroupIds) > 0 {
+			// Skip elements that are part of a group
+			ignoredArrowAnchors[el.ID] = struct{}{}
 			continue
 		}
 
@@ -99,6 +107,12 @@ func SnapExcalidrawDiagramToGrid(data string, gridSize float64) (string, error) 
 			continue
 		}
 
+		if len(el.GroupIds) > 0 {
+			// Skip elements that are part of a group
+			ignoredArrowAnchors[el.ID] = struct{}{}
+			continue
+		}
+
 		// Apply size and position offsets if present
 		output.Elements[i].Width = el.Width + sizeOffsets[el.ID].Width
 		output.Elements[i].Height = el.Height + sizeOffsets[el.ID].Height
@@ -117,6 +131,13 @@ func SnapExcalidrawDiagramToGrid(data string, gridSize float64) (string, error) 
 		if el.Type != "arrow" {
 			continue
 		}
+
+		// Skip arrows whose start or end bindings are in ignoredArrowAnchors
+		if (el.StartBinding.ElementID != "" && func() bool { _, ok := ignoredArrowAnchors[el.StartBinding.ElementID]; return ok }()) ||
+			(el.EndBinding.ElementID != "" && func() bool { _, ok := ignoredArrowAnchors[el.EndBinding.ElementID]; return ok }()) {
+			continue
+		}
+
 		// Adjust start point if StartBinding is present
 		if el.StartBinding.ElementID != "" {
 			if bound, ok := elemPosSize[el.StartBinding.ElementID]; ok {
