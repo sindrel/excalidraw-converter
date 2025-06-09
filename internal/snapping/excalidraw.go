@@ -11,7 +11,7 @@ import (
 )
 
 // TODO: This probably shouldn't be a separate function for snapped diagrams?
-func SnapExcalidrawDiagramToGridAndSaveToFile(inputPath string, outputPath string, gridSize int64) error {
+func SnapExcalidrawDiagramToGridAndSaveToFile(inputPath string, outputPath string, gridSize float64) error {
 	fmt.Printf("Parsing input file: %s\n", inputPath)
 
 	data, err := os.ReadFile(inputPath)
@@ -37,9 +37,9 @@ func SnapExcalidrawDiagramToGridAndSaveToFile(inputPath string, outputPath strin
 	return nil
 }
 
-func SnapExcalidrawDiagramToGrid(data string, gridSize int64) (string, error) {
+func SnapExcalidrawDiagramToGrid(data string, gridSize float64) (string, error) {
 	fmt.Printf("Aligning diagram elements to grid...\n")
-	fmt.Printf("Grid size is: %d\n", gridSize)
+	fmt.Printf("Grid size is: %f\n", gridSize)
 
 	var input datastr.ExcalidrawScene
 	err := json.Unmarshal([]byte(data), &input)
@@ -47,10 +47,8 @@ func SnapExcalidrawDiagramToGrid(data string, gridSize int64) (string, error) {
 		return "", errors.New("Unable to parse input: " + err.Error())
 	}
 
-	gridSizeFloat := float64(gridSize)
-
 	output := input
-	output.AppState.GridSize = gridSize
+	output.AppState.GridSize = int64(gridSize)
 
 	// These maps track how much each element's size and position should be offset
 	sizeOffsets := make(map[string]datastr.ElementSizeOffset)
@@ -64,7 +62,7 @@ func SnapExcalidrawDiagramToGrid(data string, gridSize int64) (string, error) {
 		}
 
 		// Snap element size to grid
-		newWidth, newHeight := GetSnappedElementSize(el.Width, el.Height, gridSizeFloat)
+		newWidth, newHeight := GetSnappedElementSize(el.Width, el.Height, gridSize)
 		sizeDiffWidth := newWidth - el.Width
 		sizeDiffHeight := newHeight - el.Height
 
@@ -77,7 +75,7 @@ func SnapExcalidrawDiagramToGrid(data string, gridSize int64) (string, error) {
 		}
 
 		// Snap element position to grid
-		newX, newY := GetSnappedGridPosition(el.X, el.Y, gridSizeFloat)
+		newX, newY := GetSnappedGridPosition(el.X, el.Y, gridSize)
 		positionDiffX := newX - el.X
 		positionDiffY := newY - el.Y
 

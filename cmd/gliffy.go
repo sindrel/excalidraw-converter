@@ -44,25 +44,28 @@ Example:
 			exportPath = strings.TrimSuffix(path.Base(importPath), filepath.Ext(importPath)) + ".gliffy"
 		}
 
+		gridSizeInt, err := strconv.ParseInt(gridSize, 10, 64)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Unable to parse grid size: %s\n", err)
+			os.Exit(1)
+		}
+		gridSizeFloat := float64(gridSizeInt)
+
 		if snapToGrid {
 			tmpSnappedPath := exportPath + ".tmp"
 
-			gridSizeInt, err := strconv.ParseInt(gridSize, 10, 64)
-			if err != nil {
-				fmt.Fprintf(os.Stderr, "Unable to parse grid size: %s\n", err)
-				os.Exit(1)
-			}
-
-			err = snap.SnapExcalidrawDiagramToGridAndSaveToFile(importPath, tmpSnappedPath, gridSizeInt)
+			err = snap.SnapExcalidrawDiagramToGridAndSaveToFile(importPath, tmpSnappedPath, gridSizeFloat)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Unable to snap Excalidraw diagram to grid: %s\n", err)
 				os.Exit(1)
 			}
 
 			importPath = tmpSnappedPath
+		} else {
+			gridSizeFloat = 10 // Default grid size for non-snapped diagrams (just for top-left padding)
 		}
 
-		err := conv.ConvertExcalidrawToGliffyFile(importPath, exportPath)
+		err = conv.ConvertExcalidrawToGliffyFile(importPath, exportPath, gridSizeFloat)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Unable to convert Excalidraw diagram to Gliffy diagram: %s\n", err)
 			os.Exit(1)

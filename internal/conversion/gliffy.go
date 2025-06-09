@@ -16,7 +16,7 @@ import (
 var xOffset float64
 var yOffset float64
 
-func ConvertExcalidrawToGliffyFile(importPath string, exportPath string) error {
+func ConvertExcalidrawToGliffyFile(importPath string, exportPath string, gridSize float64) error {
 	fmt.Printf("Parsing input file: %s\n", importPath)
 
 	data, err := os.ReadFile(importPath)
@@ -25,7 +25,7 @@ func ConvertExcalidrawToGliffyFile(importPath string, exportPath string) error {
 		os.Exit(1)
 	}
 
-	output, err := ConvertExcalidrawToGliffy(string(data))
+	output, err := ConvertExcalidrawToGliffy(string(data), gridSize)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "File parsing failed. %s\n", err)
 		os.Exit(1)
@@ -42,7 +42,7 @@ func ConvertExcalidrawToGliffyFile(importPath string, exportPath string) error {
 	return nil
 }
 
-func ConvertExcalidrawToGliffy(data string) (string, error) {
+func ConvertExcalidrawToGliffy(data string, gridSize float64) (string, error) {
 	fmt.Printf("Converting to Gliffy format...\n")
 
 	timestamp := time.Now().UnixNano() / int64(time.Millisecond)
@@ -53,7 +53,7 @@ func ConvertExcalidrawToGliffy(data string) (string, error) {
 		return "", errors.New("Unable to parse input: " + err.Error())
 	}
 
-	xOffset, yOffset = GetXYOffset(input)
+	xOffset, yOffset = GetXYOffset(input, gridSize)
 
 	var output datastr.GliffyScene
 	var objects []datastr.GliffyObject
@@ -431,7 +431,7 @@ func OrderGliffyObjectsByPriority(objects []datastr.GliffyObject, prioritized []
 	return objects
 }
 
-func GetXYOffset(input datastr.ExcalidrawScene) (float64, float64) {
+func GetXYOffset(input datastr.ExcalidrawScene, gridSize float64) (float64, float64) {
 	var xMin float64 = 0
 	var yMin float64 = 0
 
@@ -455,10 +455,8 @@ func GetXYOffset(input datastr.ExcalidrawScene) (float64, float64) {
 		}
 	}
 
-	// TODO: When snapping to grid, this should be the grid size
-	// or: Default to 20 (and update tests)
-	xMin -= 10
-	yMin -= 10
+	xMin -= gridSize
+	yMin -= gridSize
 
 	fmt.Printf("  Canvas Offset X: %f, Offset Y: %f\n", xMin, yMin)
 
