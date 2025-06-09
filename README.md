@@ -144,7 +144,8 @@ Flags:
   -g, --grid-size string   grid size (default "20")
   -h, --help               help for snap
   -i, --input string       input file path
-  -o, --output string      output file path (default "your_file0.excalidraw")
+  -o, --output string      output file path (default: overwrite input file)
+  -y, --yes                auto-approve overwriting the input file
 ```
 
 ## Features

@@ -9,11 +9,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var defaultOutputPathSnapped = "your_file0.excalidraw"
-
 var snapCmd = &cobra.Command{
 	Use:   "snap",
-	Short: "Snap a diagram to a grid",
+	Short: "Snap a diagram to grid",
 	Long: `This command is used to tidy up an Excalidraw diagram by snapping it's objects to a grid.
 
 	Resizes and aligns diagram objects to a grid. This can be useful to 
@@ -29,11 +27,26 @@ Example:
 		importPath, _ := cmd.Flags().GetString("input")
 		exportPath, _ := cmd.Flags().GetString("output")
 		gridSize, _ := cmd.Flags().GetString("grid-size")
+		forced, _ := cmd.Flags().GetBool("yes")
 
 		if len(importPath) == 0 {
 			fmt.Fprintf(os.Stderr, "Error: Input file path not provided.\n\n")
 			cmd.Help()
 			os.Exit(1)
+		}
+
+		if len(exportPath) == 0 {
+			exportPath = importPath
+
+			if !forced {
+				fmt.Printf("No output file path supplied. The input file '%s' will be overwritten. Continue? (y/N): ", importPath)
+				var response string
+				fmt.Scanln(&response)
+				if response != "y" && response != "Y" {
+					fmt.Println("Operation cancelled.")
+					os.Exit(0)
+				}
+			}
 		}
 
 		gridSizeInt, err := strconv.ParseInt(gridSize, 10, 64)
@@ -55,6 +68,8 @@ func init() {
 	rootCmd.AddCommand(snapCmd)
 
 	snapCmd.PersistentFlags().StringP("input", "i", "", "input file path")
-	snapCmd.PersistentFlags().StringP("output", "o", defaultOutputPathSnapped, "output file path")
+	snapCmd.PersistentFlags().StringP("output", "o", "", "output file path (default: overwrite input file)")
 	snapCmd.PersistentFlags().StringP("grid-size", "g", "20", "grid size")
+	snapCmd.PersistentFlags().BoolP("yes", "y", false, "auto-approve overwriting the input file")
+
 }
