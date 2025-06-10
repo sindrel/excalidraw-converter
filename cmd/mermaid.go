@@ -23,6 +23,10 @@ automatically based on the filename of the input file. I.e. the
 input file path './subfolder/your_file.excalidraw' will produce
 the default output file path './your_file.mermaid'.
 
+The diagram will be interpreted as a Mermaid flowchart. 
+Only elements that are connected by arrows will be included in 
+the output.
+
 Example:
   exconv mermaid -i your_file.excalidraw
 `,
@@ -63,7 +67,7 @@ Example:
 func init() {
 	rootCmd.AddCommand(mermaidCmd)
 
-	mermaidCmd.PersistentFlags().StringP("direction", "d", "auto", "flow direction 'top-down', 'left-right', 'right-left' or 'bottom-top' (default: auto-detect)")
+	mermaidCmd.PersistentFlags().StringP("direction", "d", "auto", "flow direction 'top-down', 'left-right', 'right-left' or 'bottom-top'")
 	mermaidCmd.PersistentFlags().StringP("input", "i", "", "input file path")
 	mermaidCmd.PersistentFlags().StringP("output", "o", defaultOutputPathMermaid, "output file path")
 	mermaidCmd.PersistentFlags().BoolP("print-to-stdout", "p", false, "print output to stdout instead of a file")
