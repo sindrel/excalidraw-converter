@@ -142,9 +142,10 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene) (string, error) {
 	nodeStyles := make(map[string]string)
 	nodeCount := 0
 
-	// First, collect text for each containerId (for nodes) and for links (for edges)
+	// First, collect text and fontSize for each containerId (for nodes) and for links (for edges)
 	containerText := make(map[string]string)
 	containerTextColor := make(map[string]string)
+	containerFontSize := make(map[string]float64)
 	linkText := make(map[string]string)
 	for _, el := range input.Elements {
 		if el.IsDeleted {
@@ -160,6 +161,10 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene) (string, error) {
 					// If text color is not default, record it
 					if el.StrokeColor != "" && el.StrokeColor != "#1e1e1e" && el.StrokeColor != "black" {
 						containerTextColor[el.ContainerId] = el.StrokeColor
+					}
+					// Record fontSize (use the first found for this container)
+					if _, ok := containerFontSize[el.ContainerId]; !ok {
+						containerFontSize[el.ContainerId] = el.FontSize
 					}
 				}
 				if parent.ID == el.ContainerId && (parent.Type == "arrow" || parent.Type == "line") {
@@ -212,11 +217,22 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene) (string, error) {
 			if el.StrokeColor != "" {
 				style += fmt.Sprintf("stroke:%s;", el.StrokeColor)
 			}
+			if el.StrokeWidth > 0 {
+				style += fmt.Sprintf("stroke-width:%.1f;", el.StrokeWidth)
+			}
 			if el.BackgroundColor != "transparent" && el.BackgroundColor != "" {
 				style += fmt.Sprintf("fill:%s;", el.BackgroundColor)
 			}
 			if el.Opacity < 100 {
 				style += fmt.Sprintf("opacity:%.2f;", el.Opacity/100.0)
+			}
+			// Font size mapping: 16 -> 90%, 28 -> 110%, else omit (from associated text element)
+			if fontSize, ok := containerFontSize[el.ID]; ok {
+				if fontSize == 16 {
+					style += "font-size:90%;"
+				} else if fontSize == 28 {
+					style += "font-size:110%;"
+				}
 			}
 			// Add text color if found for this node
 			if color, ok := containerTextColor[el.ID]; ok {
@@ -291,6 +307,9 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene) (string, error) {
 					color = "#" + color
 				}
 				style += fmt.Sprintf("stroke:%s,color:black;", color)
+			}
+			if el.StrokeWidth > 0 {
+				style += fmt.Sprintf("stroke-width:%.1f;", el.StrokeWidth)
 			}
 			if el.Opacity < 100 {
 				style += fmt.Sprintf("opacity:%.2f;", el.Opacity/100.0)

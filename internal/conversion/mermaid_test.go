@@ -129,7 +129,9 @@ N1["Second"]
 N0 --> N1
 style N0 opacity:0.00;
 style N1 opacity:0.00;
+linkStyle 0 opacity:0.00;
 `
+	// fmt.Println(got)
 	if got != want {
 		t.Errorf("BuildMermaidFromScene() = %q, want %q", got, want)
 	}
