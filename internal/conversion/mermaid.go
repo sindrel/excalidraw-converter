@@ -12,6 +12,23 @@ import (
 )
 
 func ConvertExcalidrawDiagramToMermaidAndSaveToFile(importPath string, exportPath string) error {
+	output, err := ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath, exportPath)
+	if err != nil {
+		return err
+	}
+
+	err = internal.WriteToFile(exportPath, output)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Saving diagram failed. %s\n", err)
+		os.Exit(1)
+	}
+
+	fmt.Printf("Converted diagram saved to file: %s\n", exportPath)
+
+	return nil
+}
+
+func ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath string, exportPath string) (string, error) {
 	fmt.Printf("Parsing input file: %s\n", importPath)
 
 	data, err := os.ReadFile(importPath)
@@ -22,19 +39,13 @@ func ConvertExcalidrawDiagramToMermaidAndSaveToFile(importPath string, exportPat
 
 	output, err := ConvertExcalidrawDiagramToMermaid(string(data))
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "File parsing failed. %s\n", err)
+		fmt.Fprintf(os.Stderr, "Diagram conversion failed. %s\n", err)
 		os.Exit(1)
 	}
 
-	err = internal.WriteToFile(exportPath, string(output))
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Saving diagram failed. %s\n", err)
-		os.Exit(1)
-	}
+	fmt.Printf("Diagram successfully converted to Mermaid format\n")
 
-	fmt.Printf("Converted diagram saved to file: %s\n", exportPath)
-
-	return nil
+	return string(output), nil
 }
 
 // ConvertExcalidrawDiagramToMermaid converts an Excalidraw diagram to a Mermaid flowchart string.

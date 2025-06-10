@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// var defaultOutputPath = "your_file.mermaid"
+var defaultOutputPathMermaid = "your_file.mermaid"
 
 var mermaidCmd = &cobra.Command{
 	Use:   "mermaid",
@@ -29,6 +29,7 @@ Example:
 	Run: func(cmd *cobra.Command, args []string) {
 		importPath, _ := cmd.Flags().GetString("input")
 		exportPath, _ := cmd.Flags().GetString("output")
+		printToStdOut, _ := cmd.Flags().GetBool("print-to-stdout")
 
 		if len(importPath) == 0 {
 			fmt.Fprintf(os.Stderr, "Error: Input file path not provided.\n\n")
@@ -36,7 +37,17 @@ Example:
 			os.Exit(1)
 		}
 
-		if strings.HasPrefix(exportPath, defaultOutputPath) {
+		if printToStdOut {
+			output, err := conv.ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath, exportPath)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Unable to convert Excalidraw diagram to Mermaid diagram: %s\n", err)
+				os.Exit(1)
+			}
+			fmt.Print("---\n", output)
+			return
+		}
+
+		if strings.HasPrefix(exportPath, defaultOutputPathMermaid) {
 			exportPath = strings.TrimSuffix(path.Base(importPath), filepath.Ext(importPath)) + ".mermaid"
 		}
 
@@ -52,5 +63,6 @@ func init() {
 	rootCmd.AddCommand(mermaidCmd)
 
 	mermaidCmd.PersistentFlags().StringP("input", "i", "", "input file path")
-	mermaidCmd.PersistentFlags().StringP("output", "o", "your_file.mermaid", "output file path")
+	mermaidCmd.PersistentFlags().StringP("output", "o", defaultOutputPathMermaid, "output file path")
+	mermaidCmd.PersistentFlags().BoolP("print-to-stdout", "p", false, "print output to stdout instead of a file")
 }
