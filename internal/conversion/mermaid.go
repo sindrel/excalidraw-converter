@@ -217,8 +217,11 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene) (string, error) {
 			if el.StrokeColor != "" {
 				style += fmt.Sprintf("stroke:%s;", el.StrokeColor)
 			}
-			if el.StrokeWidth > 0 {
-				style += fmt.Sprintf("stroke-width:%.1f;", el.StrokeWidth)
+			// Map strokeWidth: 4 -> 2, 1 -> 0.5, otherwise omit
+			if el.StrokeWidth == 4 {
+				style += "stroke-width:2;"
+			} else if el.StrokeWidth == 1 {
+				style += "stroke-width:0.5;"
 			}
 			if el.BackgroundColor != "transparent" && el.BackgroundColor != "" {
 				style += fmt.Sprintf("fill:%s;", el.BackgroundColor)
@@ -308,8 +311,11 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene) (string, error) {
 				}
 				style += fmt.Sprintf("stroke:%s,color:black;", color)
 			}
-			if el.StrokeWidth > 0 {
-				style += fmt.Sprintf("stroke-width:%.1f;", el.StrokeWidth)
+			// In edge style mapping (replace the current stroke-width logic)
+			if el.StrokeWidth == 4 {
+				style += "stroke-width:2;"
+			} else if el.StrokeWidth == 1 {
+				style += "stroke-width:0.5;"
 			}
 			if el.Opacity < 100 {
 				style += fmt.Sprintf("opacity:%.2f;", el.Opacity/100.0)
