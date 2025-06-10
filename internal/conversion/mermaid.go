@@ -144,6 +144,7 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene) (string, error) {
 
 	// First, collect text for each containerId (for nodes) and for links (for edges)
 	containerText := make(map[string]string)
+	containerTextColor := make(map[string]string)
 	linkText := make(map[string]string)
 	for _, el := range input.Elements {
 		if el.IsDeleted {
@@ -156,6 +157,10 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene) (string, error) {
 						containerText[el.ContainerId] += " "
 					}
 					containerText[el.ContainerId] += strings.ReplaceAll(el.Text, "\n", " ")
+					// If text color is not default, record it
+					if el.StrokeColor != "" && el.StrokeColor != "#1e1e1e" && el.StrokeColor != "black" {
+						containerTextColor[el.ContainerId] = el.StrokeColor
+					}
 				}
 				if parent.ID == el.ContainerId && (parent.Type == "arrow" || parent.Type == "line") {
 					if linkText[el.ContainerId] != "" {
@@ -213,6 +218,13 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene) (string, error) {
 			if el.Opacity < 100 {
 				style += fmt.Sprintf("opacity:%.2f;", el.Opacity/100.0)
 			}
+			// Add text color if found for this node
+			if color, ok := containerTextColor[el.ID]; ok {
+				if !strings.HasPrefix(color, "#") && color != "black" && color != "white" {
+					color = "#" + color
+				}
+				style += fmt.Sprintf("color:%s;", color)
+			}
 			nodeStyles[el.ID] = style
 			nodeCount++
 		}
@@ -238,6 +250,12 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene) (string, error) {
 	}
 
 	// Output edges (arrows/lines)
+	type edgeStyleInfo struct {
+		index int
+		style string
+	}
+	edgeStyleList := []edgeStyleInfo{}
+	edgeCount := 0
 	for _, el := range input.Elements {
 		if el.IsDeleted {
 			continue
@@ -258,6 +276,29 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene) (string, error) {
 			labelStr := constructMermaidEdgeLabel(linkText[el.ID], el.Text)
 			edgeDef := fmt.Sprintf("%s %s%s %s\n", startNode, arrow, labelStr, endNode)
 			sb.WriteString(edgeDef)
+
+			// Build edge style string if needed
+			style := ""
+			if el.StrokeStyle == "dashed" {
+				style += "stroke-dasharray: 5 5;"
+			} else if el.StrokeStyle == "dotted" {
+				style += "stroke-dasharray: 2 2;"
+			}
+			if el.StrokeColor != "" && el.StrokeColor != "#1e1e1e" {
+				// Ensure the color starts with '#'
+				color := el.StrokeColor
+				if !strings.HasPrefix(color, "#") {
+					color = "#" + color
+				}
+				style += fmt.Sprintf("stroke:%s,color:black;", color)
+			}
+			if el.Opacity < 100 {
+				style += fmt.Sprintf("opacity:%.2f;", el.Opacity/100.0)
+			}
+			if style != "" {
+				edgeStyleList = append(edgeStyleList, edgeStyleInfo{index: edgeCount, style: style})
+			}
+			edgeCount++
 		}
 	}
 
@@ -272,6 +313,14 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene) (string, error) {
 		style := constructMermaidStyleString(nodeStyles[id])
 		if style != "" {
 			sb.WriteString(fmt.Sprintf("style %s %s\n", name, style))
+		}
+	}
+
+	// Output linkStyle blocks for edges (correct Mermaid syntax)
+	for _, info := range edgeStyleList {
+		styleStr := constructMermaidStyleString(info.style)
+		if styleStr != "" {
+			sb.WriteString(fmt.Sprintf("linkStyle %d %s\n", info.index, styleStr))
 		}
 	}
 
