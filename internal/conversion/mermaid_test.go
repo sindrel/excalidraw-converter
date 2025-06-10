@@ -64,8 +64,8 @@ func TestConstructMermaidEdgeLabel(t *testing.T) {
 	tests := []struct {
 		label, elText, want string
 	}{
-		{"label", "", "|label|"},
-		{"", "some\ntext", "|some text|"},
+		{"label", "", "|\"label\"|"},
+		{"", "some\ntext", "|\"some text\"|"},
 		{"", "", ""},
 	}
 	for _, tt := range tests {

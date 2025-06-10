@@ -118,7 +118,7 @@ func constructMermaidEdgeLabel(linkText, elText string) string {
 		label = strings.ReplaceAll(elText, "\n", " ")
 	}
 	if label != "" {
-		return fmt.Sprintf("|%s|", label)
+		return fmt.Sprintf("|\"%s\"|", label)
 	}
 	return ""
 }
