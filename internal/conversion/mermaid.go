@@ -65,18 +65,45 @@ func constructMermaidNodeDef(name, label, shape string) string {
 // Helper to map Excalidraw edge type and stroke style to Mermaid arrow
 func constructMermaidEdgeArrow(elType, endArrowhead, strokeStyle string) string {
 	arrow := "--"
-	if elType == "arrow" || endArrowhead == "arrow" {
+
+	// Map endArrowhead to Mermaid edge types
+	switch endArrowhead {
+	case "arrow":
 		arrow = "-->"
+	case "circle_outline", "circle":
+		arrow = "--o"
+	case "arrow_bidirectional":
+		arrow = "<-->"
+	case "circle_outline_bidirectional":
+		arrow = "o--o"
+	// Add more mappings here as needed
+	default:
+		if elType == "arrow" {
+			arrow = "-->"
+		}
 	}
+
 	if strokeStyle == "dashed" {
 		if arrow == "-->" {
 			arrow = "-.->"
+		} else if arrow == "--o" {
+			arrow = "-.o"
+		} else if arrow == "<-->" {
+			arrow = "<-.-.->"
+		} else if arrow == "o--o" {
+			arrow = "o-.-o"
 		} else {
 			arrow = "-.-"
 		}
 	} else if strokeStyle == "dotted" {
 		if arrow == "-->" {
 			arrow = "==>"
+		} else if arrow == "--o" {
+			arrow = "==o"
+		} else if arrow == "<-->" {
+			arrow = "<==>"
+		} else if arrow == "o--o" {
+			arrow = "o==o"
 		} else {
 			arrow = "==="
 		}

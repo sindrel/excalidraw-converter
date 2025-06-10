@@ -43,6 +43,23 @@ func TestConstructMermaidEdgeArrow(t *testing.T) {
 	}
 }
 
+func TestConstructMermaidEdgeArrow_CircleOutline(t *testing.T) {
+	tests := []struct {
+		type_, endArrow, style, want string
+	}{
+		{"line", "circle_outline", "", "--o"},
+		{"arrow", "circle_outline", "", "--o"},
+		{"arrow", "circle_outline", "dashed", "-.o"},
+		{"arrow", "circle_outline", "dotted", "==o"},
+	}
+	for _, tt := range tests {
+		got := constructMermaidEdgeArrow(tt.type_, tt.endArrow, tt.style)
+		if got != tt.want {
+			t.Errorf("type=%q, endArrow=%q, style=%q: got %q, want %q", tt.type_, tt.endArrow, tt.style, got, tt.want)
+		}
+	}
+}
+
 func TestConstructMermaidEdgeLabel(t *testing.T) {
 	tests := []struct {
 		label, elText, want string
