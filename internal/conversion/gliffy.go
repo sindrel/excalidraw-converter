@@ -389,7 +389,7 @@ func EmbeddedImgConvExcGliffy(input datastr.ExcalidrawScene, fileId string) (str
 		return "", fmt.Errorf("unable to find embedded file with id %s", fileId)
 	}
 
-	return file.DataUrl, nil
+	return file.DataURL, nil
 }
 
 func FreedrawStrokeWidthConvExcGliffy(strokeWidth float64) float64 {
