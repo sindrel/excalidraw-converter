@@ -1,0 +1,79 @@
+flowchart TD
+N9["Thin"]
+N17["Cartoon"]
+N4["Dashed"]
+N2(("Ellipse Right"))
+N0["Sharp Rectangle Top"]
+N16["Artist"]
+N8["Extra bold"]
+N7["Bold"]
+N18["Architect"]
+N10["Green"]
+N3("Rounded Rectangle Bottom")
+N14["Blue stroke"]
+N1{"Diamond Left"}
+N21["Large text"]
+N5["Dotted"]
+N6["Solid"]
+N19["Another Sharp Rectangle Bottom"]
+N20["Medium text"]
+N15["Red stroke"]
+N13["Green stroke"]
+N12["Pink"]
+N22["Small text"]
+N11["Blue"]
+N17 --> N16
+N16 --> N18
+N18 --> N6
+N6 --> N4
+N4 --> N5
+N5 --> N8
+N8 --> N7
+N7 --> N9
+N9 --> N12
+N12 --> N10
+N10 --> N11
+N22 --> N14
+N14 --> N13
+N13 --> N15
+N0 --> N2
+N2 -->|Elbow arrow| N3
+N2 -->|Curved arrow| N1
+N0 --> N1
+N1 --> N17
+N3 -->|Triangle outline| N19
+N3 -->|Circle head| N19
+N3 -->|Bar| N19
+N3 -->|Diamond outline| N19
+N3 -->|Diamond| N19
+N3 -->|Circle outline| N19
+N3 -->|Crow's foot| N19
+N15 -->|Red arrow| N18
+N3 -->|Two arrowheads| N19
+N3 -->|Triangle| N19
+N21 --> N20
+N20 --> N22
+N11 --> N21
+style N9 stroke:#1e1e1e,fill:#ffffff;
+style N17 stroke:#1e1e1e,fill:#ffffff;
+style N4 stroke-dasharray: 5 5,stroke:#1e1e1e,fill:#ffffff;
+style N2 stroke:#1971c2,fill:#b2f2bb;
+style N0 stroke:#1e1e1e,fill:#ffc9c9;
+style N16 stroke:#1e1e1e,fill:#ffffff;
+style N8 stroke:#1e1e1e,fill:#ffffff;
+style N7 stroke:#1e1e1e,fill:#ffffff;
+style N18 stroke:#1e1e1e,fill:#ffffff;
+style N10 stroke:#1e1e1e,fill:#b2f2bb;
+style N3 stroke:#1e1e1e;
+style N14 stroke:#1971c2;
+style N1 stroke:#1e1e1e,fill:#ffec99;
+style N21 stroke:#1e1e1e,fill:#ffffff;
+style N5 stroke-dasharray: 2 2,stroke:#1e1e1e,fill:#ffffff;
+style N6 stroke:#1e1e1e,fill:#ffffff;
+style N19 stroke:#1e1e1e;
+style N20 stroke:#1e1e1e,fill:#ffffff;
+style N15 stroke:#e03131;
+style N13 stroke:#2f9e44;
+style N12 stroke:#1e1e1e,fill:#ffc9c9;
+style N22 stroke:#1e1e1e,fill:#ffffff;
+style N11 stroke:#1e1e1e,fill:#a5d8ff;
