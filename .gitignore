@@ -26,6 +26,7 @@ Thumbs.db
 # Tmp
 *.pem
 *.tmp
+tmp/**/*
 
 # Application specific
 out*.gliffy
