@@ -11,8 +11,8 @@ import (
 	"strings"
 )
 
-func ConvertExcalidrawDiagramToMermaidAndSaveToFile(importPath string, exportPath string) error {
-	output, err := ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath, exportPath)
+func ConvertExcalidrawDiagramToMermaidAndSaveToFile(importPath string, exportPath string, flowDirection string) error {
+	output, err := ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath, exportPath, flowDirection)
 	if err != nil {
 		return err
 	}
@@ -28,7 +28,7 @@ func ConvertExcalidrawDiagramToMermaidAndSaveToFile(importPath string, exportPat
 	return nil
 }
 
-func ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath string, exportPath string) (string, error) {
+func ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath string, exportPath string, flowDirection string) (string, error) {
 	fmt.Printf("Parsing input file: %s\n", importPath)
 
 	data, err := os.ReadFile(importPath)
@@ -37,7 +37,7 @@ func ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath string, expor
 		os.Exit(1)
 	}
 
-	output, err := ConvertExcalidrawDiagramToMermaid(string(data))
+	output, err := ConvertExcalidrawDiagramToMermaid(string(data), flowDirection)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Diagram conversion failed. %s\n", err)
 		os.Exit(1)
@@ -49,13 +49,13 @@ func ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath string, expor
 }
 
 // ConvertExcalidrawDiagramToMermaid converts an Excalidraw diagram to a Mermaid flowchart string.
-func ConvertExcalidrawDiagramToMermaid(data string) (string, error) {
+func ConvertExcalidrawDiagramToMermaid(data string, flowDirection string) (string, error) {
 	var input datastr.ExcalidrawScene
 	err := json.Unmarshal([]byte(data), &input)
 	if err != nil {
 		return "", errors.New("Unable to parse input: " + err.Error())
 	}
-	return BuildMermaidFromScene(input)
+	return BuildMermaidFromScene(input, flowDirection)
 }
 
 // Helper to format a node definition for Mermaid
@@ -146,7 +146,7 @@ func constructMermaidStyleString(style string) string {
 }
 
 // BuildMermaidFromScene converts an ExcalidrawScene struct to a Mermaid flowchart string.
-func BuildMermaidFromScene(input datastr.ExcalidrawScene) (string, error) {
+func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) (string, error) {
 	nodeMap := make(map[string]string) // Excalidraw ID -> Mermaid node name
 	nodeLabels := make(map[string]string)
 	nodeShapes := make(map[string]string)
@@ -260,7 +260,21 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene) (string, error) {
 		}
 	}
 
-	orientation := getFlowchartOrientation(input)
+	orientation := ""
+	if flowDirection == "auto" {
+		orientation = getFlowchartOrientation(input)
+	} else {
+		switch strings.ToLower(flowDirection) {
+		case "left-right":
+			orientation = "LR"
+		case "right-left":
+			orientation = "RL"
+		case "bottom-top":
+			orientation = "BT"
+		default:
+			orientation = "TD" // Default to top-down
+		}
+	}
 
 	var sb strings.Builder
 	sb.WriteString(fmt.Sprintf("flowchart %s\n", orientation))

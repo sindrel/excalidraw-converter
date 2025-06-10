@@ -30,6 +30,7 @@ Example:
 		importPath, _ := cmd.Flags().GetString("input")
 		exportPath, _ := cmd.Flags().GetString("output")
 		printToStdOut, _ := cmd.Flags().GetBool("print-to-stdout")
+		flowDirection, _ := cmd.Flags().GetString("direction")
 
 		if len(importPath) == 0 {
 			fmt.Fprintf(os.Stderr, "Error: Input file path not provided.\n\n")
@@ -38,7 +39,7 @@ Example:
 		}
 
 		if printToStdOut {
-			output, err := conv.ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath, exportPath)
+			output, err := conv.ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath, exportPath, flowDirection)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Unable to convert Excalidraw diagram to Mermaid diagram: %s\n", err)
 				os.Exit(1)
@@ -51,7 +52,7 @@ Example:
 			exportPath = strings.TrimSuffix(path.Base(importPath), filepath.Ext(importPath)) + ".mermaid"
 		}
 
-		err := conv.ConvertExcalidrawDiagramToMermaidAndSaveToFile(importPath, exportPath)
+		err := conv.ConvertExcalidrawDiagramToMermaidAndSaveToFile(importPath, exportPath, flowDirection)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Unable to convert Excalidraw diagram to Mermaid diagram: %s\n", err)
 			os.Exit(1)
@@ -62,6 +63,7 @@ Example:
 func init() {
 	rootCmd.AddCommand(mermaidCmd)
 
+	mermaidCmd.PersistentFlags().StringP("direction", "d", "auto", "flow direction 'top-down', 'left-right', 'right-left' or 'bottom-top' (default: auto-detect)")
 	mermaidCmd.PersistentFlags().StringP("input", "i", "", "input file path")
 	mermaidCmd.PersistentFlags().StringP("output", "o", defaultOutputPathMermaid, "output file path")
 	mermaidCmd.PersistentFlags().BoolP("print-to-stdout", "p", false, "print output to stdout instead of a file")

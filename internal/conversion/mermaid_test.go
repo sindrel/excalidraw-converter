@@ -122,7 +122,7 @@ func TestBuildMermaidFromScene(t *testing.T) {
 	var realScene datastr.ExcalidrawScene
 	_ = json.Unmarshal(b, &realScene)
 
-	got, _ := BuildMermaidFromScene(realScene)
+	got, _ := BuildMermaidFromScene(realScene, "left-right")
 	want := `flowchart LR
 N0["First"]
 N1["Second"]
@@ -134,5 +134,67 @@ linkStyle 0 opacity:0.00;
 	// fmt.Println(got)
 	if got != want {
 		t.Errorf("BuildMermaidFromScene() = %q, want %q", got, want)
+	}
+}
+
+func TestBuildMermaidFromSceneDirection(t *testing.T) {
+	// Two rectangles with text and an arrow between them
+	scene := datastr.ExcalidrawScene{
+		Elements: []datastr.ExcalidrawSceneElement{
+			{ID: "1", Type: "rectangle", X: 0, Y: 0, Width: 100, Height: 50},
+		},
+	}
+	b, _ := json.Marshal(scene)
+	var realScene datastr.ExcalidrawScene
+	_ = json.Unmarshal(b, &realScene)
+
+	// Direction left-right
+	got, _ := BuildMermaidFromScene(realScene, "left-right")
+	want := `flowchart LR
+N0["N0"]
+style N0 opacity:0.00;
+`
+	if got != want {
+		t.Errorf("BuildMermaidFromScene() left-right = %q, want %q", got, want)
+	}
+
+	// Direction right-left
+	got, _ = BuildMermaidFromScene(realScene, "right-left")
+	want = `flowchart RL
+N0["N0"]
+style N0 opacity:0.00;
+`
+	if got != want {
+		t.Errorf("BuildMermaidFromScene() right-left = %q, want %q", got, want)
+	}
+
+	// Direction bottom-top
+	got, _ = BuildMermaidFromScene(realScene, "bottom-top")
+	want = `flowchart BT
+N0["N0"]
+style N0 opacity:0.00;
+`
+	if got != want {
+		t.Errorf("BuildMermaidFromScene() bottom-top = %q, want %q", got, want)
+	}
+
+	// Direction default to top-down
+	got, _ = BuildMermaidFromScene(realScene, "foo")
+	want = `flowchart TD
+N0["N0"]
+style N0 opacity:0.00;
+`
+	if got != want {
+		t.Errorf("BuildMermaidFromScene() default = %q, want %q", got, want)
+	}
+
+	// Direction auto-detect
+	got, _ = BuildMermaidFromScene(realScene, "auto")
+	want = `flowchart LR
+N0["N0"]
+style N0 opacity:0.00;
+`
+	if got != want {
+		t.Errorf("BuildMermaidFromScene() auto = %q, want %q", got, want)
 	}
 }

@@ -13,7 +13,7 @@ func TestConvertExcalidrawToMermaidFile(t *testing.T) {
 	outputDataPath := "../test/data/test_output.mermaid.tmp"
 	expectedDataPath := "../test/data/test_output.mermaid"
 
-	err := conv.ConvertExcalidrawDiagramToMermaidAndSaveToFile(inputDataPath, outputDataPath)
+	err := conv.ConvertExcalidrawDiagramToMermaidAndSaveToFile(inputDataPath, outputDataPath, "top-down")
 	assert.Nil(t, err)
 
 	outputData, err := os.ReadFile(outputDataPath)
