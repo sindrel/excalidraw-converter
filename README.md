@@ -68,51 +68,6 @@ Converts to a Gliffy compatible format, which can be imported directly into serv
   -o, --output string   output file path (default "your_file.gliffy")
 ```
 
-<details>
-  <summary>MacOS example</summary>
-
-  ```sh
-  $ exconv gliffy -i ~/Downloads/my-diagram.excalidraw
-  Parsing input file: ~/Downloads/my-diagram.excalidraw
-  Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  [...]
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.line
-  Converted diagram saved to file: my-diagram.gliffy
-  ```
-</details>
-
-<details>
-  <summary>Linux example</summary>
-
-  ```sh
-  $ ./exconv gliffy -i ~/Downloads/my-diagram.excalidraw
-  Parsing input file: ~/Downloads/my-diagram.excalidraw
-  Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  [...]
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.line
-  Converted diagram saved to file: my-diagram.gliffy
-  ```
-</details>
-
-<details>
-  <summary>Windows example</summary>
-
-  ```sh
-  C:\> exconv.exe gliffy -i C:\Downloads\my-diagram.excalidraw
-  Parsing input file: C:\Downloads\my-diagram.excalidraw
-  Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  [...]
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.line
-  Converted diagram saved to file: my-diagram.gliffy
-  ```
-</details>
-
 #### Importing in Gliffy
 ![Animation demonstrating use](exconv.gif "Animation")
 
