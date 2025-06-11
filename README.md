@@ -123,6 +123,8 @@ After converting your diagram(s), import them into Gliffy (or draw.io) using the
 ### Mermaid
 Converts to **[Mermaid](https://mermaid.js.org)** diagrams that can be used for a variety of cases, such as being included in markdown files  [on GitHub](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams).
 
+*Currently supports conversion to flowcharts.*
+
 **Usage:**
 - Mac/Linux:
   ```sh
@@ -174,6 +176,17 @@ Converts to **[Mermaid](https://mermaid.js.org)** diagrams that can be used for 
   Converted diagram saved to file: my-diagram.mermaid
   ```
 </details>
+
+#### Converted diagrams can be embedded in markdown
+Example:
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
 
 ---
 
