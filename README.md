@@ -178,15 +178,21 @@ Converts to **[Mermaid](https://mermaid.js.org)** diagrams that can be used for 
 </details>
 
 #### Converted diagrams can be embedded in markdown
+
 Example:
 
 ```mermaid
-graph TD;
+graph LR;
     A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
 ```
+
+#### Converted diagrams can be imported back into Excalidraw
+
+After converting your diagram(s), you can use the [Mermaid to Excalidraw playground](https://mermaid-to-excalidraw.vercel.app/)* to convert it back to the Excalidraw format.
+
+Note that some styling attributes could be lost as part of the conversion and import process.
+
+*\* This is a tool maintained by [Excalidraw](https://github.com/excalidraw/mermaid-to-excalidraw).*
 
 ---
 
@@ -227,7 +233,7 @@ All fixed shapes and most styling and text options are supported.
 | Stroke width                 |   ✅   |   ✅    |
 | Opacity                      |   ✅   |   ❌    |
 
-*\* = Library graphics are not fully supported (experimental).*
+*\* Library graphics are not fully supported (experimental).*
 
 ## Compatibility with draw.io
 Converted Gliffy diagrams should also work in the online version of [draw.io](https://draw.io).
