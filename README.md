@@ -180,8 +180,8 @@ All fixed shapes and most styling and text options are supported.
 | Text Option                  | Gliffy | Mermaid |
 |------------------------------|:------:|:-------:|
 | Font family (Normal/Code)    |   ✅   |   ➖    |
-| Font size                    |   ✅   |   ➖    |
-| Font color                   |   ✅   |   ➖    |
+| Font size                    |   ✅   |   ✅    |
+| Font color                   |   ✅   |   ✅    |
 | Horizontal alignment         |   ✅   |   ➖    |
 | Vertical alignment           |   ✅   |   ➖    |
 | Text contained in shapes     |   ✅   |   ✅    |
