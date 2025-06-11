@@ -147,22 +147,15 @@ Converts to a [Mermaid](https://mermaid.js.org) diagram that can be used for a v
   -p, --print-to-stdout    print output to stdout instead of a file
 ```
 
-#### Embed converted diagram in markdown
+#### Validate a converted diagram
 
-Example:
+You can validate and customize a converted diagram using tools like [Mermaid Live Editor](https://mermaid.live).
 
-```mermaid
-graph LR;
-    A-->B;
-```
+#### Import a converted diagram back into Excalidraw
 
-#### Import converted diagram back into Excalidraw
-
-After converting your diagram(s), you can use the [Mermaid to Excalidraw playground](https://mermaid-to-excalidraw.vercel.app/)* to convert it back to the Excalidraw format.
+After converting your diagram(s), you can use the [Mermaid to Excalidraw playground](https://mermaid-to-excalidraw.vercel.app/) to convert it back to the Excalidraw format.
 
 Note that some styling attributes could be lost as part of the conversion and import process.
-
-*\* This is a tool maintained by [Excalidraw](https://github.com/excalidraw/mermaid-to-excalidraw).*
 
 ---
 
