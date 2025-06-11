@@ -218,63 +218,13 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 				shape = "{" // Mermaid diamond
 			}
 			nodeShapes[el.ID] = shape
-			// Style mapping (stroke, fill, etc.)
-			style := ""
-			if el.StrokeStyle == "dashed" {
-				style += "stroke-dasharray: 5 5;"
-			} else if el.StrokeStyle == "dotted" {
-				style += "stroke-dasharray: 2 2;"
-			}
-			if el.StrokeColor != "" {
-				style += fmt.Sprintf("stroke:%s;", el.StrokeColor)
-			}
-			// Map strokeWidth: 4 -> 2, 1 -> 0.5, otherwise omit
-			if el.StrokeWidth == 4 {
-				style += "stroke-width:2;"
-			} else if el.StrokeWidth == 1 {
-				style += "stroke-width:0.5;"
-			}
-			if el.BackgroundColor != "transparent" && el.BackgroundColor != "" {
-				style += fmt.Sprintf("fill:%s;", el.BackgroundColor)
-			}
-			if el.Opacity < 100 {
-				style += fmt.Sprintf("opacity:%.2f;", el.Opacity/100.0)
-			}
-			// Font size mapping: 16 -> 90%, 28 -> 110%, else omit (from associated text element)
-			if fontSize, ok := containerFontSize[el.ID]; ok {
-				if fontSize == 16 {
-					style += "font-size:90%;"
-				} else if fontSize == 28 {
-					style += "font-size:110%;"
-				}
-			}
-			// Add text color if found for this node
-			if color, ok := containerTextColor[el.ID]; ok {
-				if !strings.HasPrefix(color, "#") && color != "black" && color != "white" {
-					color = "#" + color
-				}
-				style += fmt.Sprintf("color:%s;", color)
-			}
-			nodeStyles[el.ID] = style
+			// Style mapping (moved to helper)
+			nodeStyles[el.ID] = getNodeStyle(el, containerFontSize, containerTextColor)
 			nodeCount++
 		}
 	}
 
-	orientation := ""
-	if flowDirection == "auto" {
-		orientation = getFlowchartOrientation(input)
-	} else {
-		switch strings.ToLower(flowDirection) {
-		case "left-right":
-			orientation = "LR"
-		case "right-left":
-			orientation = "RL"
-		case "bottom-top":
-			orientation = "BT"
-		default:
-			orientation = "TD" // Default to top-down
-		}
-	}
+	orientation := getOrientation(flowDirection, input)
 
 	var sb strings.Builder
 	sb.WriteString(fmt.Sprintf("flowchart %s\n", orientation))
@@ -472,4 +422,62 @@ func getIndexByID(elements []datastr.ExcalidrawSceneElement, id string) int {
 		}
 	}
 	return -1
+}
+
+// Helper to map node style from Excalidraw element
+func getNodeStyle(el datastr.ExcalidrawSceneElement, containerFontSize map[string]float64, containerTextColor map[string]string) string {
+	style := ""
+	if el.StrokeStyle == "dashed" {
+		style += "stroke-dasharray: 5 5;"
+	} else if el.StrokeStyle == "dotted" {
+		style += "stroke-dasharray: 2 2;"
+	}
+	if el.StrokeColor != "" {
+		style += fmt.Sprintf("stroke:%s;", el.StrokeColor)
+	}
+	// Map strokeWidth: 4 -> 2, 1 -> 0.5, otherwise omit
+	if el.StrokeWidth == 4 {
+		style += "stroke-width:2;"
+	} else if el.StrokeWidth == 1 {
+		style += "stroke-width:0.5;"
+	}
+	if el.BackgroundColor != "transparent" && el.BackgroundColor != "" {
+		style += fmt.Sprintf("fill:%s;", el.BackgroundColor)
+	}
+	if el.Opacity < 100 {
+		style += fmt.Sprintf("opacity:%.2f;", el.Opacity/100.0)
+	}
+	// Font size mapping: 16 -> 90%, 28 -> 110%, else omit (from associated text element)
+	if fontSize, ok := containerFontSize[el.ID]; ok {
+		if fontSize == 16 {
+			style += "font-size:90%;"
+		} else if fontSize == 28 {
+			style += "font-size:110%;"
+		}
+	}
+	// Add text color if found for this node
+	if color, ok := containerTextColor[el.ID]; ok {
+		if !strings.HasPrefix(color, "#") && color != "black" && color != "white" {
+			color = "#" + color
+		}
+		style += fmt.Sprintf("color:%s;", color)
+	}
+	return style
+}
+
+// Helper to determine orientation string
+func getOrientation(flowDirection string, input datastr.ExcalidrawScene) string {
+	if flowDirection == "auto" {
+		return getFlowchartOrientation(input)
+	}
+	switch strings.ToLower(flowDirection) {
+	case "left-right":
+		return "LR"
+	case "right-left":
+		return "RL"
+	case "bottom-top":
+		return "BT"
+	default:
+		return "TD"
+	}
 }

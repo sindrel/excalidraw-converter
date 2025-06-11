@@ -198,3 +198,87 @@ style N0 opacity:0.00;
 		t.Errorf("BuildMermaidFromScene() auto = %q, want %q", got, want)
 	}
 }
+
+func TestGetNodeStyle(t *testing.T) {
+	containerFontSize := map[string]float64{"id1": 16, "id2": 28, "id3": 20}
+	containerTextColor := map[string]string{"id1": "#ff0000", "id2": "blue", "id3": "black"}
+
+	tests := []struct {
+		name string
+		el   datastr.ExcalidrawSceneElement
+		want string
+	}{
+		{
+			name: "Dashed stroke, custom color, font size 16, text color #ff0000",
+			el: datastr.ExcalidrawSceneElement{
+				ID:              "id1",
+				StrokeStyle:     "dashed",
+				StrokeColor:     "#123456",
+				StrokeWidth:     4,
+				BackgroundColor: "#abcdef",
+				Opacity:         80,
+			},
+			want: "stroke-dasharray: 5 5;stroke:#123456;stroke-width:2;fill:#abcdef;opacity:0.80;font-size:90%;color:#ff0000;",
+		},
+		{
+			name: "Dotted stroke, font size 28, text color blue (should add #)",
+			el: datastr.ExcalidrawSceneElement{
+				ID:          "id2",
+				StrokeStyle: "dotted",
+				StrokeColor: "#654321",
+				StrokeWidth: 1,
+				Opacity:     100,
+			},
+			want: "stroke-dasharray: 2 2;stroke:#654321;stroke-width:0.5;font-size:110%;color:#blue;",
+		},
+		{
+			name: "No style, font size not mapped, text color black (should not add #)",
+			el: datastr.ExcalidrawSceneElement{
+				ID:          "id3",
+				StrokeStyle: "solid",
+				StrokeColor: "",
+				StrokeWidth: 2,
+				Opacity:     100,
+			},
+			want: "color:black;",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := getNodeStyle(tt.el, containerFontSize, containerTextColor)
+			if got != tt.want {
+				t.Errorf("getNodeStyle() = %q, want %q", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestGetOrientation(t *testing.T) {
+	fakeScene := datastr.ExcalidrawScene{
+		Elements: []datastr.ExcalidrawSceneElement{
+			{Type: "rectangle", X: 0, Y: 0, Width: 100, Height: 50},
+			{Type: "rectangle", X: 200, Y: 0, Width: 100, Height: 50},
+		},
+	}
+	tests := []struct {
+		name          string
+		flowDirection string
+		input         datastr.ExcalidrawScene
+		want          string
+	}{
+		{"Auto uses getFlowchartOrientation (width>height)", "auto", fakeScene, "LR"},
+		{"Left-right", "left-right", fakeScene, "LR"},
+		{"Right-left", "right-left", fakeScene, "RL"},
+		{"Bottom-top", "bottom-top", fakeScene, "BT"},
+		{"Default TD", "something-else", fakeScene, "TD"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := getOrientation(tt.flowDirection, tt.input)
+			if got != tt.want {
+				t.Errorf("getOrientation() = %q, want %q", got, tt.want)
+			}
+		})
+	}
+}
