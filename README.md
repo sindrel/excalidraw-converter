@@ -1,6 +1,6 @@
 # <img src="assets/workflow.png" alt="logo" width="25"/> Excalidraw Converter 
 
-**A command line tool for porting Excalidraw diagrams to Gliffy, draw.io, Mermaid, and more.**
+**A command line tool for porting Excalidraw diagrams to Gliffy, draw.io and Mermaid.**
 
 [Excalidraw](https://excalidraw.com/) is great for sketching diagrams as part of a design process, but chances are that you have to redo those sketches for documentation. This tool is made to bridge those tasks.
 
@@ -44,12 +44,12 @@ Convert your Excalidraw diagram by running:
 exconv <command> -i <input-file>
 ```
 
-See below for details on each command and available options.
+See below for details on each command, available options and examples.
 
 ## Command Usage & Examples
 
 ### Gliffy & Draw.io
-Converts to a **Gliffy** compatible format, which can be imported directly into services like [Gliffy](https://www.gliffy.com/), [Gliffy for Confluence](https://marketplace.atlassian.com/apps/254/gliffy-diagrams-for-confluence), [draw.io](https://draw.io) or [draw.io for Confluence](https://www.drawio.com/doc/drawio-confluence-cloud).
+Converts to a Gliffy compatible format, which can be imported directly into services like [Gliffy](https://www.gliffy.com/), [Gliffy for Confluence](https://marketplace.atlassian.com/apps/254/gliffy-diagrams-for-confluence), [draw.io](https://draw.io) or [draw.io for Confluence](https://www.drawio.com/doc/drawio-confluence-cloud).
 
 **Usage:**
 - Mac/Linux:
@@ -121,9 +121,9 @@ After converting your diagram(s), import them into Gliffy (or draw.io) using the
 ---
 
 ### Mermaid
-Converts to **[Mermaid](https://mermaid.js.org)** diagrams that can be used for a variety of cases, such as being included in markdown files  [on GitHub](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams).
+Converts to a [Mermaid](https://mermaid.js.org) diagram that can be used for a variety of cases, such as being included in markdown files  [on GitHub](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams).
 
-*Currently supports conversion to flowcharts.*
+*Currently only supports conversion to flowcharts.*
 
 **Usage:**
 - Mac/Linux:
@@ -177,7 +177,7 @@ Converts to **[Mermaid](https://mermaid.js.org)** diagrams that can be used for 
   ```
 </details>
 
-#### Converted diagrams can be embedded in markdown
+#### Embed converted diagram in markdown
 
 Example:
 
@@ -186,7 +186,7 @@ graph LR;
     A-->B;
 ```
 
-#### Converted diagrams can be imported back into Excalidraw
+#### Import converted diagram back into Excalidraw
 
 After converting your diagram(s), you can use the [Mermaid to Excalidraw playground](https://mermaid-to-excalidraw.vercel.app/)* to convert it back to the Excalidraw format.
 
@@ -209,29 +209,29 @@ All fixed shapes and most styling and text options are supported.
 | Ellipse              |   ✅   |   ✅    |
 | Arrow                |   ✅   |   ✅    |
 | Line                 |   ✅   |   ✅    |
-| Image                |   ✅   |   ❌    |
-| Free drawing (pencil)|   ✅   |   ❌    |
-| Library graphics*    |   ✅   |   ❌    |
+| Image                |   ✅   |   ➖    |
+| Free drawing (pencil)|   ✅   |   ➖    |
+| Library graphics*    |   ✅   |   ➖    |
 
 ### Text
 | Text Option                  | Gliffy | Mermaid |
 |------------------------------|:------:|:-------:|
-| Font family (Normal/Code)    |   ✅   |   ❌    |
-| Font size                    |   ✅   |   ❌    |
-| Font color                   |   ✅   |   ❌    |
-| Horizontal alignment         |   ✅   |   ❌    |
-| Vertical alignment           |   ✅   |   ❌    |
+| Font family (Normal/Code)    |   ✅   |   ➖    |
+| Font size                    |   ✅   |   ➖    |
+| Font color                   |   ✅   |   ➖    |
+| Horizontal alignment         |   ✅   |   ➖    |
+| Vertical alignment           |   ✅   |   ➖    |
 | Text contained in shapes     |   ✅   |   ✅    |
 
 ### Styling
 | Styling Option               | Gliffy | Mermaid |
 |------------------------------|:------:|:-------:|
-| Canvas background color      |   ✅   |   ❌    |
+| Canvas background color      |   ✅   |   ➖    |
 | Fill color                   |   ✅   |   ✅    |
-| Fill style (hachure/cross)   |   ✅   |   ❌    |
+| Fill style (hachure/cross)   |   ✅   |   ➖    |
 | Stroke color                 |   ✅   |   ✅    |
 | Stroke width                 |   ✅   |   ✅    |
-| Opacity                      |   ✅   |   ❌    |
+| Opacity                      |   ✅   |   ➖    |
 
 *\* Library graphics are not fully supported (experimental).*
 
