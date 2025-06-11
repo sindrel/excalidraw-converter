@@ -279,18 +279,63 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 	var sb strings.Builder
 	sb.WriteString(fmt.Sprintf("flowchart %s\n", orientation))
 
-	// Output all nodes equally
+	// --- Subgraph logic: detect spatial containment ---
+	containedBy := make(map[string]string) // nodeID -> parentID
+	children := make(map[string][]string)  // parentID -> []childID
+	for idA, elA := range input.Elements {
+		if elA.IsDeleted || !(elA.Type == "rectangle" || elA.Type == "diamond" || elA.Type == "ellipse" || elA.Type == "roundRectangle") {
+			continue
+		}
+		boxA := struct{ x1, y1, x2, y2 float64 }{elA.X, elA.Y, elA.X + elA.Width, elA.Y + elA.Height}
+		for idB, elB := range input.Elements {
+			if idA == idB || elB.IsDeleted || !(elB.Type == "rectangle" || elB.Type == "diamond" || elB.Type == "ellipse" || elB.Type == "roundRectangle") {
+				continue
+			}
+			boxB := struct{ x1, y1, x2, y2 float64 }{elB.X, elB.Y, elB.X + elB.Width, elB.Y + elB.Height}
+			// B is inside A?
+			if boxB.x1 >= boxA.x1 && boxB.y1 >= boxA.y1 && boxB.x2 <= boxA.x2 && boxB.y2 <= boxA.y2 {
+				// Only set if not already contained by a smaller parent
+				if parent, ok := containedBy[elB.ID]; !ok || (parent != "" && (elA.Width*elA.Height < input.Elements[getIndexByID(input.Elements, parent)].Width*input.Elements[getIndexByID(input.Elements, parent)].Height)) {
+					containedBy[elB.ID] = elA.ID
+				}
+			}
+		}
+	}
+	for child, parent := range containedBy {
+		children[parent] = append(children[parent], child)
+	}
+
+	// Helper: recursively output nodes/subgraphs
+	var writeNodeOrSubgraph func(id string, depth int)
+	writeNodeOrSubgraph = func(id string, depth int) {
+		name := nodeMap[id]
+		label := nodeLabels[id]
+		shape := nodeShapes[id]
+		if len(children[id]) > 0 {
+			sortedChildren := make([]string, len(children[id]))
+			copy(sortedChildren, children[id])
+			sort.Strings(sortedChildren)
+			sb.WriteString(strings.Repeat("  ", depth) + "subgraph " + name + " [\"" + label + "\"]\n")
+			for _, cid := range sortedChildren {
+				writeNodeOrSubgraph(cid, depth+1)
+			}
+			sb.WriteString(strings.Repeat("  ", depth) + "end\n")
+		} else {
+			nodeDef := constructMermaidNodeDef(name, label, shape)
+			sb.WriteString(strings.Repeat("  ", depth) + nodeDef + "\n")
+		}
+	}
+
+	// Output all top-level nodes/subgraphs
 	nodeIDs := make([]string, 0, len(nodeMap))
 	for id := range nodeMap {
 		nodeIDs = append(nodeIDs, id)
 	}
 	sort.Strings(nodeIDs)
 	for _, id := range nodeIDs {
-		name := nodeMap[id]
-		label := nodeLabels[id]
-		shape := nodeShapes[id]
-		nodeDef := constructMermaidNodeDef(name, label, shape)
-		sb.WriteString(nodeDef + "\n")
+		if containedBy[id] == "" { // Only top-level
+			writeNodeOrSubgraph(id, 0)
+		}
 	}
 
 	// Output edges (arrows/lines)
@@ -417,4 +462,14 @@ func getFlowchartOrientation(input datastr.ExcalidrawScene) string {
 	}
 
 	return orientation
+}
+
+// Helper function to find the index of an element by ID (for containedBy logic)
+func getIndexByID(elements []datastr.ExcalidrawSceneElement, id string) int {
+	for i, el := range elements {
+		if el.ID == id {
+			return i
+		}
+	}
+	return -1
 }

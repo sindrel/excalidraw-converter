@@ -1,80 +1,83 @@
 flowchart TD
-N9["Thin"]
-N17["Cartoon"]
-N4["Dashed"]
-N2(("Ellipse Right"))
-N0["Sharp Rectangle Top"]
-N16["Artist"]
-N8["Extra bold"]
-N7["Bold"]
-N18["Architect"]
-N10["Green"]
-N3("Rounded Rectangle Bottom")
-N14["Blue stroke"]
-N1{"Diamond Left"}
-N21["Large text"]
-N5["Dotted"]
-N6["Solid"]
-N19["Another Sharp Rectangle Bottom"]
-N20["Medium text"]
-N15["Red stroke"]
-N13["Green stroke"]
-N12["Pink"]
-N22["Small text"]
-N11["Blue"]
-N17 --> N16
-N16 --> N18
-N18 --> N6
-N6 --> N4
-N4 --> N5
-N5 --> N8
-N8 --> N7
-N7 --> N9
-N9 --> N12
-N12 --> N10
-N10 --> N11
-N22 --> N14
-N14 --> N13
-N13 --> N15
-N0 --> N2
-N2 -->|"Elbow arrow"| N3
-N2 -->|"Curved arrow"| N1
-N0 --> N1
-N1 --> N17
-N3 -->|"Triangle outline"| N19
-N3 --o|"Circle head"| N19
-N3 -->|"Bar"| N19
-N3 -->|"Diamond outline"| N19
-N3 -->|"Diamond"| N19
-N3 --o|"Circle outline"| N19
-N3 -->|"Crow's foot"| N19
-N15 -->|"Red arrow"| N18
-N3 -->|"Two arrowheads"| N19
-N3 -->|"Triangle"| N19
-N21 --> N20
-N20 --> N22
-N11 --> N21
-style N9 stroke:#1e1e1e,stroke-width:0.5,fill:#ffffff;
-style N17 stroke:#1e1e1e,fill:#ffffff;
-style N4 stroke-dasharray: 5 5,stroke:#1e1e1e,fill:#ffffff;
-style N2 stroke:#1971c2,fill:#b2f2bb,color:#1971c2;
-style N0 stroke:#1e1e1e,fill:#ffc9c9;
-style N16 stroke:#1e1e1e,fill:#ffffff;
-style N8 stroke:#1e1e1e,stroke-width:2,fill:#ffffff;
-style N7 stroke:#1e1e1e,fill:#ffffff;
+N10["Thin"]
+N18["Cartoon"]
+N5["Dashed"]
+N17["Artist"]
+N9["Extra bold"]
+N8["Bold"]
+N19["Architect"]
+N11["Green"]
+N4("Rounded Rectangle Bottom")
+N15["Blue stroke"]
+N22["Large text"]
+N6["Dotted"]
+N7["Solid"]
+subgraph N0 ["Subgraph container"]
+  N3(("Ellipse Right"))
+  N1["Sharp Rectangle Top"]
+  N2{"Diamond Left"}
+end
+N20["Another Sharp Rectangle Bottom"]
+N21["Medium text"]
+N16["Red stroke"]
+N14["Green stroke"]
+N13["Pink"]
+N23["Small text"]
+N12["Blue"]
+N18 --> N17
+N17 --> N19
+N19 --> N7
+N7 --> N5
+N5 --> N6
+N6 --> N9
+N9 --> N8
+N8 --> N10
+N10 --> N13
+N13 --> N11
+N11 --> N12
+N23 --> N15
+N15 --> N14
+N14 --> N16
+N1 --> N3
+N3 -->|"Elbow arrow"| N4
+N3 -->|"Curved arrow"| N2
+N1 --> N2
+N2 --> N18
+N4 -->|"Triangle outline"| N20
+N4 --o|"Circle head"| N20
+N4 -->|"Bar"| N20
+N4 -->|"Diamond outline"| N20
+N4 -->|"Diamond"| N20
+N4 --o|"Circle outline"| N20
+N4 -->|"Crow's foot"| N20
+N16 -->|"Red arrow"| N19
+N4 -->|"Two arrowheads"| N20
+N4 -->|"Triangle"| N20
+N22 --> N21
+N21 --> N23
+N12 --> N22
+style N10 stroke:#1e1e1e,stroke-width:0.5,fill:#ffffff;
 style N18 stroke:#1e1e1e,fill:#ffffff;
-style N10 stroke:#1e1e1e,fill:#b2f2bb;
-style N3 stroke:#1e1e1e;
-style N14 stroke:#1971c2,color:#1971c2;
-style N1 stroke:#1e1e1e,fill:#ffec99;
-style N21 stroke:#1e1e1e,fill:#ffffff,font-size:110%;
-style N5 stroke-dasharray: 2 2,stroke:#1e1e1e,fill:#ffffff;
-style N6 stroke:#1e1e1e,fill:#ffffff;
-style N19 stroke:#1e1e1e;
-style N20 stroke:#1e1e1e,fill:#ffffff;
-style N15 stroke:#e03131,color:#e03131;
-style N13 stroke:#2f9e44,color:#2f9e44;
-style N12 stroke:#1e1e1e,fill:#ffc9c9;
-style N22 stroke:#1e1e1e,fill:#ffffff,font-size:90%;
-style N11 stroke:#1e1e1e,fill:#a5d8ff;
+style N5 stroke-dasharray: 5 5,stroke:#1e1e1e,fill:#ffffff;
+style N3 stroke:#1971c2,fill:#b2f2bb,color:#1971c2;
+style N1 stroke:#1e1e1e,fill:#ffc9c9;
+style N17 stroke:#1e1e1e,fill:#ffffff;
+style N9 stroke:#1e1e1e,stroke-width:2,fill:#ffffff;
+style N8 stroke:#1e1e1e,fill:#ffffff;
+style N19 stroke:#1e1e1e,fill:#ffffff;
+style N11 stroke:#1e1e1e,fill:#b2f2bb;
+style N4 stroke:#1e1e1e;
+style N15 stroke:#1971c2,color:#1971c2;
+style N2 stroke:#1e1e1e,fill:#ffffff;
+style N22 stroke:#1e1e1e,fill:#ffffff,font-size:110%;
+style N6 stroke-dasharray: 2 2,stroke:#1e1e1e,fill:#ffffff;
+style N7 stroke:#1e1e1e,fill:#ffffff;
+style N0 stroke:#1e1e1e,fill:#fff9db;
+style N20 stroke:#1e1e1e;
+style N21 stroke:#1e1e1e,fill:#ffffff;
+style N16 stroke:#e03131,color:#e03131;
+style N14 stroke:#2f9e44,color:#2f9e44;
+style N13 stroke:#1e1e1e,fill:#ffc9c9;
+style N23 stroke:#1e1e1e,fill:#ffffff,font-size:90%;
+style N12 stroke:#1e1e1e,fill:#a5d8ff;
 linkStyle 26 stroke:#e03131,color:black;
