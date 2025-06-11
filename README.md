@@ -1,14 +1,19 @@
 # <img src="assets/workflow.png" alt="logo" width="25"/> Excalidraw Converter 
 
-**A command line tool for porting Excalidraw diagrams to Gliffy and draw.io.** 
+**A command line tool for porting Excalidraw diagrams to Gliffy, draw.io, Mermaid, and more.**
 
 [Excalidraw](https://excalidraw.com/) is great for sketching diagrams as part of a design process, but chances are that you have to redo those sketches for documentation. This tool is made to bridge those tasks.
 
-Excalidraw Converter ports Excalidraw diagrams to a Gliffy compatible format, which can be imported directly into services like [Gliffy](https://www.gliffy.com/), [Gliffy for Confluence](https://marketplace.atlassian.com/apps/254/gliffy-diagrams-for-confluence), [draw.io](https://draw.io) or [draw.io for Confluence](https://www.drawio.com/doc/drawio-confluence-cloud).
-
 ![Excalidraw vs. Gliffy comparison](exconv-comparison.png "Comparison")
 
-## Getting started
+## Supported Commands
+
+| Command   | Description                                      | Documentation     |
+|-----------|--------------------------------------------------|-------------------|
+| `gliffy`  | Convert Excalidraw diagrams to Gliffy format     | [Usage](#gliffy)  |
+| `mermaid` | Convert Excalidraw diagrams to Mermaid format    | [Usage](#mermaid) |
+
+## Getting Started
 
 ### Installation
 #### MacOS with [Homebrew](https://brew.sh/) (stable)
@@ -26,19 +31,41 @@ brew install sindrel/tap/excalidraw-converter
 ```
 </details>
 
-
 #### Installation for other OSes
 Download a compatible binary from the [Releases](https://github.com/sindrel/excalidraw-converter/releases) page.
 
 If you're a Linux or MacOS user, move it to your local bin folder to make it available in your environment (optional).
 
-### How to convert diagrams
-First save your Excalidraw diagram to a file.
+## Quick Start
 
-Then, to do a conversion, simply execute the binary by specifying the `gliffy` command, and the path to your Excalidraw file.
+Convert your Excalidraw diagram by running:
 
 ```sh
-exconv gliffy -i ~/Downloads/my-diagram.excalidraw
+exconv <command> -i <input-file>
+```
+
+See below for details on each command and available options.
+
+## Command Usage & Examples
+
+### Gliffy
+Converts to a **Gliffy** compatible format, which can be imported directly into services like [Gliffy](https://www.gliffy.com/), [Gliffy for Confluence](https://marketplace.atlassian.com/apps/254/gliffy-diagrams-for-confluence), [draw.io](https://draw.io) or [draw.io for Confluence](https://www.drawio.com/doc/drawio-confluence-cloud).
+
+**Usage:**
+- Mac/Linux:
+  ```sh
+  exconv gliffy -i my-diagram.excalidraw
+  ```
+- Windows:
+  ```sh
+  exconv.exe gliffy -i C:\path\to\my-diagram.excalidraw
+  ```
+
+**Flags:**
+```sh
+  -h, --help            help for gliffy
+  -i, --input string    input file path
+  -o, --output string   output file path (default "your_file.gliffy")
 ```
 
 <details>
@@ -84,44 +111,71 @@ exconv gliffy -i ~/Downloads/my-diagram.excalidraw
   Adding object: com.gliffy.shape.basic.basic_v1.default.line
   Converted diagram saved to file: my-diagram.gliffy
   ```
-</details>  
+</details>
 
-### Importing
+#### Importing in Gliffy
 ![Animation demonstrating use](exconv.gif "Animation")
 
-After converting your diagram(s), import them into Gliffy (or draw.io) using the standard Import dialog.
+After converting your diagram(s), import them into Gliffy (or draw.io) using the standard Import dialog. Mermaid diagrams can be pasted or included in markdown files or compatible tools.
 
-## Commands
+---
+
+### Mermaid
+Converts to **[Mermaid](https://mermaid.js.org)** diagrams that can be used for a variety of cases, such as being included in markdown files  [on GitHub](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams).
+
+**Usage:**
+- Mac/Linux:
+  ```sh
+  exconv mermaid -i my-diagram.excalidraw
+  ```
+- Windows:
+  ```sh
+  exconv.exe mermaid -i C:\path\to\my-diagram.excalidraw
+  ```
+
+**Flags:**
 ```sh
-Available Commands:
-  completion  Generate the autocompletion script for the specified shell
-  gliffy      Convert an Excalidraw diagram to Gliffy format
-  help        Help about any command
-  version     Output the application version
-
-Flags:
-  -h, --help   help for exconv
+  -d, --direction string   flow direction 'top-down', 'left-right', 'right-left' or 'bottom-top' (default "auto")
+  -h, --help               help for mermaid
+  -i, --input string       input file path
+  -o, --output string      output file path (default "your_file.mermaid")
+  -p, --print-to-stdout    print output to stdout instead of a file
 ```
 
-### Gliffy conversion options  
-When an output file path is not provided, it will be determined
-automatically based on the filename of the input file. If you provide the
-input file path `./subfolder/your_file.excalidraw`, the default output file path will be `./your_file.gliffy`.
+<details>
+  <summary>MacOS example</summary>
 
-This can be overridden using the `-o` flag.
+  ```sh
+  $ exconv mermaid -i ~/Downloads/my-diagram.excalidraw
+  Parsing input file: ~/Downloads/my-diagram.excalidraw
+  Generating Mermaid diagram...
+  Converted diagram saved to file: my-diagram.mermaid
+  ```
+</details>
 
-```sh
-Example:
-  exconv gliffy -i your_file.excalidraw
+<details>
+  <summary>Linux example</summary>
 
-Usage:
-  exconv gliffy [flags]
+  ```sh
+  $ ./exconv mermaid -i ~/Downloads/my-diagram.excalidraw
+  Parsing input file: ~/Downloads/my-diagram.excalidraw
+  Generating Mermaid diagram...
+  Converted diagram saved to file: my-diagram.mermaid
+  ```
+</details>
 
-Flags:
-  -h, --help            help for gliffy
-  -i, --input string    input file path
-  -o, --output string   output file path (default "your_file.gliffy")
-```
+<details>
+  <summary>Windows example</summary>
+
+  ```sh
+  C:\> exconv.exe mermaid -i C:\Downloads\my-diagram.excalidraw
+  Parsing input file: C:\Downloads\my-diagram.excalidraw
+  Generating Mermaid diagram...
+  Converted diagram saved to file: my-diagram.mermaid
+  ```
+</details>
+
+---
 
 ## Features
 
