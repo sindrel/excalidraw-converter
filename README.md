@@ -8,10 +8,10 @@
 
 ## Supported Commands
 
-| Command   | Description                                      | Documentation     |
-|-----------|--------------------------------------------------|-------------------|
-| `gliffy`  | Convert Excalidraw diagrams to Gliffy format     | [Usage](#gliffy)  |
-| `mermaid` | Convert Excalidraw diagrams to Mermaid format    | [Usage](#mermaid) |
+| Command   | Description                                      | Documentation            |
+|-----------|--------------------------------------------------|--------------------------|
+| `gliffy`  | Convert Excalidraw diagrams to Gliffy format     | [Usage](#gliffy--drawio) |
+| `mermaid` | Convert Excalidraw diagrams to Mermaid format    | [Usage](#mermaid)        |
 
 ## Getting Started
 
@@ -48,7 +48,7 @@ See below for details on each command and available options.
 
 ## Command Usage & Examples
 
-### Gliffy
+### Gliffy & Draw.io
 Converts to a **Gliffy** compatible format, which can be imported directly into services like [Gliffy](https://www.gliffy.com/), [Gliffy for Confluence](https://marketplace.atlassian.com/apps/254/gliffy-diagrams-for-confluence), [draw.io](https://draw.io) or [draw.io for Confluence](https://www.drawio.com/doc/drawio-confluence-cloud).
 
 **Usage:**
@@ -182,31 +182,39 @@ Converts to **[Mermaid](https://mermaid.js.org)** diagrams that can be used for 
 All fixed shapes and most styling and text options are supported.
 
 ### Shapes
-* Rectangle
-* Rounded rectangle
-* Diamond
-* Ellipse
-* Arrow
-* Line
-* Image :sparkles:
-* Free drawing (pencil tool) :sparkles:
+| Shape                | Gliffy | Mermaid |
+|----------------------|:------:|:-------:|
+| Rectangle            |   ✅   |   ✅    |
+| Rounded rectangle    |   ✅   |   ✅    |
+| Diamond              |   ✅   |   ✅    |
+| Ellipse              |   ✅   |   ✅    |
+| Arrow                |   ✅   |   ✅    |
+| Line                 |   ✅   |   ✅    |
+| Image                |   ✅   |   ❌    |
+| Free drawing (pencil)|   ✅   |   ❌    |
+| Library graphics*    |   ✅   |   ❌    |
 
 ### Text
-* Font family (Normal and Code)
-* Font size
-* Font color
-* Horizontal and vertical alignment :sparkles:
-* Text contained in shapes
+| Text Option                  | Gliffy | Mermaid |
+|------------------------------|:------:|:-------:|
+| Font family (Normal/Code)    |   ✅   |   ❌    |
+| Font size                    |   ✅   |   ❌    |
+| Font color                   |   ✅   |   ❌    |
+| Horizontal alignment         |   ✅   |   ❌    |
+| Vertical alignment           |   ✅   |   ❌    |
+| Text contained in shapes     |   ✅   |   ✅    |
 
 ### Styling
-* Canvas background color
-* Fill color
-* Fill style (hachure and cross-hatch translate to gradients)
-* Stroke color
-* Stroke width
-* Opacity
+| Styling Option               | Gliffy | Mermaid |
+|------------------------------|:------:|:-------:|
+| Canvas background color      |   ✅   |   ❌    |
+| Fill color                   |   ✅   |   ✅    |
+| Fill style (hachure/cross)   |   ✅   |   ❌    |
+| Stroke color                 |   ✅   |   ✅    |
+| Stroke width                 |   ✅   |   ✅    |
+| Opacity                      |   ✅   |   ❌    |
 
-Library graphics are not fully supported (experimental).
+*\* = Library graphics are not fully supported (experimental).*
 
 ## Compatibility with draw.io
 Converted Gliffy diagrams should also work in the online version of [draw.io](https://draw.io).
