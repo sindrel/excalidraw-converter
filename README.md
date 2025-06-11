@@ -121,9 +121,12 @@ After converting your diagram(s), import them into Gliffy (or draw.io) using the
 ---
 
 ### Mermaid
-Converts to a [Mermaid](https://mermaid.js.org) diagram that can be used for a variety of cases, such as being included in markdown files  [on GitHub](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams).
+Converts to a [Mermaid](https://mermaid.js.org) diagram that can be used for a variety of cases, such as being included in markdown files  [on GitHub](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams), [GitLab](https://handbook.gitlab.com/handbook/tools-and-tips/mermaid/), [MkDocs](https://mkdocs-mermaid2.readthedocs.io/en/master/) or [Docusaurus](https://docusaurus.io/docs/next/markdown-features/diagrams).
 
-*Currently only supports conversion to flowcharts.*
+> [!NOTE]
+> * *Currently only supports conversion to flowcharts.*
+> * *Only elements that are connected via lines/arrows are included.*
+
 
 **Usage:**
 - Mac/Linux:
@@ -143,39 +146,6 @@ Converts to a [Mermaid](https://mermaid.js.org) diagram that can be used for a v
   -o, --output string      output file path (default "your_file.mermaid")
   -p, --print-to-stdout    print output to stdout instead of a file
 ```
-
-<details>
-  <summary>MacOS example</summary>
-
-  ```sh
-  $ exconv mermaid -i ~/Downloads/my-diagram.excalidraw
-  Parsing input file: ~/Downloads/my-diagram.excalidraw
-  Generating Mermaid diagram...
-  Converted diagram saved to file: my-diagram.mermaid
-  ```
-</details>
-
-<details>
-  <summary>Linux example</summary>
-
-  ```sh
-  $ ./exconv mermaid -i ~/Downloads/my-diagram.excalidraw
-  Parsing input file: ~/Downloads/my-diagram.excalidraw
-  Generating Mermaid diagram...
-  Converted diagram saved to file: my-diagram.mermaid
-  ```
-</details>
-
-<details>
-  <summary>Windows example</summary>
-
-  ```sh
-  C:\> exconv.exe mermaid -i C:\Downloads\my-diagram.excalidraw
-  Parsing input file: C:\Downloads\my-diagram.excalidraw
-  Generating Mermaid diagram...
-  Converted diagram saved to file: my-diagram.mermaid
-  ```
-</details>
 
 #### Embed converted diagram in markdown
 
