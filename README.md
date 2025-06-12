@@ -112,6 +112,32 @@ After converting your diagram(s), you can use the [Mermaid to Excalidraw playgro
 
 Note that some styling attributes could be lost as part of the conversion and import process.
 
+#### Example diagram embedded in markdown
+<details>
+<summary>Click to expand</summary>
+
+```mermaid
+flowchart 
+subgraph N0 [" "]
+  N4(("Hello!"))
+  N2{"Lorem Ipsum"}
+  subgraph N1 ["Example"]
+    N5("Sit Amet")
+    N3["Dolor"]
+  end
+end
+N2 --> N3
+N2 --> N5
+style N4 stroke:#e03131,stroke-width:2,fill:#ffffff,color:#e03131;
+style N5 stroke:#1e1e1e,fill:#ffc9c9,font-size:90%;
+style N3 stroke-dasharray: 2 2,stroke:#1e1e1e,stroke-width:2,fill:#ffec99,font-size:90%;
+style N2 stroke-dasharray: 5 5,stroke:#1e1e1e,fill:#b2f2bb,font-size:90%;
+style N0 stroke:#1e1e1e,stroke-width:2,fill:#a5d8ff;
+style N1 stroke:#1e1e1e,fill:#e7f5ff,font-size:90%;
+```
+
+</details>
+
 ---
 
 ## Features
