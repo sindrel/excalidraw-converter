@@ -4,7 +4,7 @@
 
 [Excalidraw](https://excalidraw.com/) is great for sketching diagrams as part of a design process, but chances are that you have to redo those sketches for documentation. This tool is made to bridge those tasks.
 
-![Excalidraw vs. Gliffy comparison](exconv-comparison.png "Comparison")
+![Excalidraw vs. Gliffy comparison](assets/exconv-comparison.png "Comparison")
 
 ## Supported Commands
 
