@@ -224,10 +224,10 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 		}
 	}
 
-	orientation := getOrientation(flowDirection, input)
+	direction := getDirection(flowDirection, input)
 
 	var sb strings.Builder
-	sb.WriteString(fmt.Sprintf("flowchart %s\n", orientation))
+	sb.WriteString(fmt.Sprintf("flowchart %s\n", direction))
 
 	// --- Subgraph logic: detect spatial containment ---
 	containedBy := make(map[string]string) // nodeID -> parentID
@@ -372,48 +372,6 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 	return sb.String(), nil
 }
 
-func getFlowchartOrientation(input datastr.ExcalidrawScene) string {
-	var minX, minY, maxX, maxY float64
-	first := true
-	for _, el := range input.Elements {
-		if el.IsDeleted {
-			continue
-		}
-		if el.Type == "rectangle" || el.Type == "diamond" || el.Type == "ellipse" || el.Type == "roundRectangle" {
-			x1 := el.X
-			y1 := el.Y
-			x2 := el.X + el.Width
-			y2 := el.Y + el.Height
-			if first {
-				minX, maxX = x1, x2
-				minY, maxY = y1, y2
-				first = false
-			} else {
-				if x1 < minX {
-					minX = x1
-				}
-				if y1 < minY {
-					minY = y1
-				}
-				if x2 > maxX {
-					maxX = x2
-				}
-				if y2 > maxY {
-					maxY = y2
-				}
-			}
-		}
-	}
-	width := maxX - minX
-	height := maxY - minY
-	orientation := "TD"
-	if width > height {
-		orientation = "LR"
-	}
-
-	return orientation
-}
-
 // Helper function to find the index of an element by ID (for containedBy logic)
 func getIndexByID(elements []datastr.ExcalidrawSceneElement, id string) int {
 	for i, el := range elements {
@@ -465,19 +423,18 @@ func getNodeStyle(el datastr.ExcalidrawSceneElement, containerFontSize map[strin
 	return style
 }
 
-// Helper to determine orientation string
-func getOrientation(flowDirection string, input datastr.ExcalidrawScene) string {
-	if flowDirection == "auto" {
-		return getFlowchartOrientation(input)
-	}
+// Helper to determine direction string
+func getDirection(flowDirection string, input datastr.ExcalidrawScene) string {
 	switch strings.ToLower(flowDirection) {
-	case "left-right":
+	case "left-right", "lr":
 		return "LR"
-	case "right-left":
+	case "right-left", "rl":
 		return "RL"
-	case "bottom-top":
+	case "bottom-top", "bt":
 		return "BT"
-	default:
+	case "top-down", "td":
 		return "TD"
+	default:
+		return ""
 	}
 }

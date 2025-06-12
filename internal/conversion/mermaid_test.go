@@ -151,7 +151,7 @@ func TestBuildMermaidFromSceneDirection(t *testing.T) {
 	// Direction left-right
 	got, _ := BuildMermaidFromScene(realScene, "left-right")
 	want := `flowchart LR
-N0["N0"]
+N0[" "]
 style N0 opacity:0.00;
 `
 	if got != want {
@@ -161,7 +161,7 @@ style N0 opacity:0.00;
 	// Direction right-left
 	got, _ = BuildMermaidFromScene(realScene, "right-left")
 	want = `flowchart RL
-N0["N0"]
+N0[" "]
 style N0 opacity:0.00;
 `
 	if got != want {
@@ -171,31 +171,31 @@ style N0 opacity:0.00;
 	// Direction bottom-top
 	got, _ = BuildMermaidFromScene(realScene, "bottom-top")
 	want = `flowchart BT
-N0["N0"]
+N0[" "]
 style N0 opacity:0.00;
 `
 	if got != want {
 		t.Errorf("BuildMermaidFromScene() bottom-top = %q, want %q", got, want)
 	}
 
-	// Direction default to top-down
-	got, _ = BuildMermaidFromScene(realScene, "foo")
+	// Direction top-down
+	got, _ = BuildMermaidFromScene(realScene, "top-down")
 	want = `flowchart TD
-N0["N0"]
+N0[" "]
+style N0 opacity:0.00;
+`
+	if got != want {
+		t.Errorf("BuildMermaidFromScene() top-down = %q, want %q", got, want)
+	}
+
+	// Direction default to none
+	got, _ = BuildMermaidFromScene(realScene, "foo")
+	want = `flowchart 
+N0[" "]
 style N0 opacity:0.00;
 `
 	if got != want {
 		t.Errorf("BuildMermaidFromScene() default = %q, want %q", got, want)
-	}
-
-	// Direction auto-detect
-	got, _ = BuildMermaidFromScene(realScene, "auto")
-	want = `flowchart LR
-N0["N0"]
-style N0 opacity:0.00;
-`
-	if got != want {
-		t.Errorf("BuildMermaidFromScene() auto = %q, want %q", got, want)
 	}
 }
 
@@ -254,7 +254,7 @@ func TestGetNodeStyle(t *testing.T) {
 	}
 }
 
-func TestGetOrientation(t *testing.T) {
+func TestGetDirection(t *testing.T) {
 	fakeScene := datastr.ExcalidrawScene{
 		Elements: []datastr.ExcalidrawSceneElement{
 			{Type: "rectangle", X: 0, Y: 0, Width: 100, Height: 50},
@@ -267,17 +267,17 @@ func TestGetOrientation(t *testing.T) {
 		input         datastr.ExcalidrawScene
 		want          string
 	}{
-		{"Auto uses getFlowchartOrientation (width>height)", "auto", fakeScene, "LR"},
 		{"Left-right", "left-right", fakeScene, "LR"},
 		{"Right-left", "right-left", fakeScene, "RL"},
 		{"Bottom-top", "bottom-top", fakeScene, "BT"},
-		{"Default TD", "something-else", fakeScene, "TD"},
+		{"Top-down", "top-down", fakeScene, "TD"},
+		{"Default", "default", fakeScene, ""},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := getOrientation(tt.flowDirection, tt.input)
+			got := getDirection(tt.flowDirection, tt.input)
 			if got != tt.want {
-				t.Errorf("getOrientation() = %q, want %q", got, tt.want)
+				t.Errorf("getDirection() = %q, want %q", got, tt.want)
 			}
 		})
 	}
