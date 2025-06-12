@@ -11,6 +11,7 @@ import (
 	"strings"
 )
 
+// Calls for conversion to Mermaid flowchart and saves it to a file
 func ConvertExcalidrawDiagramToMermaidAndSaveToFile(importPath string, exportPath string, flowDirection string) error {
 	output, err := ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath, exportPath, flowDirection)
 	if err != nil {
@@ -28,6 +29,7 @@ func ConvertExcalidrawDiagramToMermaidAndSaveToFile(importPath string, exportPat
 	return nil
 }
 
+// Converts an Excalidraw diagram to a Mermaid flowchart and returns it as a string
 func ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath string, exportPath string, flowDirection string) (string, error) {
 	fmt.Printf("Parsing input file: %s\n", importPath)
 
@@ -48,7 +50,7 @@ func ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath string, expor
 	return string(output), nil
 }
 
-// ConvertExcalidrawDiagramToMermaid converts an Excalidraw diagram to a Mermaid flowchart string.
+// Reads and unmarshals an Excalidraw diagram and calls for conversion to a Mermaid flowchart string
 func ConvertExcalidrawDiagramToMermaid(data string, flowDirection string) (string, error) {
 	var input datastr.ExcalidrawScene
 	err := json.Unmarshal([]byte(data), &input)
@@ -58,96 +60,9 @@ func ConvertExcalidrawDiagramToMermaid(data string, flowDirection string) (strin
 	return BuildMermaidFromScene(input, flowDirection)
 }
 
-// Helper to format a node definition for Mermaid
-func constructMermaidNodeDef(name, label, shape string) string {
-	// Mermaid node shapes: [rectangle], ((circle)), (round), {diamond}
-	switch shape {
-	case "{":
-		return fmt.Sprintf("%s{\"%s\"}", name, label)
-	case "((":
-		return fmt.Sprintf("%s((\"%s\"))", name, label)
-	case "(":
-		return fmt.Sprintf("%s(\"%s\")", name, label)
-	default:
-		return fmt.Sprintf("%s[\"%s\"]", name, label)
-	}
-}
-
-// Helper to map Excalidraw edge type and stroke style to Mermaid arrow
-func constructMermaidEdgeArrow(elType, endArrowhead, strokeStyle string) string {
-	arrow := "--"
-
-	// Map endArrowhead to Mermaid edge types
-	switch endArrowhead {
-	case "arrow":
-		arrow = "-->"
-	case "circle_outline", "circle":
-		arrow = "--o"
-	case "arrow_bidirectional":
-		arrow = "<-->"
-	case "circle_outline_bidirectional":
-		arrow = "o--o"
-	// Add more mappings here as needed
-	default:
-		if elType == "arrow" {
-			arrow = "-->"
-		}
-	}
-
-	if strokeStyle == "dashed" {
-		if arrow == "-->" {
-			arrow = "-.->"
-		} else if arrow == "--o" {
-			arrow = "-.o"
-		} else if arrow == "<-->" {
-			arrow = "<-.-.->"
-		} else if arrow == "o--o" {
-			arrow = "o-.-o"
-		} else {
-			arrow = "-.-"
-		}
-	} else if strokeStyle == "dotted" {
-		if arrow == "-->" {
-			arrow = "==>"
-		} else if arrow == "--o" {
-			arrow = "==o"
-		} else if arrow == "<-->" {
-			arrow = "<==>"
-		} else if arrow == "o--o" {
-			arrow = "o==o"
-		} else {
-			arrow = "==="
-		}
-	}
-	return arrow
-}
-
-// Helper to extract edge label
-func constructMermaidEdgeLabel(linkText, elText string) string {
-	label := linkText
-	if label == "" && elText != "" {
-		label = strings.ReplaceAll(elText, "\n", " ")
-	}
-	if label != "" {
-		return fmt.Sprintf("|\"%s\"|", label)
-	}
-	return ""
-}
-
-// Helper to format style string for Mermaid
-func constructMermaidStyleString(style string) string {
-	style = strings.ReplaceAll(style, ";", ",")
-	style = strings.TrimSuffix(style, ",")
-	style = strings.TrimSpace(style)
-	if style != "" && !strings.HasSuffix(style, ";") {
-		style += ";"
-	}
-	return style
-}
-
-// BuildMermaidFromScene converts an ExcalidrawScene struct to a Mermaid flowchart string.
+// Converts an ExcalidrawScene struct to a Mermaid flowchart string
 func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) (string, error) {
-	nodeMap := make(map[string]string) // Excalidraw ID -> Mermaid node name
+	nodeMap := make(map[string]string)
 	nodeLabels := make(map[string]string)
 	nodeShapes := make(map[string]string)
 	nodeStyles := make(map[string]string)
@@ -202,7 +117,7 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 			}
 			nodeLabels[el.ID] = label
 			// Shape mapping
-			shape := "[" // default rectangle
+			shape := "[" // Default rectangle
 			switch el.Type {
 			case "rectangle":
 				if el.Roundness.Type > 0 {
@@ -215,47 +130,22 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 			case "ellipse":
 				shape = "(("
 			case "diamond":
-				shape = "{" // Mermaid diamond
+				shape = "{"
 			}
 			nodeShapes[el.ID] = shape
-			// Style mapping (moved to helper)
-			nodeStyles[el.ID] = getNodeStyle(el, containerFontSize, containerTextColor)
+			nodeStyles[el.ID] = getMermaidNodeStyle(el, containerFontSize, containerTextColor)
 			nodeCount++
 		}
 	}
 
-	direction := getDirection(flowDirection, input)
+	direction := getMermaidFlowchartDirection(flowDirection, input)
 
 	var sb strings.Builder
 	sb.WriteString(fmt.Sprintf("flowchart %s\n", direction))
 
-	// --- Subgraph logic: detect spatial containment ---
-	containedBy := make(map[string]string) // nodeID -> parentID
-	children := make(map[string][]string)  // parentID -> []childID
-	for idA, elA := range input.Elements {
-		if elA.IsDeleted || !(elA.Type == "rectangle" || elA.Type == "diamond" || elA.Type == "ellipse" || elA.Type == "roundRectangle") {
-			continue
-		}
-		boxA := struct{ x1, y1, x2, y2 float64 }{elA.X, elA.Y, elA.X + elA.Width, elA.Y + elA.Height}
-		for idB, elB := range input.Elements {
-			if idA == idB || elB.IsDeleted || !(elB.Type == "rectangle" || elB.Type == "diamond" || elB.Type == "ellipse" || elB.Type == "roundRectangle") {
-				continue
-			}
-			boxB := struct{ x1, y1, x2, y2 float64 }{elB.X, elB.Y, elB.X + elB.Width, elB.Y + elB.Height}
-			// B is inside A?
-			if boxB.x1 >= boxA.x1 && boxB.y1 >= boxA.y1 && boxB.x2 <= boxA.x2 && boxB.y2 <= boxA.y2 {
-				// Only set if not already contained by a smaller parent
-				if parent, ok := containedBy[elB.ID]; !ok || (parent != "" && (elA.Width*elA.Height < input.Elements[getIndexByID(input.Elements, parent)].Width*input.Elements[getIndexByID(input.Elements, parent)].Height)) {
-					containedBy[elB.ID] = elA.ID
-				}
-			}
-		}
-	}
-	for child, parent := range containedBy {
-		children[parent] = append(children[parent], child)
-	}
+	containedBy, children := detectMermaidSpatialContainment(input.Elements)
 
-	// Helper: recursively output nodes/subgraphs
+	// Recursively output nodes/subgraphs
 	var writeNodeOrSubgraph func(id string, depth int)
 	writeNodeOrSubgraph = func(id string, depth int) {
 		name := nodeMap[id]
@@ -372,8 +262,95 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 	return sb.String(), nil
 }
 
+// Helper to format a node definition for Mermaid
+func constructMermaidNodeDef(name, label, shape string) string {
+	// Mermaid node shapes: [rectangle], ((circle)), (round), {diamond}
+	switch shape {
+	case "{":
+		return fmt.Sprintf("%s{\"%s\"}", name, label)
+	case "((":
+		return fmt.Sprintf("%s((\"%s\"))", name, label)
+	case "(":
+		return fmt.Sprintf("%s(\"%s\")", name, label)
+	default:
+		return fmt.Sprintf("%s[\"%s\"]", name, label)
+	}
+}
+
+// Helper to map Excalidraw edge type and stroke style to Mermaid arrow
+func constructMermaidEdgeArrow(elType, endArrowhead, strokeStyle string) string {
+	arrow := "--"
+
+	// Map endArrowhead to Mermaid edge types
+	switch endArrowhead {
+	case "arrow":
+		arrow = "-->"
+	case "circle_outline", "circle":
+		arrow = "--o"
+	case "arrow_bidirectional":
+		arrow = "<-->"
+	case "circle_outline_bidirectional":
+		arrow = "o--o"
+	// Add more mappings here as needed
+	default:
+		if elType == "arrow" {
+			arrow = "-->"
+		}
+	}
+
+	if strokeStyle == "dashed" {
+		if arrow == "-->" {
+			arrow = "-.->"
+		} else if arrow == "--o" {
+			arrow = "-.o"
+		} else if arrow == "<-->" {
+			arrow = "<-.-.->"
+		} else if arrow == "o--o" {
+			arrow = "o-.-o"
+		} else {
+			arrow = "-.-"
+		}
+	} else if strokeStyle == "dotted" {
+		if arrow == "-->" {
+			arrow = "==>"
+		} else if arrow == "--o" {
+			arrow = "==o"
+		} else if arrow == "<-->" {
+			arrow = "<==>"
+		} else if arrow == "o--o" {
+			arrow = "o==o"
+		} else {
+			arrow = "==="
+		}
+	}
+	return arrow
+}
+
+// Helper to extract edge label
+func constructMermaidEdgeLabel(linkText, elText string) string {
+	label := linkText
+	if label == "" && elText != "" {
+		label = strings.ReplaceAll(elText, "\n", " ")
+	}
+	if label != "" {
+		return fmt.Sprintf("|\"%s\"|", label)
+	}
+	return ""
+}
+
+// Helper to format style string for Mermaid
+func constructMermaidStyleString(style string) string {
+	style = strings.ReplaceAll(style, ";", ",")
+	style = strings.TrimSuffix(style, ",")
+	style = strings.TrimSpace(style)
+	if style != "" && !strings.HasSuffix(style, ";") {
+		style += ";"
+	}
+	return style
+}
+
 // Helper function to find the index of an element by ID (for containedBy logic)
-func getIndexByID(elements []datastr.ExcalidrawSceneElement, id string) int {
+func getExcalidrawElementIndexByID(elements []datastr.ExcalidrawSceneElement, id string) int {
 	for i, el := range elements {
 		if el.ID == id {
 			return i
@@ -382,8 +359,37 @@ func getIndexByID(elements []datastr.ExcalidrawSceneElement, id string) int {
 	return -1
 }
 
+// Helper function to detect spatial containment for subgraphs
+func detectMermaidSpatialContainment(elements []datastr.ExcalidrawSceneElement) (map[string]string, map[string][]string) {
+	containedBy := make(map[string]string) // nodeID -> parentID
+	children := make(map[string][]string)  // parentID -> []childID
+	for idA, elA := range elements {
+		if elA.IsDeleted || !(elA.Type == "rectangle" || elA.Type == "diamond" || elA.Type == "ellipse" || elA.Type == "roundRectangle") {
+			continue
+		}
+		boxA := struct{ x1, y1, x2, y2 float64 }{elA.X, elA.Y, elA.X + elA.Width, elA.Y + elA.Height}
+		for idB, elB := range elements {
+			if idA == idB || elB.IsDeleted || !(elB.Type == "rectangle" || elB.Type == "diamond" || elB.Type == "ellipse" || elB.Type == "roundRectangle") {
+				continue
+			}
+			boxB := struct{ x1, y1, x2, y2 float64 }{elB.X, elB.Y, elB.X + elB.Width, elB.Y + elB.Height}
+			// B is inside A?
+			if boxB.x1 >= boxA.x1 && boxB.y1 >= boxA.y1 && boxB.x2 <= boxA.x2 && boxB.y2 <= boxA.y2 {
+				// Only set if not already contained by a smaller parent
+				if parent, ok := containedBy[elB.ID]; !ok || (parent != "" && (elA.Width*elA.Height < elements[getExcalidrawElementIndexByID(elements, parent)].Width*elements[getExcalidrawElementIndexByID(elements, parent)].Height)) {
+					containedBy[elB.ID] = elA.ID
+				}
+			}
+		}
+	}
+	for child, parent := range containedBy {
+		children[parent] = append(children[parent], child)
+	}
+	return containedBy, children
+}
+
 // Helper to map node style from Excalidraw element
-func getNodeStyle(el datastr.ExcalidrawSceneElement, containerFontSize map[string]float64, containerTextColor map[string]string) string {
+func getMermaidNodeStyle(el datastr.ExcalidrawSceneElement, containerFontSize map[string]float64, containerTextColor map[string]string) string {
 	style := ""
 	if el.StrokeStyle == "dashed" {
 		style += "stroke-dasharray: 5 5;"
@@ -423,8 +429,8 @@ func getNodeStyle(el datastr.ExcalidrawSceneElement, containerFontSize map[strin
 	return style
 }
 
-// Helper to determine direction string
-func getDirection(flowDirection string, input datastr.ExcalidrawScene) string {
+// Helper to determine flowchart direction string
+func getMermaidFlowchartDirection(flowDirection string, input datastr.ExcalidrawScene) string {
 	switch strings.ToLower(flowDirection) {
 	case "left-right", "lr":
 		return "LR"

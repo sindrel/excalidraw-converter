@@ -246,7 +246,7 @@ func TestGetNodeStyle(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := getNodeStyle(tt.el, containerFontSize, containerTextColor)
+			got := getMermaidNodeStyle(tt.el, containerFontSize, containerTextColor)
 			if got != tt.want {
 				t.Errorf("getNodeStyle() = %q, want %q", got, tt.want)
 			}
@@ -275,7 +275,7 @@ func TestGetDirection(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := getDirection(tt.flowDirection, tt.input)
+			got := getMermaidFlowchartDirection(tt.flowDirection, tt.input)
 			if got != tt.want {
 				t.Errorf("getDirection() = %q, want %q", got, tt.want)
 			}
