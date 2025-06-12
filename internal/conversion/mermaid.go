@@ -198,7 +198,7 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 			nodeMap[el.ID] = name
 			label := containerText[el.ID]
 			if label == "" {
-				label = name
+				label = " "
 			}
 			nodeLabels[el.ID] = label
 			// Shape mapping
