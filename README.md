@@ -95,7 +95,7 @@ Converts to a [Mermaid](https://mermaid.js.org) diagram that can be used for a v
 
 **Flags:**
 ```sh
-  -d, --direction string   flow direction 'top-down', 'left-right', 'right-left' or 'bottom-top' (default "auto")
+  -d, --direction string   flow direction 'default', 'top-down', 'left-right', 'right-left' or 'bottom-top' (default "default")
   -h, --help               help for mermaid
   -i, --input string       input file path
   -o, --output string      output file path (default "your_file.mermaid")
