@@ -36,7 +36,7 @@ Example:
 			os.Exit(1)
 		}
 
-		if strings.HasPrefix(exportPath, defaultOutputPath) {
+		if exportPath == defaultOutputPath {
 			exportPath = strings.TrimSuffix(path.Base(importPath), filepath.Ext(importPath)) + ".gliffy"
 		}
 

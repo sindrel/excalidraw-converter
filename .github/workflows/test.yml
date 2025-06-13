@@ -24,7 +24,11 @@ jobs:
         run: go mod download
       - name: Run tests
         run: go test -v ./...
-      - name: Test build and run commands
-        run: go build -v -o testbin && ./testbin && ./testbin gliffy -i test/data/test_input.excalidraw -o /tmp/test_output.gliffy
+      - name: Build test binary
+        run: go build -v -o testbin && ./testbin
+      - name: Test Gliffy conversion
+        run: ./testbin gliffy -i test/data/test_input.excalidraw -o /tmp/test_output.gliffy
+      - name: Test Mermaid conversion
+        run: ./testbin mermaid -i test/data/test_input_mermaid.excalidraw -o /tmp/test_output.mermaid
       - name: Test Homebrew test fixture
-        run: ./testbin gliffy -i test/data/test_homebrew.excalidraw
+        run: ./testbin gliffy -i test/data/test_homebrew.excalidraw -o /tmp/test_homebrew_output.gliffy

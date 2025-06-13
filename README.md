@@ -1,14 +1,19 @@
 # <img src="assets/workflow.png" alt="logo" width="25"/> Excalidraw Converter 
 
-**A command line tool for porting Excalidraw diagrams to Gliffy and draw.io.** 
+**A command line tool for porting Excalidraw diagrams to Gliffy, draw.io and Mermaid.**
 
 [Excalidraw](https://excalidraw.com/) is great for sketching diagrams as part of a design process, but chances are that you have to redo those sketches for documentation. This tool is made to bridge those tasks.
 
-Excalidraw Converter ports Excalidraw diagrams to a Gliffy compatible format, which can be imported directly into services like [Gliffy](https://www.gliffy.com/), [Gliffy for Confluence](https://marketplace.atlassian.com/apps/254/gliffy-diagrams-for-confluence), [draw.io](https://draw.io) or [draw.io for Confluence](https://www.drawio.com/doc/drawio-confluence-cloud).
+![Excalidraw vs. Gliffy comparison](assets/exconv-comparison.png "Comparison")
 
-![Excalidraw vs. Gliffy comparison](exconv-comparison.png "Comparison")
+## Supported Commands
 
-## Getting started
+| Command   | Description                                      | Documentation            |
+|-----------|--------------------------------------------------|--------------------------|
+| `gliffy`  | Convert Excalidraw diagrams to Gliffy format     | [Usage](#gliffy--drawio) |
+| `mermaid` | Convert Excalidraw diagrams to Mermaid format    | [Usage](#mermaid)        |
+
+## Getting Started
 
 ### Installation
 #### MacOS with [Homebrew](https://brew.sh/) (stable)
@@ -26,133 +31,153 @@ brew install sindrel/tap/excalidraw-converter
 ```
 </details>
 
-
 #### Installation for other OSes
 Download a compatible binary from the [Releases](https://github.com/sindrel/excalidraw-converter/releases) page.
 
 If you're a Linux or MacOS user, move it to your local bin folder to make it available in your environment (optional).
 
-### How to convert diagrams
-First save your Excalidraw diagram to a file.
+## Quick Start
 
-Then, to do a conversion, simply execute the binary by specifying the `gliffy` command, and the path to your Excalidraw file.
+Convert your Excalidraw diagram by running:
 
 ```sh
-exconv gliffy -i ~/Downloads/my-diagram.excalidraw
+exconv <command> -i <input-file>
 ```
 
-<details>
-  <summary>MacOS example</summary>
+See below for details on each command, available options and examples.
 
+## Command Usage & Examples
+
+### Gliffy & Draw.io
+Converts to a Gliffy compatible format, which can be imported directly into services like [Gliffy](https://www.gliffy.com/), [Gliffy for Confluence](https://marketplace.atlassian.com/apps/254/gliffy-diagrams-for-confluence), [draw.io](https://draw.io) or [draw.io for Confluence](https://www.drawio.com/doc/drawio-confluence-cloud).
+
+**Usage:**
+- Mac/Linux:
   ```sh
-  $ exconv gliffy -i ~/Downloads/my-diagram.excalidraw
-  Parsing input file: ~/Downloads/my-diagram.excalidraw
-  Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  [...]
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.line
-  Converted diagram saved to file: my-diagram.gliffy
+  exconv gliffy -i my-diagram.excalidraw
   ```
-</details>
-
-<details>
-  <summary>Linux example</summary>
-
+- Windows:
   ```sh
-  $ ./exconv gliffy -i ~/Downloads/my-diagram.excalidraw
-  Parsing input file: ~/Downloads/my-diagram.excalidraw
-  Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  [...]
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.line
-  Converted diagram saved to file: my-diagram.gliffy
+  exconv.exe gliffy -i C:\path\to\my-diagram.excalidraw
   ```
-</details>
 
-<details>
-  <summary>Windows example</summary>
-
-  ```sh
-  C:\> exconv.exe gliffy -i C:\Downloads\my-diagram.excalidraw
-  Parsing input file: C:\Downloads\my-diagram.excalidraw
-  Adding object: com.gliffy.shape.basic.basic_v1.default.rectangle
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  [...]
-  Adding object: com.gliffy.shape.basic.basic_v1.default.text
-  Adding object: com.gliffy.shape.basic.basic_v1.default.line
-  Converted diagram saved to file: my-diagram.gliffy
-  ```
-</details>  
-
-### Importing
-![Animation demonstrating use](exconv.gif "Animation")
-
-After converting your diagram(s), import them into Gliffy (or draw.io) using the standard Import dialog.
-
-## Commands
+**Flags:**
 ```sh
-Available Commands:
-  completion  Generate the autocompletion script for the specified shell
-  gliffy      Convert an Excalidraw diagram to Gliffy format
-  help        Help about any command
-  version     Output the application version
-
-Flags:
-  -h, --help   help for exconv
-```
-
-### Gliffy conversion options  
-When an output file path is not provided, it will be determined
-automatically based on the filename of the input file. If you provide the
-input file path `./subfolder/your_file.excalidraw`, the default output file path will be `./your_file.gliffy`.
-
-This can be overridden using the `-o` flag.
-
-```sh
-Example:
-  exconv gliffy -i your_file.excalidraw
-
-Usage:
-  exconv gliffy [flags]
-
-Flags:
   -h, --help            help for gliffy
   -i, --input string    input file path
   -o, --output string   output file path (default "your_file.gliffy")
 ```
+
+#### Importing in Gliffy
+![Animation demonstrating use](exconv.gif "Animation")
+
+After converting your diagram(s), import them into Gliffy (or draw.io) using the standard Import dialog. Mermaid diagrams can be pasted or included in markdown files or compatible tools.
+
+---
+
+### Mermaid
+Converts to a [Mermaid](https://mermaid.js.org) diagram that can be used for a variety of cases, such as being included in markdown files  [on GitHub](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams), [GitLab](https://handbook.gitlab.com/handbook/tools-and-tips/mermaid/), [MkDocs](https://mkdocs-mermaid2.readthedocs.io/en/master/) or [Docusaurus](https://docusaurus.io/docs/next/markdown-features/diagrams).
+
+> [!NOTE]
+> * *Currently only supports conversion to flowcharts.*
+> * *Only elements that are connected by arrows, or contained inside a connected element, are included.*
+
+
+**Usage:**
+- Mac/Linux:
+  ```sh
+  exconv mermaid -i my-diagram.excalidraw
+  ```
+- Windows:
+  ```sh
+  exconv.exe mermaid -i C:\path\to\my-diagram.excalidraw
+  ```
+
+**Flags:**
+```sh
+  -d, --direction string   flow direction 'default', 'top-down', 'left-right', 'right-left' or 'bottom-top' (default "default")
+  -h, --help               help for mermaid
+  -i, --input string       input file path
+  -o, --output string      output file path (default "your_file.mermaid")
+  -p, --print-to-stdout    print output to stdout instead of a file
+```
+
+#### Validate a converted diagram
+
+You can validate and customize a converted diagram using tools like [Mermaid Live Editor](https://mermaid.live).
+
+#### Import a converted diagram back into Excalidraw
+
+After converting your diagram(s), you can use the [Mermaid to Excalidraw playground](https://mermaid-to-excalidraw.vercel.app/) to convert it back to the Excalidraw format.
+
+Note that some styling attributes could be lost as part of the conversion and import process.
+
+#### Example diagram embedded in markdown
+<details>
+<summary>Click to expand</summary>
+
+```mermaid
+flowchart 
+subgraph N0 [" "]
+  N4(("Hello!"))
+  N2{"Lorem Ipsum"}
+  subgraph N1 ["Example"]
+    N5("Sit Amet")
+    N3["Dolor"]
+  end
+end
+N2 --> N3
+N2 --> N5
+style N4 stroke:#e03131,stroke-width:2,fill:#ffffff,color:#e03131;
+style N5 stroke:#1e1e1e,fill:#ffc9c9,font-size:90%;
+style N3 stroke-dasharray: 2 2,stroke:#1e1e1e,stroke-width:2,fill:#ffec99,font-size:90%;
+style N2 stroke-dasharray: 5 5,stroke:#1e1e1e,fill:#b2f2bb,font-size:90%;
+style N0 stroke:#1e1e1e,stroke-width:2,fill:#a5d8ff;
+style N1 stroke:#1e1e1e,fill:#e7f5ff,font-size:90%;
+```
+
+</details>
+
+---
 
 ## Features
 
 All fixed shapes and most styling and text options are supported.
 
 ### Shapes
-* Rectangle
-* Rounded rectangle
-* Diamond
-* Ellipse
-* Arrow
-* Line
-* Image :sparkles:
-* Free drawing (pencil tool) :sparkles:
+| Shape                | Gliffy | Mermaid |
+|----------------------|:------:|:-------:|
+| Rectangle            |   ✅   |   ✅    |
+| Rounded rectangle    |   ✅   |   ✅    |
+| Diamond              |   ✅   |   ✅    |
+| Ellipse              |   ✅   |   ✅    |
+| Arrow                |   ✅   |   ✅    |
+| Line                 |   ✅   |   ✅    |
+| Image                |   ✅   |   ➖    |
+| Free drawing (pencil)|   ✅   |   ➖    |
+| Library graphics*    |   ✅   |   ➖    |
 
 ### Text
-* Font family (Normal and Code)
-* Font size
-* Font color
-* Horizontal and vertical alignment :sparkles:
-* Text contained in shapes
+| Text Option                  | Gliffy | Mermaid |
+|------------------------------|:------:|:-------:|
+| Font family (Normal/Code)    |   ✅   |   ➖    |
+| Font size                    |   ✅   |   ✅    |
+| Font color                   |   ✅   |   ✅    |
+| Horizontal alignment         |   ✅   |   ➖    |
+| Vertical alignment           |   ✅   |   ➖    |
+| Text contained in shapes     |   ✅   |   ✅    |
 
 ### Styling
-* Canvas background color
-* Fill color
-* Fill style (hachure and cross-hatch translate to gradients)
-* Stroke color
-* Stroke width
-* Opacity
+| Styling Option               | Gliffy | Mermaid |
+|------------------------------|:------:|:-------:|
+| Canvas background color      |   ✅   |   ➖    |
+| Fill color                   |   ✅   |   ✅    |
+| Fill style (hachure/cross)   |   ✅   |   ➖    |
+| Stroke color                 |   ✅   |   ✅    |
+| Stroke width                 |   ✅   |   ✅    |
+| Opacity                      |   ✅   |   ➖    |
 
-Library graphics are not fully supported (experimental).
+*\* Library graphics are not fully supported (experimental).*
 
 ## Compatibility with draw.io
 Converted Gliffy diagrams should also work in the online version of [draw.io](https://draw.io).
