@@ -176,6 +176,7 @@ All fixed shapes and most styling and text options are supported.
 | Stroke color                 |   ✅   |   ✅    |
 | Stroke width                 |   ✅   |   ✅    |
 | Opacity                      |   ✅   |   ➖    |
+| Links                        |   ➖   |   ✅    |
 
 *\* Library graphics are not fully supported (experimental).*
 
