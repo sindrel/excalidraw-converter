@@ -83,7 +83,7 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 					if containerText[el.ContainerId] != "" {
 						containerText[el.ContainerId] += " "
 					}
-					containerText[el.ContainerId] += strings.ReplaceAll(el.Text, "\n", " ")
+					containerText[el.ContainerId] += strings.ReplaceAll(el.Text, "\n", "<br>")
 					// If text color is not default, record it
 					if el.StrokeColor != "" && el.StrokeColor != "#1e1e1e" && el.StrokeColor != "black" {
 						containerTextColor[el.ContainerId] = el.StrokeColor
@@ -104,6 +104,7 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 	}
 
 	// Assign node names and gather node info
+	linkedNodes := make(map[string]string) // nodeName -> url
 	for _, el := range input.Elements {
 		if el.IsDeleted {
 			continue
@@ -134,6 +135,9 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 			}
 			nodeShapes[el.ID] = shape
 			nodeStyles[el.ID] = getMermaidNodeStyle(el, containerFontSize, containerTextColor)
+			if el.Link != "" && el.Link != "null" {
+				linkedNodes[name] = el.Link
+			}
 			nodeCount++
 		}
 	}
@@ -257,6 +261,11 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 		if styleStr != "" {
 			sb.WriteString(fmt.Sprintf("linkStyle %d %s\n", info.index, styleStr))
 		}
+	}
+
+	// Output click links for nodes with links
+	for node, url := range linkedNodes {
+		sb.WriteString(fmt.Sprintf("click %s \"%s\" _blank\n", node, url))
 	}
 
 	return sb.String(), nil
@@ -405,7 +414,7 @@ func getMermaidNodeStyle(el datastr.ExcalidrawSceneElement, containerFontSize ma
 	} else if el.StrokeWidth == 1 {
 		style += "stroke-width:0.5;"
 	}
-	if el.BackgroundColor != "transparent" && el.BackgroundColor != "" {
+	if el.BackgroundColor != "" {
 		style += fmt.Sprintf("fill:%s;", el.BackgroundColor)
 	}
 	if el.Opacity < 100 {

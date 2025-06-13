@@ -95,7 +95,7 @@ Converts to a [Mermaid](https://mermaid.js.org) diagram that can be used for a v
 
 **Flags:**
 ```sh
-  -d, --direction string   flow direction 'default', 'top-down', 'left-right', 'right-left' or 'bottom-top' (default "default")
+  -d, --direction string   flow direction 'default', 'top-down', 'left-right', 'right-left' or 'bottom-top' (default "top-down")
   -h, --help               help for mermaid
   -i, --input string       input file path
   -o, --output string      output file path (default "your_file.mermaid")
@@ -176,6 +176,7 @@ All fixed shapes and most styling and text options are supported.
 | Stroke color                 |   ✅   |   ✅    |
 | Stroke width                 |   ✅   |   ✅    |
 | Opacity                      |   ✅   |   ➖    |
+| Links                        |   ➖   |   ✅    |
 
 *\* Library graphics are not fully supported (experimental).*
 
