@@ -32,8 +32,8 @@ func TestConstructMermaidEdgeArrow(t *testing.T) {
 		{"line", "arrow", "", "-->"},
 		{"arrow", "", "dashed", "-.->"},
 		{"line", "", "dashed", "-.-"},
-		{"arrow", "", "dotted", "==>"},
-		{"line", "", "dotted", "==="},
+		{"arrow", "", "dotted", "-.->"},
+		{"line", "", "dotted", "-.-"},
 	}
 	for _, tt := range tests {
 		got := constructMermaidEdgeArrow(tt.type_, tt.endArrow, tt.style)
@@ -50,7 +50,7 @@ func TestConstructMermaidEdgeArrow_CircleOutline(t *testing.T) {
 		{"line", "circle_outline", "", "--o"},
 		{"arrow", "circle_outline", "", "--o"},
 		{"arrow", "circle_outline", "dashed", "-.o"},
-		{"arrow", "circle_outline", "dotted", "==o"},
+		{"arrow", "circle_outline", "dotted", "-.o"},
 	}
 	for _, tt := range tests {
 		got := constructMermaidEdgeArrow(tt.type_, tt.endArrow, tt.style)

@@ -11,6 +11,17 @@ import (
 	"strings"
 )
 
+type edgeStyleInfo struct {
+	index int
+	style string
+}
+type edge struct {
+	startNode string
+	arrow     string
+	labelStr  string
+	endNode   string
+}
+
 // Calls for conversion to Mermaid flowchart and saves it to a file
 func ConvertExcalidrawDiagramToMermaidAndSaveToFile(importPath string, exportPath string, flowDirection string) error {
 	output, err := ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath, exportPath, flowDirection)
@@ -143,8 +154,11 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 	}
 
 	direction := getMermaidFlowchartDirection(flowDirection, input)
+	// curve := "basis"  // Default curve
+	// renderer := "elk" // Default renderer
 
 	var sb strings.Builder
+	// sb.WriteString(fmt.Sprintf("%%%%{ init: { 'flowchart': { 'curve': '%s', 'defaultRenderer': '%s' } } }%%%%\n", curve, renderer))
 	sb.WriteString(fmt.Sprintf("flowchart %s\n", direction))
 
 	containedBy, children := detectMermaidSpatialContainment(input.Elements)
@@ -182,12 +196,9 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 		}
 	}
 
-	// Output edges (arrows/lines)
-	type edgeStyleInfo struct {
-		index int
-		style string
-	}
+	// Build map of edges
 	edgeStyleList := []edgeStyleInfo{}
+	edges := []edge{}
 	edgeCount := 0
 	for _, el := range input.Elements {
 		if el.IsDeleted {
@@ -207,8 +218,12 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 
 			arrow := constructMermaidEdgeArrow(el.Type, el.EndArrowhead, el.StrokeStyle)
 			labelStr := constructMermaidEdgeLabel(linkText[el.ID], el.Text)
-			edgeDef := fmt.Sprintf("%s %s%s %s\n", startNode, arrow, labelStr, endNode)
-			sb.WriteString(edgeDef)
+			edges = append(edges, edge{
+				startNode: startNode,
+				arrow:     arrow,
+				labelStr:  labelStr,
+				endNode:   endNode,
+			})
 
 			// Build edge style string if needed
 			style := ""
@@ -239,6 +254,57 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 			}
 			edgeCount++
 		}
+	}
+
+	// Identify pairs of edges that can be grouped and chained
+	edgesByStart := make(map[string][]edge)
+	for _, e := range edges {
+		edgesByStart[e.startNode] = append(edgesByStart[e.startNode], e)
+	}
+	groupedIndices := make(map[int]bool)
+
+	// Sort the startNode keys for consistent output
+	startNodes := make([]string, 0, len(edgesByStart))
+	for k := range edgesByStart {
+		startNodes = append(startNodes, k)
+	}
+	sort.Strings(startNodes)
+
+	for _, startNode := range startNodes {
+		group := edgesByStart[startNode]
+		if len(group) == 2 {
+			// Find indices in the original edges slice
+			var idx1, idx2 int = -1, -1
+			for i := range edges {
+				if edges[i] == group[0] && idx1 == -1 {
+					idx1 = i
+				} else if edges[i] == group[1] && idx2 == -1 {
+					idx2 = i
+				}
+			}
+			if idx1 != -1 {
+				groupedIndices[idx1] = true
+			}
+			if idx2 != -1 {
+				groupedIndices[idx2] = true
+			}
+
+			e1 := group[0]
+			e2 := group[1]
+
+			combined := fmt.Sprintf("%s %s%s %s %s%s %s\n", e1.endNode, e1.arrow, e1.labelStr, e1.startNode, e2.arrow, e2.labelStr, e2.endNode)
+			sb.WriteString(combined)
+		}
+	}
+
+	// Output all other edges not in a pair
+	for i := range edges {
+		if groupedIndices[i] {
+			continue
+		}
+		e := &edges[i]
+		edgeDef := fmt.Sprintf("%s %s%s %s\n", e.startNode, e.arrow, e.labelStr, e.endNode)
+		sb.WriteString(edgeDef)
 	}
 
 	// Output style blocks for nodes
@@ -307,7 +373,7 @@ func constructMermaidEdgeArrow(elType, endArrowhead, strokeStyle string) string 
 		}
 	}
 
-	if strokeStyle == "dashed" {
+	if strokeStyle == "dashed" || strokeStyle == "dotted" {
 		if arrow == "-->" {
 			arrow = "-.->"
 		} else if arrow == "--o" {
@@ -318,18 +384,6 @@ func constructMermaidEdgeArrow(elType, endArrowhead, strokeStyle string) string 
 			arrow = "o-.-o"
 		} else {
 			arrow = "-.-"
-		}
-	} else if strokeStyle == "dotted" {
-		if arrow == "-->" {
-			arrow = "==>"
-		} else if arrow == "--o" {
-			arrow = "==o"
-		} else if arrow == "<-->" {
-			arrow = "<==>"
-		} else if arrow == "o--o" {
-			arrow = "o==o"
-		} else {
-			arrow = "==="
 		}
 	}
 	return arrow

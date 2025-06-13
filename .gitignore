@@ -33,3 +33,6 @@ out*.gliffy
 out*.json
 *.sh
 testbin
+/*.excalidraw
+/*.gliffy
+/*.mermaid
