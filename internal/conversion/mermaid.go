@@ -11,6 +11,17 @@ import (
 	"strings"
 )
 
+type edgeStyleInfo struct {
+	index int
+	style string
+}
+type edge struct {
+	startNode string
+	arrow     string
+	labelStr  string
+	endNode   string
+}
+
 // Calls for conversion to Mermaid flowchart and saves it to a file
 func ConvertExcalidrawDiagramToMermaidAndSaveToFile(importPath string, exportPath string, flowDirection string) error {
 	output, err := ConvertExcalidrawDiagramToMermaidAndOutputAsString(importPath, exportPath, flowDirection)
@@ -182,12 +193,9 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 		}
 	}
 
-	// Output edges (arrows/lines)
-	type edgeStyleInfo struct {
-		index int
-		style string
-	}
+	// Build map of edges
 	edgeStyleList := []edgeStyleInfo{}
+	edges := []edge{}
 	edgeCount := 0
 	for _, el := range input.Elements {
 		if el.IsDeleted {
@@ -207,8 +215,12 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 
 			arrow := constructMermaidEdgeArrow(el.Type, el.EndArrowhead, el.StrokeStyle)
 			labelStr := constructMermaidEdgeLabel(linkText[el.ID], el.Text)
-			edgeDef := fmt.Sprintf("%s %s%s %s\n", startNode, arrow, labelStr, endNode)
-			sb.WriteString(edgeDef)
+			edges = append(edges, edge{
+				startNode: startNode,
+				arrow:     arrow,
+				labelStr:  labelStr,
+				endNode:   endNode,
+			})
 
 			// Build edge style string if needed
 			style := ""
@@ -239,6 +251,12 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 			}
 			edgeCount++
 		}
+	}
+
+	// Output edges
+	for _, edge := range edges {
+		edgeDef := fmt.Sprintf("%s %s%s %s\n", edge.startNode, edge.arrow, edge.labelStr, edge.endNode)
+		sb.WriteString(edgeDef)
 	}
 
 	// Output style blocks for nodes
