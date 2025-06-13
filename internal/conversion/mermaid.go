@@ -405,7 +405,7 @@ func getMermaidNodeStyle(el datastr.ExcalidrawSceneElement, containerFontSize ma
 	} else if el.StrokeWidth == 1 {
 		style += "stroke-width:0.5;"
 	}
-	if el.BackgroundColor != "transparent" && el.BackgroundColor != "" {
+	if el.BackgroundColor != "" {
 		style += fmt.Sprintf("fill:%s;", el.BackgroundColor)
 	}
 	if el.Opacity < 100 {
