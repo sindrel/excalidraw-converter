@@ -261,9 +261,17 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 	for _, e := range edges {
 		edgesByStart[e.startNode] = append(edgesByStart[e.startNode], e)
 	}
-	used := make(map[*edge]bool)
 	groupedIndices := make(map[int]bool)
-	for _, group := range edgesByStart {
+
+	// Sort the startNode keys for consistent output
+	startNodes := make([]string, 0, len(edgesByStart))
+	for k := range edgesByStart {
+		startNodes = append(startNodes, k)
+	}
+	sort.Strings(startNodes)
+
+	for _, startNode := range startNodes {
+		group := edgesByStart[startNode]
 		if len(group) == 2 {
 			// Find indices in the original edges slice
 			var idx1, idx2 int = -1, -1
@@ -286,8 +294,6 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 
 			combined := fmt.Sprintf("%s %s%s %s %s%s %s\n", e1.endNode, e1.arrow, e1.labelStr, e1.startNode, e2.arrow, e2.labelStr, e2.endNode)
 			sb.WriteString(combined)
-			used[&group[0]] = true
-			used[&group[1]] = true
 		}
 	}
 
