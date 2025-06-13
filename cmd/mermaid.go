@@ -67,7 +67,7 @@ Example:
 func init() {
 	rootCmd.AddCommand(mermaidCmd)
 
-	mermaidCmd.PersistentFlags().StringP("direction", "d", "default", "flow direction 'default', 'top-down', 'left-right', 'right-left' or 'bottom-top'")
+	mermaidCmd.PersistentFlags().StringP("direction", "d", "top-down", "flow direction 'default', 'top-down', 'left-right', 'right-left' or 'bottom-top'")
 	mermaidCmd.PersistentFlags().StringP("input", "i", "", "input file path")
 	mermaidCmd.PersistentFlags().StringP("output", "o", defaultOutputPathMermaid, "output file path")
 	mermaidCmd.PersistentFlags().BoolP("print-to-stdout", "p", false, "print output to stdout instead of a file")
