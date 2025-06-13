@@ -307,31 +307,32 @@ func constructMermaidEdgeArrow(elType, endArrowhead, strokeStyle string) string 
 		}
 	}
 
-	if strokeStyle == "dashed" {
-		if arrow == "-->" {
-			arrow = "-.->"
-		} else if arrow == "--o" {
-			arrow = "-.o"
-		} else if arrow == "<-->" {
-			arrow = "<-.-.->"
-		} else if arrow == "o--o" {
-			arrow = "o-.-o"
-		} else {
-			arrow = "-.-"
-		}
-	} else if strokeStyle == "dotted" {
-		if arrow == "-->" {
-			arrow = "==>"
-		} else if arrow == "--o" {
-			arrow = "==o"
-		} else if arrow == "<-->" {
-			arrow = "<==>"
-		} else if arrow == "o--o" {
-			arrow = "o==o"
-		} else {
-			arrow = "==="
-		}
-	}
+	// Commented: Use styling only
+	// if strokeStyle == "dashed" {
+	// 	if arrow == "-->" {
+	// 		arrow = "-.->"
+	// 	} else if arrow == "--o" {
+	// 		arrow = "-.o"
+	// 	} else if arrow == "<-->" {
+	// 		arrow = "<-.-.->"
+	// 	} else if arrow == "o--o" {
+	// 		arrow = "o-.-o"
+	// 	} else {
+	// 		arrow = "-.-"
+	// 	}
+	// } else if strokeStyle == "dotted" {
+	// 	if arrow == "-->" {
+	// 		arrow = "==>"
+	// 	} else if arrow == "--o" {
+	// 		arrow = "==o"
+	// 	} else if arrow == "<-->" {
+	// 		arrow = "<==>"
+	// 	} else if arrow == "o--o" {
+	// 		arrow = "o==o"
+	// 	} else {
+	// 		arrow = "==="
+	// 	}
+	// }
 	return arrow
 }
 
