@@ -53,7 +53,7 @@ func ConvertExcalidrawToGliffy(data string) (string, error) {
 		return "", errors.New("Unable to parse input: " + err.Error())
 	}
 
-	xOffset, yOffset = GetXYOffset(input)
+	xOffset, yOffset = getXYOffset(input)
 
 	var output datastr.GliffyScene
 	var objects []datastr.GliffyObject
@@ -62,12 +62,12 @@ func ConvertExcalidrawToGliffy(data string) (string, error) {
 
 	objectIDs := map[string]int{}
 
-	objects, output, objectIDs, err = AddElements(false, input, output, objects, objectIDs)
+	objects, output, objectIDs, err = addElements(false, input, output, objects, objectIDs)
 	if err != nil {
 		return "", errors.New("Unable to add element(s): " + err.Error())
 	}
 
-	objects, output, _, err = AddElements(true, input, output, objects, objectIDs)
+	objects, output, _, err = addElements(true, input, output, objects, objectIDs)
 	if err != nil {
 		return "", errors.New("Unable to add element(s) with parent(s): " + err.Error())
 	}
@@ -77,7 +77,7 @@ func ConvertExcalidrawToGliffy(data string) (string, error) {
 		//"Text",
 	}
 
-	objects = OrderGliffyObjectsByPriority(objects, priorityGraphics)
+	objects = orderGliffyObjectsByPriority(objects, priorityGraphics)
 
 	var layer datastr.GliffyLayer
 	layer.Active = true
@@ -118,7 +118,7 @@ func ConvertExcalidrawToGliffy(data string) (string, error) {
 	return string(outputJson), nil
 }
 
-func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.GliffyScene, objects []datastr.GliffyObject, objectIDs map[string]int) ([]datastr.GliffyObject, datastr.GliffyScene, map[string]int, error) {
+func addElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.GliffyScene, objects []datastr.GliffyObject, objectIDs map[string]int) ([]datastr.GliffyObject, datastr.GliffyScene, map[string]int, error) {
 	graphics := internal.MapGraphics()
 
 	for i, element := range input.Elements {
@@ -192,8 +192,8 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 		}
 
 		if object.Graphic.Type == "Shape" {
-			shape.DashStyle = StrokeStyleConvExcGliffy(element.StrokeStyle)
-			shape.FillColor = FillColorConvExcGliffy(element.BackgroundColor)
+			shape.DashStyle = strokeStyleConvExcGliffy(element.StrokeStyle)
+			shape.FillColor = fillColorConvExcGliffy(element.BackgroundColor)
 			shape.StrokeColor = element.StrokeColor
 			shape.StrokeWidth = int64(math.Round(element.StrokeWidth))
 			shape.Opacity = element.Opacity * 0.01
@@ -217,7 +217,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 
 				svg.EmbeddedResourceID = embeddedResourceId
 				svg.StrokeColor = element.StrokeColor
-				svg.StrokeWidth = int64(FreedrawStrokeWidthConvExcGliffy(element.StrokeWidth))
+				svg.StrokeWidth = int64(freedrawStrokeWidthConvExcGliffy(element.StrokeWidth))
 				svg.DropShadow = false
 				svg.ShadowX = 0
 				svg.ShadowY = 0
@@ -227,8 +227,8 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 					svgFill = element.BackgroundColor
 				}
 
-				xMin, yMin, points := AddPointsOffset(element.Points)
-				var svgPath = ConvertPointsToSvgPath(points, element.Width, element.Height, svg.StrokeColor, svgFill, svg.StrokeWidth)
+				xMin, yMin, points := addPointsOffset(element.Points)
+				var svgPath = convertPointsToSvgPath(points, element.Width, element.Height, svg.StrokeColor, svgFill, svg.StrokeWidth)
 				svg.Svg = svgPath
 
 				object.X = object.X + xMin
@@ -282,18 +282,18 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 				object.UID = graphics.Line.Gliffy[0]
 				object.Graphic.Type = "Line"
 
-				line.DashStyle = StrokeStyleConvExcGliffy(element.StrokeStyle)
+				line.DashStyle = strokeStyleConvExcGliffy(element.StrokeStyle)
 				line.StrokeColor = element.StrokeColor
 				line.StrokeWidth = int64(math.Round(element.StrokeWidth))
-				line.FillColor = FillColorConvExcGliffy(element.BackgroundColor)
+				line.FillColor = fillColorConvExcGliffy(element.BackgroundColor)
 				line.StartArrowRotation = "auto"
 				line.EndArrowRotation = "auto"
 				line.InterpolationType = "linear"
 				line.CornerRadius = 10
 				line.Ortho = true
 				line.ControlPath = element.Points
-				line.StartArrow = ArrowheadConvExcGliffy(element.StartArrowhead)
-				line.EndArrow = ArrowheadConvExcGliffy(element.EndArrowhead)
+				line.StartArrow = arrowheadConvExcGliffy(element.StartArrowhead)
+				line.EndArrow = arrowheadConvExcGliffy(element.EndArrowhead)
 
 				object.Graphic.Line = &line
 			}
@@ -304,13 +304,13 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 				object.UID = graphics.Image.Gliffy[0]
 				object.Graphic.Type = "Image"
 
-				dataUrl, err := EmbeddedImgConvExcGliffy(input, element.FileId)
+				dataUrl, err := embeddedImgConvExcGliffy(input, element.FileId)
 				if err != nil {
 					return nil, scene, nil, err
 				}
 
 				image.Url = dataUrl
-				image.StrokeColor = FillColorConvExcGliffy(element.StrokeColor)
+				image.StrokeColor = fillColorConvExcGliffy(element.StrokeColor)
 				image.StrokeWidth = int64(math.Round(element.StrokeWidth))
 
 				object.Graphic.Image = &image
@@ -348,7 +348,7 @@ func AddElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 	return objects, scene, objectIDs, nil
 }
 
-func StrokeStyleConvExcGliffy(style string) string {
+func strokeStyleConvExcGliffy(style string) string {
 	switch style {
 	case "dashed":
 		style = "8,8"
@@ -361,7 +361,7 @@ func StrokeStyleConvExcGliffy(style string) string {
 	return style
 }
 
-func FillColorConvExcGliffy(color string) string {
+func fillColorConvExcGliffy(color string) string {
 	switch color {
 	case "transparent":
 		color = "none"
@@ -370,7 +370,7 @@ func FillColorConvExcGliffy(color string) string {
 	return color
 }
 
-func ArrowheadConvExcGliffy(head string) int {
+func arrowheadConvExcGliffy(head string) int {
 	arrowHead := 0
 
 	switch head {
@@ -383,7 +383,7 @@ func ArrowheadConvExcGliffy(head string) int {
 	return arrowHead
 }
 
-func EmbeddedImgConvExcGliffy(input datastr.ExcalidrawScene, fileId string) (string, error) {
+func embeddedImgConvExcGliffy(input datastr.ExcalidrawScene, fileId string) (string, error) {
 	file, ok := input.Files[fileId]
 	if !ok {
 		return "", fmt.Errorf("unable to find embedded file with id %s", fileId)
@@ -392,7 +392,7 @@ func EmbeddedImgConvExcGliffy(input datastr.ExcalidrawScene, fileId string) (str
 	return file.DataURL, nil
 }
 
-func FreedrawStrokeWidthConvExcGliffy(strokeWidth float64) float64 {
+func freedrawStrokeWidthConvExcGliffy(strokeWidth float64) float64 {
 	switch strokeWidth {
 	case 1:
 		strokeWidth = 2
@@ -405,7 +405,7 @@ func FreedrawStrokeWidthConvExcGliffy(strokeWidth float64) float64 {
 	return strokeWidth
 }
 
-func OrderGliffyObjectsByPriority(objects []datastr.GliffyObject, prioritized []string) []datastr.GliffyObject {
+func orderGliffyObjectsByPriority(objects []datastr.GliffyObject, prioritized []string) []datastr.GliffyObject {
 	prioritySlot := len(objects)
 
 	for i, object := range objects {
@@ -421,7 +421,7 @@ func OrderGliffyObjectsByPriority(objects []datastr.GliffyObject, prioritized []
 	return objects
 }
 
-func GetXYOffset(input datastr.ExcalidrawScene) (float64, float64) {
+func getXYOffset(input datastr.ExcalidrawScene) (float64, float64) {
 	var xMin float64 = 0
 	var yMin float64 = 0
 
@@ -453,7 +453,7 @@ func GetXYOffset(input datastr.ExcalidrawScene) (float64, float64) {
 	return xMin, yMin
 }
 
-func AddPointsOffset(points [][]float64) (float64, float64, [][]float64) {
+func addPointsOffset(points [][]float64) (float64, float64, [][]float64) {
 	var xMin float64 = 0
 	var yMin float64 = 0
 	var output [][]float64
@@ -478,7 +478,7 @@ func AddPointsOffset(points [][]float64) (float64, float64, [][]float64) {
 	return xMin, yMin, output
 }
 
-func ConvertPointsToSvgPath(points [][]float64, width float64, height float64, stroke string, fill string, strokeWidth int64) string {
+func convertPointsToSvgPath(points [][]float64, width float64, height float64, stroke string, fill string, strokeWidth int64) string {
 	var path string
 
 	for i, point := range points {

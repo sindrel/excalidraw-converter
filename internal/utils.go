@@ -29,7 +29,7 @@ func NormalizeRotation(angle float64) float64 {
 	return (angle * 180) / math.Pi
 }
 
-func CheckIfLatestVersion(user, repo, version string) (bool, string, error) {
+func checkIfLatestVersion(user, repo, version string) (bool, string, error) {
 	url := fmt.Sprintf("https://api.github.com/repos/%s/%s/releases/latest", user, repo)
 
 	resp, err := http.Get(url)
@@ -57,7 +57,7 @@ func CheckIfLatestVersion(user, repo, version string) (bool, string, error) {
 }
 
 func PrintVersionCheck(user, repo, version string) error {
-	isLatest, latest, err := CheckIfLatestVersion(user, repo, version)
+	isLatest, latest, err := checkIfLatestVersion(user, repo, version)
 	if err != nil {
 		return err
 	}
