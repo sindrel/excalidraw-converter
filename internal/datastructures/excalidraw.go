@@ -25,6 +25,7 @@ type ExcalidrawSceneElement struct {
 	ID           string                   `json:"id"`
 	FileId       string                   `json:"fileId"`
 	IsDeleted    bool                     `json:"isDeleted"`
+	Link         string                   `json:"link"`
 	Opacity      float64                  `json:"opacity"`
 	Points       [][]float64              `json:"points"`
 	Pressures    []int64                  `json:"pressures"`

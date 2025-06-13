@@ -104,6 +104,7 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 	}
 
 	// Assign node names and gather node info
+	linkedNodes := make(map[string]string) // nodeName -> url
 	for _, el := range input.Elements {
 		if el.IsDeleted {
 			continue
@@ -134,6 +135,9 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 			}
 			nodeShapes[el.ID] = shape
 			nodeStyles[el.ID] = getMermaidNodeStyle(el, containerFontSize, containerTextColor)
+			if el.Link != "" && el.Link != "null" {
+				linkedNodes[name] = el.Link
+			}
 			nodeCount++
 		}
 	}
@@ -257,6 +261,11 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 		if styleStr != "" {
 			sb.WriteString(fmt.Sprintf("linkStyle %d %s\n", info.index, styleStr))
 		}
+	}
+
+	// Output click links for nodes with links
+	for node, url := range linkedNodes {
+		sb.WriteString(fmt.Sprintf("click %s \"%s\" _blank\n", node, url))
 	}
 
 	return sb.String(), nil
