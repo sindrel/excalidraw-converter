@@ -24,8 +24,8 @@ input file path './subfolder/your_file.excalidraw' will produce
 the default output file path './your_file.mermaid'.
 
 The diagram will be interpreted as a Mermaid flowchart. 
-Only elements that are connected by arrows will be included in 
-the output.
+Only elements that are connected by arrows, or contained inside 
+a connected element, will be included in the output.
 
 Example:
   exconv mermaid -i your_file.excalidraw

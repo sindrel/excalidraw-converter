@@ -80,7 +80,7 @@ Converts to a [Mermaid](https://mermaid.js.org) diagram that can be used for a v
 
 > [!NOTE]
 > * *Currently only supports conversion to flowcharts.*
-> * *Only elements that are connected via lines/arrows are included.*
+> * *Only elements that are connected by arrows, or contained inside a connected element, are included.*
 
 
 **Usage:**
