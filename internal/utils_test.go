@@ -13,7 +13,7 @@ var (
 )
 
 func TestCheckIfLatestVersion(t *testing.T) {
-	isLatest, _, err := CheckIfLatestVersion(githubRepoUser, githubRepoName, version)
+	isLatest, _, err := checkIfLatestVersion(githubRepoUser, githubRepoName, version)
 
 	assert.Nil(t, err)
 	assert.Equal(t, isLatest, false)
