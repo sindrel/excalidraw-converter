@@ -154,8 +154,11 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 	}
 
 	direction := getMermaidFlowchartDirection(flowDirection, input)
+	// curve := "basis"  // Default curve
+	// renderer := "elk" // Default renderer
 
 	var sb strings.Builder
+	// sb.WriteString(fmt.Sprintf("%%%%{ init: { 'flowchart': { 'curve': '%s', 'defaultRenderer': '%s' } } }%%%%\n", curve, renderer))
 	sb.WriteString(fmt.Sprintf("flowchart %s\n", direction))
 
 	containedBy, children := detectMermaidSpatialContainment(input.Elements)
@@ -287,6 +290,7 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 			used[&group[1]] = true
 		}
 	}
+
 	// Output all other edges not in a pair
 	for i := range edges {
 		if groupedIndices[i] {
