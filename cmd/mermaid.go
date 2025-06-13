@@ -52,7 +52,7 @@ Example:
 			return
 		}
 
-		if strings.HasPrefix(exportPath, defaultOutputPathMermaid) {
+		if exportPath == defaultOutputPathMermaid {
 			exportPath = strings.TrimSuffix(path.Base(importPath), filepath.Ext(importPath)) + ".mermaid"
 		}
 
