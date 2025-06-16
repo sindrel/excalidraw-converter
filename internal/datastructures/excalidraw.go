@@ -28,7 +28,7 @@ type ExcalidrawSceneElement struct {
 	Link         string                   `json:"link"`
 	Opacity      float64                  `json:"opacity"`
 	Points       [][]float64              `json:"points"`
-	Pressures    []int64                  `json:"pressures"`
+	Pressures    []float64                `json:"pressures"`
 	Roughness    int64                    `json:"roughness"`
 	Roundness    struct {
 		Type int64 `json:"type"`
