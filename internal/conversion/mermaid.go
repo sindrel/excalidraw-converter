@@ -94,7 +94,9 @@ func BuildMermaidFromScene(input datastr.ExcalidrawScene, flowDirection string) 
 					if containerText[el.ContainerId] != "" {
 						containerText[el.ContainerId] += " "
 					}
-					containerText[el.ContainerId] += strings.ReplaceAll(el.Text, "\n", "<br>")
+
+					containerText[el.ContainerId] += internal.SanitizeElementText(el.Text)
+
 					// If text color is not default, record it
 					if el.StrokeColor != "" && el.StrokeColor != "#1e1e1e" && el.StrokeColor != "black" {
 						containerTextColor[el.ContainerId] = el.StrokeColor
