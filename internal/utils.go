@@ -9,6 +9,7 @@ import (
 	"math"
 	"net/http"
 	"os"
+	"strings"
 )
 
 func WriteToFile(filename string, data string) error {
@@ -69,4 +70,12 @@ func PrintVersionCheck(user, repo, version string) error {
 	}
 
 	return nil
+}
+
+func SanitizeElementText(text string) string {
+	text = strings.ReplaceAll(text, "&", "&amp;")
+	text = strings.ReplaceAll(text, "<", "&lt;")
+	text = strings.ReplaceAll(text, ">", "&gt;")
+	text = strings.ReplaceAll(text, "\n", "<br>")
+	return text
 }

@@ -9,7 +9,6 @@ import (
 	"math"
 	"os"
 	"strconv"
-	"strings"
 	"time"
 )
 
@@ -261,7 +260,7 @@ func addElements(addChildren bool, input datastr.ExcalidrawScene, scene datastr.
 					fontFamily = "Courier"
 				}
 
-				element.Text = strings.ReplaceAll(element.Text, "\n", "<br>")
+				element.Text = internal.SanitizeElementText(element.Text)
 
 				text.HTML = "<p style=\"text-align: " + element.TextAlign + ";\"><span style=\"font-family: " + fontFamily + "; font-size: " + fontSize + "px;\"><span style=\"\"><span style=\"color: " + fontColor + "; font-size: " + fontSize + "px; line-height: 16.5px;\">" + element.Text + "</span><br></span></span></p>"
 				text.Valign = element.VerticalAlign

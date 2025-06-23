@@ -63,7 +63,7 @@
     "autosaveDisabled": false,
     "editorVersion": null,
     "exportBorder": false,
-    "lastSerialized": 1707932100344,
+    "lastSerialized": 1750669254116,
     "libraries": [
       "com.gliffy.libraries.basic.basic_v1.default",
       "com.gliffy.libraries.flowchart.flowchart_v1.default"
@@ -1310,6 +1310,43 @@
         "width": 138,
         "x": 993.9740955,
         "y": 596.25
+      },
+      {
+        "children": null,
+        "graphic": {
+          "Text": {
+            "calculatedHeight": 0,
+            "calculatedWidth": 0,
+            "hposition": "none",
+            "html": "<p style=\"text-align: left;\"><span style=\"font-family: Arial; font-size: 20px;\"><span style=\"\"><span style=\"color: #1e1e1e; font-size: 20px; line-height: 16.5px;\">Text with a &lt;tag&gt; &amp;<br>linebreak</span><br></span></span></p>",
+            "outerPaddingBottom": 0,
+            "outerPaddingLeft": 0,
+            "outerPaddingRight": 0,
+            "outerPaddingTop": 0,
+            "overflow": "none",
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "paddingRight": 0,
+            "paddingTop": 0,
+            "tid": null,
+            "valign": "top",
+            "vposition": "none"
+          },
+          "type": "Text"
+        },
+        "height": 50,
+        "hidden": false,
+        "id": 36,
+        "layerId": "dR5PnMr9lIuu",
+        "linkMap": null,
+        "lockAspectRatio": false,
+        "lockShape": false,
+        "order": 36,
+        "rotation": 0,
+        "uid": "com.gliffy.shape.basic.basic_v1.default.text",
+        "width": 338.63979492187497,
+        "x": 1144.34079471875,
+        "y": 586.9833679199219
       }
     ],
     "printModel": {
