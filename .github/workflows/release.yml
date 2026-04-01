@@ -2,6 +2,11 @@ name: Release
 
 on:
   workflow_dispatch:
+    inputs:
+      snapshot:
+        description: 'Run in snapshot mode (no publish)'
+        type: boolean
+        default: false
   push:
     tags:
       - 'v*'
@@ -29,6 +34,6 @@ jobs:
         with:
           distribution: goreleaser
           version: ~> v2
-          args: release --clean
+          args: release --clean ${{ inputs.snapshot && '--snapshot' || '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GORELEASER_TOKEN }}
